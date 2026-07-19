@@ -28,7 +28,7 @@ path_run: ''
 method: 'learnt'
 segmentor: 'fast_sam' # [sim, fast_sam, sam, sam2, sam21]
 goal_source: 'gt_topometric'  # [gt_metric, gt_topological, gt_topometric, topological]
-graph_filename: null # [null, "<specify>"]
+graph_filename: "nodes_graphObject_4_gt_topometric.pickle" # [null, "<specify>"]
 infer_depth: False
 infer_traversable: False
 
@@ -36,7 +36,7 @@ infer_traversable: False
 log_wandb: False
 log_robot: True
 debug: False
-except_exit: False # set True to disable try/except, print traceback, & exit
+except_exit: True #ak set this from false to true # set True to disable try/except, print traceback, & exit
 
 # tango's visualization panel
 plot: False
