@@ -8,7 +8,6 @@ from natsort import natsorted
 from tqdm import tqdm
 
 episode_names_all = natsorted(Path("./data/hm3d_iin_val/").iterdir())
-
 parser = argparse.ArgumentParser()
 parser.add_argument("base_dir", help="Path to directory containing results.")
 parser.add_argument("--test-one-third", action="store_true")

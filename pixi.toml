@@ -18,15 +18,15 @@ clone-habitat = """
 """
 
 install-habitat = { cmd = """
-cd libs/habitat-sim && rm -rf build/ && pip install . -v --no-build-isolation && \
-cd ../habitat-lab && pip install -e habitat-lab
+cd libs/habitat-sim && rm -rf build/ && python -m pip install . -v --no-build-isolation && \
+cd ../habitat-lab && python -m pip install -e habitat-lab
 """, env = { WITH_BULLET = "1", HEADLESS = "1", CMAKE_POLICY_VERSION_MINIMUM = "3.5" } }
 
 setup-habitat = { depends-on = ["clone-habitat", "install-habitat"] }
 
 clean-habitat = """
 rm -rf libs/habitat-sim libs/habitat-lab && \
-pip uninstall habitat-sim habitat-lab habitat -y || true && \
+python -m pip uninstall habitat-sim habitat-lab habitat -y || true\
 pip cache purge || true && \
 rm -rf /tmp/pip-* || true && \
 echo 'Cleaned up habitat-sim and habitat-lab'
@@ -34,11 +34,11 @@ echo 'Cleaned up habitat-sim and habitat-lab'
 
 reinstall-habitat = { depends-on = ["clean-habitat", "setup-habitat"] }
 
-install-pyg = "pip install torch-cluster torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.5.1+cu118.html"
+install-pyg = "python -m pip install torch-cluster torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.5.1+cu118.html"
 
-install-ros = "pip install rosbag roslz4 --extra-index-url https://rospypi.github.io/simple/"
+install-ros = "python -m pip install rosbag roslz4 --extra-index-url https://rospypi.github.io/simple/"
 
-install-warmup-scheduler = "pip install git+https://github.com/ildoonet/pytorch-gradual-warmup-lr.git"
+install-warmup-scheduler = "python -m pip install git+https://github.com/ildoonet/pytorch-gradual-warmup-lr.git"
 
 verify = """
 python -c "

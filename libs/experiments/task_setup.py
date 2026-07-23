@@ -1046,7 +1046,12 @@ def wandb_log_episode(epsiode_name, results_dict, video_path=None):
 
 def load_run_list(args, path_episode_root) -> list:
     if args.run_list == "":
-        path_episodes = sorted(path_episode_root.glob("*"))
+            path_episodes = []
+            for path in sorted(path_episode_root.glob("*")):
+                if not path.is_dir():
+                    continue
+                if (path / "agent_states.npy").exists() and (path / "images").exists():
+                    path_episodes.append(path)
     else:
         path_episodes = []
         if args.path_run == "":

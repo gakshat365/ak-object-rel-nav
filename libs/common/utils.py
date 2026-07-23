@@ -944,8 +944,13 @@ def getImg(sim):
 
 
 def get_hm3d_scene_name_from_episode_path(path_episode, path_scenes_root_hm3d):
-    episode_name = path_episode.parts[-1].split('_')[0]
-    path_scene_hm3d = sorted(path_scenes_root_hm3d.glob(f'*{episode_name}'))[0]
+    episode_name = path_episode.parts[-1].split("_")[0]
+    matches = sorted(path_scenes_root_hm3d.glob(f"*{episode_name}"))
+    if not matches:
+        logger.warning(f"Skipping episode {path_episode.name}: no matching HM3D scene found")
+        return None
+
+    path_scene_hm3d = matches[0]
     scene_name_hm3d = str(sorted(path_scene_hm3d.glob('*basis.glb'))[0])
     return scene_name_hm3d
 

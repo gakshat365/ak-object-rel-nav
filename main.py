@@ -90,7 +90,12 @@ def run(args):
     ):
         results_summary["total_episodes"] += 1
         episode_name = path_episode.parts[-1].split("_")[0]
-        path_scene_hm3d = sorted(path_scenes_root_hm3d.glob(f"*{episode_name}"))[0]
+        matches = sorted(path_scenes_root_hm3d.glob(f"*{episode_name}"))
+        if not matches:
+            logger.warning(f"Skipping episode {path_episode.name}: no matching HM3D scene found")
+            continue
+        
+        path_scene_hm3d = matches[0]
         scene_name_hm3d = str(sorted(path_scene_hm3d.glob("*basis.glb"))[0])
 
         episode_runner = None
