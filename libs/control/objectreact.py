@@ -261,7 +261,7 @@ class ObjRelLearntController:
         return goal_image
 
     def predict_goal_idx(self, rgb, goal_data, reverse=False):
-        with torch.no_grad():
+        with torch.inference_mode():
             obs_image = self.ready_obs(rgb)
             goal_image = self.ready_goal(goal_data)
             obs_image = obs_image.repeat(goal_image.shape[0], 1, 1, 1)
@@ -290,7 +290,7 @@ class ObjRelLearntController:
         """
         self.iter += 1
         v, w = 0, 0
-        with torch.no_grad():
+        with torch.inference_mode():
             obs_image = self.ready_obs(rgb)
             goal_image = self.ready_goal(goal_data)
 

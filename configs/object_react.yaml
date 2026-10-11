@@ -9,7 +9,7 @@ step_idx: 3
 end_idx: 108
 
 reverse: False
-task_type: "original" # from ["original", "alt_goal", "via_alt_goal"]
+task_type: "alt_goal" # from ["original", "alt_goal", "via_alt_goal"]
 use_gt_localization: True
 env: "sim" # from ["sim", "real"]
 
@@ -28,7 +28,7 @@ path_run: ''
 method: 'learnt'
 segmentor: 'fast_sam' # [sim, fast_sam, sam, sam2, sam21]
 goal_source: 'gt_topometric'  # [gt_metric, gt_topological, gt_topometric, topological]
-graph_filename: "nodes_graphObject_4_gt_topometric.pickle" # [null, "<specify>"]
+graph_filename: null # [null, "<specify>"]
 infer_depth: False
 infer_traversable: False
 

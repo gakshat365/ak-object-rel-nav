@@ -41,6 +41,7 @@ class Episode:
         if args is None:
             args = utils.get_default_args()
         self.args = args
+        self.dirname_vis_episode = None
         self.steps = 0  # only used when running real in remote mode
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.path_episode = path_episode
@@ -837,8 +838,7 @@ class Episode:
         return done
 
     def set_logging(self):
-        self.dirname_vis_episode = self.path_episode_results / "vis"
-        self.dirname_vis_episode.mkdir(exist_ok=True, parents=True)
+        
 
         self.filename_metadata_episode = self.path_episode_results / "metadata.txt"
         self.filename_results_episode = self.path_episode_results / "results.csv"
