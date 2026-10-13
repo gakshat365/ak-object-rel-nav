@@ -193,8 +193,8 @@ graph LR
   - [x] Implement `dagger/core/rollout_collector.py`
   - [x] Implement `dagger/core/data_aggregator.py`
   - [x] Validate pilot rollout & dataset generation (Gate 2 Passed)
-- [ ] **Phase 3: Fine-Tuning & Iterative Orchestration**
-  - [ ] Implement `dagger/core/trainer.py`
-  - [ ] Implement `dagger/run_iteration.py`
-  - [ ] Implement `dagger/run_pipeline.py`
+- [x] **Phase 3: Fine-Tuning & Iterative Orchestration**
+  - [x] Implement `dagger/core/trainer.py`
+  - [x] Implement `dagger/run_iteration.py`
+  - [x] Implement `dagger/run_pipeline.py`
   - [ ] Run end-to-end validation across multiple iterations (Gate 3)

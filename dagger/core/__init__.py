@@ -6,6 +6,7 @@ from dagger.core.failure_loader import FailureLoader, FailureCase
 from dagger.core.expert_oracle import HabitatExpertOracle, OracleOutput
 from dagger.core.rollout_collector import RolloutCollector
 from dagger.core.data_aggregator import DataAggregator, DAggerRecoveryDataset
+from dagger.core.trainer import DAggerTrainer
 
 __all__ = [
     "FailureLoader",
@@ -15,4 +16,5 @@ __all__ = [
     "RolloutCollector",
     "DataAggregator",
     "DAggerRecoveryDataset",
+    "DAggerTrainer",
 ]
