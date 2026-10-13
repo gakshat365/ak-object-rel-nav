@@ -144,6 +144,45 @@ class DataAggregator:
         )
         return global_agg_path, len(aggregated_records)
 
+    def merge_manifests(
+        self,
+        manifest_paths: List[Union[str, Path]],
+        output_manifest: Union[str, Path],
+    ) -> Path:
+        """
+        Merges arbitrary manifest CSV files into output_manifest.
+        Deduplicates by sample_id to prevent double-counting.
+        """
+        seen_sample_ids = set()
+        aggregated_records = []
+
+        for m_path in manifest_paths:
+            path = Path(m_path)
+            if not path.exists():
+                logger.warning(f"Manifest not found: {path}")
+                continue
+            records = self.load_manifest(path)
+            added = 0
+            for r in records:
+                sid = r.get("sample_id", "")
+                if sid not in seen_sample_ids:
+                    seen_sample_ids.add(sid)
+                    aggregated_records.append(r)
+                    added += 1
+            logger.info(f"Loaded {added} unique samples from {path}")
+
+        out_path = Path(output_manifest)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=MANIFEST_FIELDS)
+            writer.writeheader()
+            for r in aggregated_records:
+                row = {k: r.get(k, "") for k in MANIFEST_FIELDS}
+                writer.writerow(row)
+
+        logger.info(f"Wrote merged manifest with {len(aggregated_records)} records to {out_path}")
+        return out_path
+
 
 class DAggerRecoveryDataset(Dataset):
     """

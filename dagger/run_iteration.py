@@ -96,14 +96,26 @@ def run_iteration(
         train_cases, _, _ = loader.split_cases(all_cases)
         logger.info(f"Using {len(train_cases)} failure cases for rollout collection.")
 
-        collector = RolloutCollector(
-            config_path=config_path,
+        collector = RolloutCollector(config_path=config_path)
+        output_samples_dir = REPO_ROOT / cfg["paths"]["data_dir"] / f"iter_{iteration_idx}" / "samples"
+        records = collector.collect_iteration(
+            cases=train_cases,
             checkpoint_path=checkpoint_path,
             beta=beta,
             iteration_idx=iteration_idx,
+            output_dir=output_samples_dir,
         )
-        collector.collect(train_cases, manifest_path=str(iter_manifest))
-        logger.info(f"Iteration manifest written: {iter_manifest}")
+        aggregator_helper = DataAggregator(config_path)
+        # Write to iter_manifest
+        with open(iter_manifest, "w", newline="") as f:
+            import csv
+            from dagger.core.data_aggregator import MANIFEST_FIELDS
+            writer = csv.DictWriter(f, fieldnames=MANIFEST_FIELDS)
+            writer.writeheader()
+            for r in records:
+                row = {k: r.get(k, "") for k in MANIFEST_FIELDS}
+                writer.writerow(row)
+        logger.info(f"Iteration manifest written with {len(records)} samples: {iter_manifest}")
     else:
         if not iter_manifest.exists():
             raise FileNotFoundError(
