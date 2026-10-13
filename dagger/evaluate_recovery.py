@@ -68,7 +68,7 @@ def evaluate_checkpoint_on_cases(
             logger.warning(f"Skipping {case.episode_name}: scene mesh not found")
             continue
 
-        sim, agent, vel_control = utils.get_sim_agent(
+        sim, agent, _ = utils.get_sim_agent(
             str(scene_glb),
             updateNavMesh=False,
             width=sim_cfg["width"],
@@ -76,6 +76,13 @@ def evaluate_checkpoint_on_cases(
             hfov=sim_cfg["hfov"],
             sensor_height=sim_cfg["sensor_height"],
         )
+
+        import habitat_sim
+        vel_control = habitat_sim.physics.VelocityControl()
+        vel_control.controlling_lin_vel = True
+        vel_control.lin_vel_is_local = True
+        vel_control.controlling_ang_vel = True
+        vel_control.ang_vel_is_local = True
 
         try:
             # Set agent state to failure pose

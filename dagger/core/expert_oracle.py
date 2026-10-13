@@ -197,7 +197,9 @@ class HabitatExpertOracle:
             yaw_deltas = waypoint_yaws - curr_yaw
             # Normalize angles to [-pi, pi]
             yaw_deltas = (yaw_deltas + np.pi) % (2 * np.pi) - np.pi
-            action_label = np.concatenate([local_waypoints, yaw_deltas[:, None]], axis=-1)
+            hx = np.cos(yaw_deltas)
+            hy = np.sin(yaw_deltas)
+            action_label = np.concatenate([local_waypoints, hx[:, None], hy[:, None]], axis=-1)
         else:
             action_label = local_waypoints.copy()
 

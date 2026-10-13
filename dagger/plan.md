@@ -189,10 +189,10 @@ graph LR
   - [x] Implement `dagger/core/expert_oracle.py`
   - [x] Validate oracle targets on failure cases via `dagger/validate_expert.py` (Gate 1 Passed)
   - [x] Implement `dagger/evaluate_recovery.py`
-- [ ] **Phase 2: Interleaved Rollout & Aggregation**
-  - [ ] Implement `dagger/core/rollout_collector.py`
-  - [ ] Implement `dagger/core/data_aggregator.py`
-  - [ ] Validate pilot rollout & dataset generation (Gate 2)
+- [x] **Phase 2: Interleaved Rollout & Aggregation**
+  - [x] Implement `dagger/core/rollout_collector.py`
+  - [x] Implement `dagger/core/data_aggregator.py`
+  - [x] Validate pilot rollout & dataset generation (Gate 2 Passed)
 - [ ] **Phase 3: Fine-Tuning & Iterative Orchestration**
   - [ ] Implement `dagger/core/trainer.py`
   - [ ] Implement `dagger/run_iteration.py`

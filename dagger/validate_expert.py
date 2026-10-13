@@ -88,7 +88,7 @@ def validate_oracle_on_case(case, cfg, hm3d_root):
 
         # Assertions and checks
         action = output.action_label
-        expected_dim = 3 if model_cfg["learn_angle"] else 2
+        expected_dim = 4 if model_cfg["learn_angle"] else 2
         expected_shape = (model_cfg["len_traj_pred"], expected_dim)
 
         assert action is not None, "action_label is None"
