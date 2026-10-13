@@ -1,0 +1,70 @@
+# Global Configuration for Iterative DAgger Failure Recovery
+
+# Paths
+paths:
+  repo_root: "."
+  dataset_root: "./data"
+  hm3d_scenes_path: "./data/hm3d_v0.2/val"
+  failures_source_csv: "./out/dagger/failure_trajectories_1300.csv"
+  failures_cases_dir: "./out/failed_cases"
+  hm3d_eval_dir: "./out/hm3d_objectreact_eval"
+  
+  # Default pretrained model checkpoint
+  base_checkpoint: "./libs/control/object_react/train/logs/object_rel_nav/object_react_hm3d_2026_10_07_20_54_34_/latest.pth"
+  controller_config: "./configs/controller/object_react_controller.yaml"
+  experiment_config: "./configs/object_react.yaml"
+  
+  # Output storage for DAgger runs
+  output_dir: "./dagger/output"
+  checkpoints_dir: "./dagger/checkpoints"
+  data_dir: "./dagger/data"
+  manifests_dir: "./dagger/data/manifests"
+  logs_dir: "./dagger/logs"
+
+# DAgger Iterative Parameters
+dagger:
+  num_iterations: 3
+  # Action execution schedule: expert acts with prob beta, student with 1-beta
+  # Note: Expert labels 100% of visited states regardless of who acts.
+  beta_schedule: [0.7, 0.3, 0.0]
+  
+  # Split failure cases to avoid evaluation leakage
+  split_ratios:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  split_by_scene: true # strictly separate scenes between train, val, and held-out test
+  seed: 42
+
+# Environment and Simulation Parameters
+simulation:
+  env: "sim"
+  width: 320
+  height: 240
+  hfov: 120
+  sensor_height: 0.4
+  sensor_height_map: 1.31
+  time_delta: 0.1
+  
+  # Success and step limits matching original benchmark evaluation
+  threshold_goal_distance: 1.0 # inherits from configs/defaults.yaml
+  max_rollout_steps: 300
+
+# Action and Model Representation (aligned with ObjectReact / vint_dataset.py)
+model:
+  len_traj_pred: 10
+  learn_angle: true
+  normalize: true
+  metric_waypoint_spacing: 0.5
+  waypoint_spacing: 1
+  context_size: 5
+  image_size: [85, 64] # width, height
+
+# Training Hyperparameters for Fine-Tuning
+training:
+  epochs_per_iter: 10
+  batch_size: 32
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+  num_workers: 4
+  device: "cuda"
