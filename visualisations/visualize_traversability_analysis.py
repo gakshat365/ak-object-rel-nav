@@ -48,131 +48,18 @@ from habitat_sim.utils.common import quat_to_magnum, quat_from_magnum
 
 from dagger.core.failure_loader import FailureCase, FailureLoader, find_scene_glb
 from libs.common import utils, utils_sim_traj as ust
+from libs.common.vis_utils import (
+    get_floor_instance_ids,
+    get_target_name,
+    letterbox_to_dims,
+    concatenate_videos,
+    create_intro_slide,
+    render_metric_waypoint_plot as render_waypoint_plot,
+)
 from libs.logger.visualizer import Visualizer
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("[TraversabilityAnalysis]")
-
-TRAVERSABLE_CATEGORIES: Set[str] = {
-    "floor", "flooring", "floor mat", "floor vent", "carpet",
-    "mat", "rug", "doormat", "shower floor", "pavement", "ground", "tiles"
-}
-
-
-def get_floor_instance_ids(semantic_scene) -> Set[int]:
-    """Extracts all instance IDs classified as ground/floor/carpet in HM3D."""
-    floor_ids = set()
-    if not semantic_scene or not hasattr(semantic_scene, "objects"):
-        return floor_ids
-
-    for obj in semantic_scene.objects:
-        if obj.category:
-            cname = obj.category.name().lower()
-            if any(t in cname for t in TRAVERSABLE_CATEGORIES):
-                try:
-                    floor_ids.add(int(obj.id.split("_")[-1]))
-                except Exception:
-                    pass
-    return floor_ids
-
-
-def get_target_name(case: FailureCase) -> str:
-    """Extracts human-readable target name from case metadata or episode string."""
-    target = case.metadata.get("target")
-    if target and target != "Target Goal":
-        return target
-    parts = case.episode_name.split("_")
-    if len(parts) >= 4:
-        return "_".join(parts[2:-1])
-    return "Target Goal"
-
-
-def create_intro_slide(
-    case: FailureCase,
-    max_steps: int = 300,
-    width: int = 1920,
-    height: int = 1080,
-    duration_sec: float = 3.0,
-    fps: int = 12,
-) -> List[np.ndarray]:
-    """Generates an HD title card with metadata."""
-    slide = np.zeros((height, width, 3), dtype=np.uint8)
-    for y in range(height):
-        ratio = y / height
-        slide[y, :] = np.array([22 + 18 * ratio, 26 + 22 * ratio, 35 + 28 * ratio], dtype=np.uint8)
-
-    # Accent top border (emerald green for traversability)
-    slide[0:8, :] = [80, 220, 120]
-
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(slide, "TRAVERSABILITY & PERCEPTION ANALYSIS", (100, 130), font, 1.35, (245, 245, 245), 3, cv2.LINE_AA)
-    cv2.putText(slide, "ObjectReact / DAgger Failure Case Inspection", (100, 185), font, 0.9, (80, 220, 120), 2, cv2.LINE_AA)
-    cv2.line(slide, (100, 215), (width - 100, 215), (70, 80, 100), 2)
-
-    target_name = get_target_name(case)
-    fields = [
-        ("Episode Name:", f"{case.episode_name}"),
-        ("Scene ID:", f"{case.scene_id}"),
-        ("Target Goal Object:", f"{target_name.upper()}"),
-        ("Initial Dist to Goal:", f"{case.initial_goal_dist:.2f} meters"),
-        ("Step Budget:", f"{max_steps} steps"),
-        ("Analysis Panels:", "Top-Down BEV | RGB + Traversability | Waypoints | Viridis Cost Map | Binary Mask"),
-    ]
-
-    y_pos = 295
-    for label, val in fields:
-        cv2.putText(slide, label, (120, y_pos), font, 0.8, (160, 170, 185), 2, cv2.LINE_AA)
-        val_color = (100, 230, 150) if "Target" in label or "Analysis" in label else (255, 255, 255)
-        cv2.putText(slide, val, (440, y_pos), font, 0.85, val_color, 2, cv2.LINE_AA)
-        y_pos += 60
-
-    num_frames = int(duration_sec * fps)
-    return [slide.copy() for _ in range(num_frames)]
-
-
-def render_waypoint_plot(pred_waypoints: np.ndarray, width: int = 560, height: int = 490) -> np.ndarray:
-    """Renders the local waypoint trajectory curve with clean coordinate axes."""
-    fig, ax = plt.subplots(figsize=(width / 100, height / 100), dpi=100)
-    fig.patch.set_facecolor("#16181f")
-    ax.set_facecolor("#16181f")
-
-    # Plot waypoints
-    ax.plot(
-        pred_waypoints[:, 1],
-        pred_waypoints[:, 0],
-        color="#00e5ff",
-        linewidth=2.5,
-        marker="o",
-        markersize=6,
-        markerfacecolor="#ffea00",
-        markeredgecolor="#ffffff",
-        markeredgewidth=1.2,
-        label="Waypoints",
-    )
-
-    # Robot origin marker
-    ax.scatter([0], [0], color="#ff3366", s=80, marker="^", label="Robot Pose", zorder=5)
-
-    ax.set_xlim(4, -4)  # Inverted x-axis matches robot forward coordinate system
-    ax.set_ylim(-1, 10)
-    ax.set_xlabel("Lateral Offset (m)", color="#a0abbd", fontsize=9)
-    ax.set_ylabel("Forward Distance (m)", color="#a0abbd", fontsize=9)
-    ax.set_title("Predicted Waypoints (Local Frame)", color="#ffffff", fontsize=11, fontweight="bold", pad=8)
-
-    ax.tick_params(colors="#808b96", labelsize=8)
-    for spine in ax.spines.values():
-        spine.set_color("#3b4252")
-    ax.grid(True, color="#2e3440", linestyle="--", alpha=0.7)
-
-    plt.tight_layout()
-    fig.canvas.draw()
-    try:
-        plot_img = np.asarray(fig.canvas.buffer_rgba())[..., :3].copy()
-    except AttributeError:
-        plot_img = np.asarray(fig.canvas.renderer.buffer_rgba())[..., :3].copy()
-    plt.close(fig)
-
-    return cv2.resize(plot_img, (width, height))
 
 
 def render_viridis_costmap(goal_mask_vis: Optional[np.ndarray], width: int = 560, height: int = 490) -> np.ndarray:
@@ -203,21 +90,6 @@ def render_viridis_costmap(goal_mask_vis: Optional[np.ndarray], width: int = 560
     plt.close(fig)
 
     return cv2.resize(plot_img, (width, height))
-
-
-def letterbox_to_dims(img: np.ndarray, target_w: int, target_h: int) -> np.ndarray:
-    """Scales image to fit inside target box with aspect-ratio preservation."""
-    h, w = img.shape[:2]
-    if w == target_w and h == target_h:
-        return img
-    scale = min(target_w / max(w, 1), target_h / max(h, 1))
-    nw, nh = max(1, int(round(w * scale))), max(1, int(round(h * scale)))
-    resized = cv2.resize(img, (nw, nh), interpolation=cv2.INTER_AREA if scale < 1.0 else cv2.INTER_LINEAR)
-    canvas = np.zeros((target_h, target_w, 3), dtype=np.uint8)
-    top = (target_h - nh) // 2
-    left = (target_w - nw) // 2
-    canvas[top:top + nh, left:left + nw] = resized
-    return canvas
 
 
 def build_traversability_dashboard(
@@ -258,8 +130,8 @@ def build_traversability_dashboard(
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(left_panel, f"TARGET: {target_name.upper()}", (30, 42), font, 0.75, (100, 230, 160), 2, cv2.LINE_AA)
-    badge_color = (40, 200, 80) if status_text == "SUCCESS" else ((60, 60, 220) if "EXCEED" in status_text else (230, 160, 40))
-    cv2.putText(left_panel, f"[{status_text}]", (left_w - 180, 42), font, 0.65, badge_color, 2, cv2.LINE_AA)
+    badge_color = (40, 200, 80) if status_text == "SUCCESS" else ((0, 215, 255) if status_text == "TURN-IN-PLACE" else ((60, 60, 220) if "EXCEED" in status_text else (230, 160, 40)))
+    cv2.putText(left_panel, f"[{status_text}]", (left_w - 200, 42), font, 0.65, badge_color, 2, cv2.LINE_AA)
 
     # Telemetry Line: Step, Dist, % Traversable
     floor_pct = float(traversable_mask.mean() * 100) if traversable_mask is not None else 0.0
@@ -367,6 +239,7 @@ def run_traversability_rollout(
     output_path: Path,
     max_steps: int = 300,
     fps: int = 12,
+    use_safe_controller: bool = False,
 ) -> bool:
     """Executes a recovery rollout while recording the 1080p Traversability Dashboard."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -396,13 +269,19 @@ def run_traversability_rollout(
     vel_control.ang_vel_is_local = True
 
     # Preload Controller
-    from libs.control.objectreact import ObjRelLearntController
     ctrl_cfg_path = REPO_ROOT / cfg["paths"]["controller_config"]
     with open(ctrl_cfg_path, "r") as f:
         ctrl_cfg = yaml.safe_load(f)
 
     ctrl_cfg["load_run"] = str(checkpoint_path)
-    controller = ObjRelLearntController(ctrl_cfg, goal_source="gt_topometric")
+    if use_safe_controller:
+        from libs.control.safe_controller import SafeTurnController
+        controller = SafeTurnController(ctrl_cfg, goal_source="gt_topometric")
+        logger.info("Using SafeTurnController (Step 1: In-Place Turning + 4D Waypoints)")
+    else:
+        from libs.control.objectreact import ObjRelLearntController
+        controller = ObjRelLearntController(ctrl_cfg, goal_source="gt_topometric")
+        logger.info("Using Baseline ObjRelLearntController")
 
     target_name = get_target_name(case)
     logger.info(f"Analyzing Traversability for: {case.episode_name} ({case.scene_id}) -> {target_name}")
@@ -489,7 +368,13 @@ def run_traversability_rollout(
             goal_mask_vis = getattr(controller, "goal_mask_vis", None)
 
             # Assemble full 1080p dashboard
-            status_text = "SUCCESS" if final_status == "SUCCESS" else "NAVIGATING"
+            if final_status == "SUCCESS":
+                status_text = "SUCCESS"
+            elif getattr(controller, "is_turning_in_place", False):
+                status_text = "TURN-IN-PLACE"
+            else:
+                status_text = "NAVIGATING"
+
             frame = build_traversability_dashboard(
                 bev_map=vis.tdv,
                 rgb_img=display_img,
@@ -522,36 +407,6 @@ def run_traversability_rollout(
     return True
 
 
-def concatenate_videos(video_paths: List[Path], output_path: Path, fps: int = 12):
-    """Concatenates multiple video files into a single continuous compilation."""
-    valid_paths = [p for p in video_paths if p.exists() and p.stat().st_size > 0]
-    if not valid_paths:
-        logger.warning("No valid videos to concatenate.")
-        return
-
-    logger.info(f"Concatenating {len(valid_paths)} videos into {output_path.name}...")
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    out_writer = None
-
-    for vp in valid_paths:
-        cap = cv2.VideoCapture(str(vp))
-        w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        if out_writer is None:
-            out_writer = cv2.VideoWriter(str(output_path), fourcc, fps, (w, h))
-
-        while True:
-            ret, frame = cap.read()
-            if not ret:
-                break
-            out_writer.write(frame)
-        cap.release()
-
-    if out_writer is not None:
-        out_writer.release()
-        logger.info(f"✅ Saved Concatenated Compilation Video to: {output_path}")
-
-
 def main():
     parser = argparse.ArgumentParser(description="Traversability & Perception Analysis for Failure Cases")
     parser.add_argument("--config", default="dagger/config.yaml", help="Path to dagger config")
@@ -564,6 +419,7 @@ def main():
     parser.add_argument("--concat", action="store_true", default=True, help="Create concatenated video (default: True)")
     parser.add_argument("--no_concat", dest="concat", action="store_false", help="Disable concatenation")
     parser.add_argument("--gpu", type=str, default="1", help="CUDA GPU ID (default: 1 to avoid GPU 0 conflicts)")
+    parser.add_argument("--use_safe_controller", action="store_true", default=False, help="Use SafeTurnController with turn-in-place heading gate")
     args = parser.parse_args()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
@@ -592,9 +448,10 @@ def main():
         if cand.exists():
             checkpoint_file = cand
 
+    prefix = "traversability_safe_" if args.use_safe_controller else "traversability_"
     generated_videos = []
     for case in selected_cases:
-        out_file = out_dir / f"traversability_{case.episode_name}.mp4"
+        out_file = out_dir / f"{prefix}{case.episode_name}.mp4"
         success = run_traversability_rollout(
             case=case,
             cfg=cfg,
@@ -602,6 +459,7 @@ def main():
             output_path=out_file,
             max_steps=args.max_steps,
             fps=args.fps,
+            use_safe_controller=args.use_safe_controller,
         )
         if success and out_file.exists():
             generated_videos.append(out_file)
@@ -609,7 +467,8 @@ def main():
     if args.concat and len(generated_videos) > 1:
         start_idx = args.case_idx
         end_idx = args.case_idx + len(generated_videos) - 1
-        concat_file = out_dir / f"concat_traversability_episodes_{start_idx:02d}_to_{end_idx:02d}.mp4"
+        concat_prefix = "concat_traversability_safe_episodes_" if args.use_safe_controller else "concat_traversability_episodes_"
+        concat_file = out_dir / f"{concat_prefix}{start_idx:02d}_to_{end_idx:02d}.mp4"
         concatenate_videos(generated_videos, concat_file, fps=args.fps)
 
 

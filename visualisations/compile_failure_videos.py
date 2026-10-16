@@ -15,6 +15,9 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("[VideoCompiler]")
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT))
+
+from libs.common.vis_utils import letterbox_to_dims
 
 
 def create_title_slide(
@@ -82,19 +85,7 @@ def create_title_slide(
     return slide, num_frames
 
 
-def letterbox_frame(frame: np.ndarray, target_w: int, target_h: int) -> np.ndarray:
-    """Resize preserving aspect ratio with black borders (letterboxing)."""
-    h, w = frame.shape[:2]
-    if w == target_w and h == target_h:
-        return frame
-    scale = min(target_w / w, target_h / h)
-    nw, nh = int(round(w * scale)), int(round(h * scale))
-    resized = cv2.resize(frame, (nw, nh), interpolation=cv2.INTER_AREA if scale < 1.0 else cv2.INTER_LINEAR)
-    canvas = np.zeros((target_h, target_w, 3), dtype=np.uint8)
-    top = (target_h - nh) // 2
-    left = (target_w - nw) // 2
-    canvas[top:top + nh, left:left + nw] = resized
-    return canvas
+letterbox_frame = letterbox_to_dims
 
 
 def compile_videos(

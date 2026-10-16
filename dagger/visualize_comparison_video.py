@@ -31,6 +31,7 @@ sys.path.insert(0, str(REPO_ROOT))
 import habitat_sim
 from libs.common import utils
 from libs.common import utils_sim_traj as ust
+from libs.common.vis_utils import letterbox_to_dims, concatenate_videos
 from libs.logger.visualizer import Visualizer
 from libs.control.objectreact import ObjRelLearntController
 from dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
@@ -265,17 +266,7 @@ def run_policy_rollout(
     return frames, meta
 
 
-def letterbox_to_quadrant(frame: np.ndarray, quad_w: int, quad_h: int) -> np.ndarray:
-    """Resizes frame into quadrant maintaining aspect ratio with black borders."""
-    h, w = frame.shape[:2]
-    scale = min(quad_w / w, quad_h / h)
-    nw, nh = int(round(w * scale)), int(round(h * scale))
-    resized = cv2.resize(frame, (nw, nh), interpolation=cv2.INTER_AREA if scale < 1.0 else cv2.INTER_LINEAR)
-    canvas = np.zeros((quad_h, quad_w, 3), dtype=np.uint8)
-    top = (quad_h - nh) // 2
-    left = (quad_w - nw) // 2
-    canvas[top:top + nh, left:left + nw] = resized
-    return canvas
+letterbox_to_quadrant = letterbox_to_dims
 
 
 def generate_comparison_video(
@@ -354,36 +345,6 @@ def generate_comparison_video(
 
     out_writer.release()
     logger.info(f"✅ Saved 4-Way Comparison Video to: {output_path}")
-
-
-def concatenate_videos(video_paths: List[Path], output_path: Path, fps: int = 12):
-    """Concatenates multiple comparison video files into a single continuous video."""
-    valid_paths = [p for p in video_paths if p.exists() and p.stat().st_size > 0]
-    if not valid_paths:
-        logger.warning("No valid videos to concatenate.")
-        return
-
-    logger.info(f"Concatenating {len(valid_paths)} videos into {output_path.name}...")
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    out_writer = None
-
-    for vp in valid_paths:
-        cap = cv2.VideoCapture(str(vp))
-        w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        if out_writer is None:
-            out_writer = cv2.VideoWriter(str(output_path), fourcc, fps, (w, h))
-
-        while True:
-            ret, frame = cap.read()
-            if not ret:
-                break
-            out_writer.write(frame)
-        cap.release()
-
-    if out_writer is not None:
-        out_writer.release()
-        logger.info(f"✅ Saved Concatenated Comparison Video to: {output_path}")
 
 
 def main():

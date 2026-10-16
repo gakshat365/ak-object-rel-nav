@@ -45,15 +45,16 @@ flowchart TD
 ak-object-rel-nav/
 ├── visualisations/
 │   ├── rerun_all_failure_episodes.py      # Master benchmark runner for all 338 failure episodes
-│   ├── rerun_missing_episodes.py          # Fast resume runner for missing/failed episodes
 │   ├── compile_failure_videos.py          # Compiles all 338 individual videos into one compilation
+│   ├── visualize_comparison_video.py      # Synchronized 4-way 1080p comparison video generator
+│   ├── visualize_traversability_analysis.py # 5-panel perception, cost map & traversability dashboard
 │   ├── episode_mapping.json / .csv        # Comprehensive index of all 338 failure cases & telemetry
-│   ├── failure_episodes_compilation_all338.mp4  # Master stitched failure video with title cards
+│   ├── failure_episodes_compilation_all338.mp4  # Master stitched failure video with title cards (817 MB)
+│   ├── traversability_analysis/           # Output directory for traversability inspection videos
 │   └── PIPELINE_AND_SCRIPTS_SUMMARY.md    # This documentation file
 │
 ├── dagger/
 │   ├── config.yaml                        # Central configuration for DAgger pipeline & recovery
-│   ├── visualize_comparison_video.py      # Synchronized 4-way 1080p comparison video generator
 │   ├── run_pipeline.py                    # End-to-end automated multi-iteration DAgger orchestrator
 │   ├── run_iteration.py                   # Single iteration runner (rollout -> aggregate -> train)
 │   ├── evaluate_recovery.py               # Autonomous benchmark evaluation on held-out test failures
@@ -63,8 +64,15 @@ ak-object-rel-nav/
 │   └── core/
 │       ├── failure_loader.py              # Splits episodes into train/val/test with scene isolation
 │       ├── expert_oracle.py               # Shortest-path Habitat geodesic expert controller
-│       ├── rollout_collector_optimised.py # Interactive simulator rollout with mixing parameter β
-│       └── dagger_trainer.py              # PyTorch training loop on aggregated trajectories
+│       ├── rollout_collector.py           # Optimized rollout collector with scene-caching & bulk disk writes
+│       ├── data_aggregator.py             # Dataset aggregation and PyTorch Dataset manifest generator
+│       └── trainer.py                     # DAgger policy training loop
+│
+└── libs/
+    └── common/
+        ├── vis_utils.py                   # Canonical shared visualization helpers (concatenation, letterboxing, HUD)
+        ├── utils.py                       # Habitat simulator agent & sensor utilities
+        └── utils_sim_traj.py              # Shortest-path geodesic & pathlength calculation tools
 ```
 
 ---
