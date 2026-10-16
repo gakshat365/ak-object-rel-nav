@@ -32,7 +32,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from dagger.core.failure_loader import FailureLoader
-from dagger.core.rollout_collector import RolloutCollector
+from dagger.core.rollout_collector_optimised import OptimizedRolloutCollector as RolloutCollector
 from dagger.core.data_aggregator import DataAggregator
 from dagger.core.trainer import DAggerTrainer
 from dagger.evaluate_recovery import evaluate_checkpoint_on_cases

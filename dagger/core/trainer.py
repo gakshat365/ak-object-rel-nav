@@ -19,6 +19,7 @@ import torch.nn.functional as F
 from torch.optim import Adam
 from torch.utils.data import DataLoader, random_split
 from torchvision import transforms
+from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("[Trainer]")
@@ -137,6 +138,7 @@ class DAggerTrainer:
             batch_size=batch_size,
             shuffle=True,
             num_workers=num_workers,
+            pin_memory=True,
             drop_last=False,
         )
         val_loader = DataLoader(
@@ -144,6 +146,7 @@ class DAggerTrainer:
             batch_size=batch_size,
             shuffle=False,
             num_workers=num_workers,
+            pin_memory=True,
             drop_last=False,
         )
 
@@ -163,13 +166,15 @@ class DAggerTrainer:
             # --- Training epoch ---
             model.train()
             train_losses = []
-            for batch in train_loader:
+            train_pbar = tqdm(train_loader, desc=f"Epoch [{epoch}/{epochs}] Training", leave=False, dynamic_ncols=True)
+            for batch in train_pbar:
                 obs_img, goal_img, action_label, _, _, _, action_mask = batch
                 optimizer.zero_grad()
                 loss = self._compute_loss(model, obs_img, goal_img, action_label, action_mask)
                 loss.backward()
                 optimizer.step()
                 train_losses.append(loss.item())
+                train_pbar.set_postfix({"loss": f"{loss.item():.4f}"})
 
             scheduler.step()
             mean_train = float(np.mean(train_losses)) if train_losses else 0.0
@@ -177,11 +182,13 @@ class DAggerTrainer:
             # --- Validation ---
             model.eval()
             val_losses = []
+            val_pbar = tqdm(val_loader, desc=f"Epoch [{epoch}/{epochs}] Validation", leave=False, dynamic_ncols=True)
             with torch.no_grad():
-                for batch in val_loader:
+                for batch in val_pbar:
                     obs_img, goal_img, action_label, _, _, _, action_mask = batch
                     loss = self._compute_loss(model, obs_img, goal_img, action_label, action_mask)
                     val_losses.append(loss.item())
+                    val_pbar.set_postfix({"val_loss": f"{loss.item():.4f}"})
             mean_val = float(np.mean(val_losses)) if val_losses else 0.0
 
             logger.info(

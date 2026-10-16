@@ -4,7 +4,7 @@
 paths:
   repo_root: "."
   dataset_root: "./data"
-  hm3d_scenes_path: "./data/hm3d_v0.2/val"
+  hm3d_scenes_path: "./data/hm3d_v0.2"
   failures_source_csv: "./out/dagger/failure_trajectories_1300.csv"
   failures_cases_dir: "./out/failed_cases"
   hm3d_eval_dir: "./out/hm3d_objectreact_eval"
@@ -23,10 +23,11 @@ paths:
 
 # DAgger Iterative Parameters
 dagger:
-  num_iterations: 3
+  failure_source: "csv" # "csv" loads all 339 failure cases from failures_source_csv; "dir" loads the 10 pilot cases
+  num_iterations: 2
   # Action execution schedule: expert acts with prob beta, student with 1-beta
   # Note: Expert labels 100% of visited states regardless of who acts.
-  beta_schedule: [0.7, 0.3, 0.0]
+  beta_schedule: [0.5, 0.0]
   
   # Split failure cases to avoid evaluation leakage
   split_ratios:
@@ -45,6 +46,7 @@ simulation:
   sensor_height: 0.4
   sensor_height_map: 1.31
   time_delta: 0.1
+  num_workers: 8
   
   # Success and step limits matching original benchmark evaluation
   threshold_goal_distance: 1.0 # inherits from configs/defaults.yaml

@@ -18,7 +18,7 @@ threshold_goal_distance: 1.0
 max_start_distance: "hard" # from ["easy", "hard", "full"]
 max_steps: 300
 
-exp_name: "ak_20_07_26_o1"
+exp_name: "nav-15-oct-26"
 
 # running from list of winners or failure or no good
 run_list: '' #'winners'  #  ['', 'winners', 'failures', 'no_good']

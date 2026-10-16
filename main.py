@@ -36,6 +36,7 @@ default_logger.setup_logging(level=os.environ["LOG_LEVEL"])
 
 from libs.common import utils
 from libs.experiments import task_setup
+from dagger.core.failure_loader import find_scene_glb
 
 
 def run(args):
@@ -90,13 +91,11 @@ def run(args):
     ):
         results_summary["total_episodes"] += 1
         episode_name = path_episode.parts[-1].split("_")[0]
-        matches = sorted(path_scenes_root_hm3d.glob(f"*{episode_name}"))
-        if not matches:
+        scene_glb = find_scene_glb(path_dataset / "hm3d_v0.2", episode_name)
+        if scene_glb is None or not scene_glb.exists():
             logger.warning(f"Skipping episode {path_episode.name}: no matching HM3D scene found")
             continue
-        
-        path_scene_hm3d = matches[0]
-        scene_name_hm3d = str(sorted(path_scene_hm3d.glob("*basis.glb"))[0])
+        scene_name_hm3d = str(scene_glb)
 
         episode_runner = None
         success_status = None
@@ -200,15 +199,22 @@ def parse_args():
         help="Path to the config file",
         default="configs/defaults.yaml",
     )
+    parser.add_argument(
+        "--exp_name",
+        type=str,
+        default=None,
+        help="Experiment name override",
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     logger = logging.getLogger("[Goal Control]")  # Logger for this script
 
-    args = parse_args()
+    cli_args = parse_args()
+    args = cli_args
 
-    config_file = args.config_file
+    config_file = cli_args.config_file
     if not os.path.exists(config_file):
         logger.warning(
             f"Using default config file, create {config_file} to customise the parameters"
@@ -222,6 +228,9 @@ if __name__ == "__main__":
             # pass the config to the args
             for k, v in config.items():
                 setattr(args, k, v)
+
+    if cli_args.exp_name is not None:
+        args.exp_name = cli_args.exp_name
 
     # unsupported combinations
     if args.reverse and args.task_type != "original":

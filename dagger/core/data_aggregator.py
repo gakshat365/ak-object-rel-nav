@@ -216,7 +216,68 @@ class DAggerRecoveryDataset(Dataset):
         # Precompute positional rank encodings matching ObjectReact
         self.rank_enc = generate_positional_encodings(200, self.dims)
 
+        # Preload / Cache into single compact tensor file if available
+        self.cached_tensors = None
+        self.dist_label = torch.tensor(0, dtype=torch.int64)
+        self.goal_pos = torch.tensor([0.0, 0.0], dtype=torch.float32)
+        self.dataset_idx = torch.tensor(0, dtype=torch.int64)
+        self.action_mask = torch.tensor(1.0, dtype=torch.float32)
+
+        cache_path = self.manifest_path.parent / f"{self.manifest_path.stem}_cached.pt"
+        if cache_path.exists():
+            try:
+                logger.info(f"Loading pre-cached tensors from {cache_path}...")
+                self.cached_tensors = torch.load(cache_path, map_location="cpu")
+                logger.info(f"Loaded {len(self.cached_tensors['obs'])} pre-cached samples directly into RAM.")
+            except Exception as e:
+                logger.warning(f"Could not load cache {cache_path}: {e}")
+        else:
+            logger.info(f"Building fast tensor cache at {cache_path}...")
+            try:
+                self._build_tensor_cache(cache_path)
+            except Exception as e:
+                logger.warning(f"Failed to build tensor cache: {e}. Falling back to on-the-fly disk loading.")
+
         logger.info(f"Initialized DAggerRecoveryDataset: {len(self.records)} valid samples from {self.manifest_path}")
+
+    def _build_tensor_cache(self, cache_path: Path):
+        """Builds and saves a consolidated .pt tensor file for instant RAM loading."""
+        all_obs = []
+        all_goals = []
+        all_acts = []
+        valid_records = []
+
+        for idx, row in enumerate(self.records):
+            sample_dir = Path(row["sample_dir"])
+            try:
+                expert_action = np.load(sample_dir / "expert_action.npy")
+                masks = np.load(sample_dir / "goal_masks.npy")
+                pls = np.load(sample_dir / "goal_pls.npy")
+                goal_image = self.encode_goal(masks, pls)
+
+                obs_context_path = sample_dir / "obs_context.npy"
+                if obs_context_path.exists():
+                    obs_context = np.load(obs_context_path)
+                    obs_image = torch.as_tensor(obs_context[-1], dtype=torch.float32)
+                else:
+                    obs_image = torch.zeros((3, 64, 85), dtype=torch.float32)
+
+                all_obs.append(obs_image.clone())
+                all_goals.append(goal_image.clone())
+                all_acts.append(torch.as_tensor(expert_action, dtype=torch.float32))
+                valid_records.append(row)
+            except Exception:
+                continue
+
+        if len(all_obs) > 0:
+            self.cached_tensors = {
+                "obs": torch.stack(all_obs),
+                "goal": torch.stack(all_goals),
+                "action": torch.stack(all_acts),
+            }
+            self.records = valid_records
+            torch.save(self.cached_tensors, cache_path)
+            logger.info(f"Successfully cached {len(all_obs)} samples to {cache_path} ({cache_path.stat().st_size / 1e6:.1f} MB).")
 
     def __len__(self) -> int:
         return len(self.records)
@@ -250,40 +311,68 @@ class DAggerRecoveryDataset(Dataset):
         return torch.as_tensor(full_goal, dtype=torch.float32)
 
     def __getitem__(self, idx: int) -> Tuple[torch.Tensor, ...]:
-        row = self.records[idx]
-        sample_dir = Path(row["sample_dir"])
+        # Ultra-fast RAM path (0 disk I/O, ~10ms per batch)
+        if self.cached_tensors is not None:
+            idx = idx % len(self.cached_tensors["obs"])
+            return (
+                self.cached_tensors["obs"][idx],
+                self.cached_tensors["goal"][idx],
+                self.cached_tensors["action"][idx],
+                self.dist_label,
+                self.goal_pos,
+                self.dataset_idx,
+                self.action_mask,
+            )
 
-        # Load expert target action: (10, 4)
-        expert_action = np.load(sample_dir / "expert_action.npy")
-        action_label = torch.as_tensor(expert_action, dtype=torch.float32)
+        for attempt in range(10):
+            curr_idx = (idx + attempt) % len(self.records)
+            row = self.records[curr_idx]
+            sample_dir = Path(row["sample_dir"])
+            try:
+                # Load expert target action: (10, 4)
+                expert_action = np.load(sample_dir / "expert_action.npy")
+                action_label = torch.as_tensor(expert_action, dtype=torch.float32)
 
-        # Load goal masks and pseudo labels
-        masks = np.load(sample_dir / "goal_masks.npy")
-        pls = np.load(sample_dir / "goal_pls.npy")
-        goal_image = self.encode_goal(masks, pls)
+                # Load goal masks and pseudo labels
+                masks = np.load(sample_dir / "goal_masks.npy")
+                pls = np.load(sample_dir / "goal_pls.npy")
+                goal_image = self.encode_goal(masks, pls)
 
-        # Load observation context
-        obs_context_path = sample_dir / "obs_context.npy"
-        if obs_context_path.exists():
-            obs_context = np.load(obs_context_path)  # (context+1, 3, 64, 85)
-            # Take latest observation frame or concatenate
-            obs_image = torch.as_tensor(obs_context[-1], dtype=torch.float32)
-        else:
-            obs_image = torch.zeros((3, 64, 85), dtype=torch.float32)
+                # Load observation context
+                obs_context_path = sample_dir / "obs_context.npy"
+                if obs_context_path.exists():
+                    obs_context = np.load(obs_context_path)  # (context+1, 3, 64, 85)
+                    obs_image = torch.as_tensor(obs_context[-1], dtype=torch.float32)
+                else:
+                    obs_image = torch.zeros((3, 64, 85), dtype=torch.float32)
 
-        dist_label = torch.tensor(0, dtype=torch.int64)
-        goal_pos = torch.tensor([0.0, 0.0], dtype=torch.float32)
-        dataset_idx = torch.tensor(0, dtype=torch.int64)
-        action_mask = torch.tensor(1.0, dtype=torch.float32)
+                dist_label = torch.tensor(0, dtype=torch.int64)
+                goal_pos = torch.tensor([0.0, 0.0], dtype=torch.float32)
+                dataset_idx = torch.tensor(0, dtype=torch.int64)
+                action_mask = torch.tensor(1.0, dtype=torch.float32)
 
+                return (
+                    obs_image,
+                    goal_image,
+                    action_label,
+                    dist_label,
+                    goal_pos,
+                    dataset_idx,
+                    action_mask,
+                )
+            except Exception as e:
+                logger.warning(f"Corrupted or unreadable sample at {sample_dir}: {e}. Skipping to idx {curr_idx + 1}.")
+                continue
+
+        # Ultimate fallback dummy if all attempts failed
         return (
-            obs_image,
-            goal_image,
-            action_label,
-            dist_label,
-            goal_pos,
-            dataset_idx,
-            action_mask,
+            torch.zeros((3, 64, 85), dtype=torch.float32),
+            torch.zeros((3 + self.dims, 60, 80), dtype=torch.float32),
+            torch.zeros((10, 4), dtype=torch.float32),
+            torch.tensor(0, dtype=torch.int64),
+            torch.tensor([0.0, 0.0], dtype=torch.float32),
+            torch.tensor(0, dtype=torch.int64),
+            torch.tensor(0.0, dtype=torch.float32),
         )
 
 

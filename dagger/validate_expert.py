@@ -25,17 +25,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from libs.common import utils
-from dagger.core.failure_loader import FailureLoader
+from dagger.core.failure_loader import FailureLoader, find_scene_glb
 from dagger.core.expert_oracle import HabitatExpertOracle
-
-
-def find_scene_glb(hm3d_root: Path, scene_id: str) -> Optional[Path]:
-    """Finds the basis.glb scene mesh for a given scene ID."""
-    clean_id = scene_id.split("-")[-1].strip()
-    matches = list(hm3d_root.glob(f"*{clean_id}*/*basis.glb"))
-    if not matches:
-        matches = list(hm3d_root.glob(f"*{clean_id}*/*.glb"))
-    return matches[0] if matches else None
 
 
 def validate_oracle_on_case(case, cfg, hm3d_root):

@@ -218,47 +218,58 @@ def run_pipeline(
     # Baseline A: Raw base checkpoint (no fine-tuning)
     # ─────────────────────────────────────────────────────────────────────────
     if start_idx <= STAGES.index("baseline_a"):
-        logger.info("\n" + "="*70)
-        logger.info("  BASELINE A — Base ObjectReact checkpoint (no fine-tuning)")
-        logger.info("="*70)
+        if results.get("baseline_a", {}).get("eval_summary"):
+            logger.info("\n[SKIP] Baseline A already evaluated in prior results.")
+        else:
+            logger.info("\n" + "="*70)
+            logger.info("  BASELINE A — Base ObjectReact checkpoint (no fine-tuning)")
+            logger.info("="*70)
 
-        eval_summary_a = evaluate_checkpoint_on_cases(
-            checkpoint_path=base_ckpt,
-            cases=test_cases,
-            cfg=cfg,
-            split_name="test",
-        )
-        baseline_a = {
-            "label": "Baseline A (π₀ base)",
-            "checkpoint_path": base_ckpt,
-            "eval_summary": eval_summary_a,
-        }
-        results["baseline_a"] = baseline_a
-        results["runs"] = [r for r in results["runs"] if r.get("label") != baseline_a["label"]]
-        results["runs"].append(baseline_a)
-        _save_results(results, logs_dir / "pipeline_results.json")
+            eval_summary_a = evaluate_checkpoint_on_cases(
+                checkpoint_path=base_ckpt,
+                cases=test_cases,
+                cfg=cfg,
+                split_name="test",
+            )
+            baseline_a = {
+                "label": "Baseline A (π₀ base)",
+                "checkpoint_path": base_ckpt,
+                "eval_summary": eval_summary_a,
+            }
+            results["baseline_a"] = baseline_a
+            results["runs"] = [r for r in results["runs"] if r.get("label") != baseline_a["label"]]
+            results["runs"].append(baseline_a)
+            _save_results(results, logs_dir / "pipeline_results.json")
 
     # ─────────────────────────────────────────────────────────────────────────
     # Baseline B: Fine-tune on expert-only demonstrations (beta=1.0)
     # ─────────────────────────────────────────────────────────────────────────
     if start_idx <= STAGES.index("baseline_b"):
-        logger.info("\n" + "="*70)
-        logger.info("  BASELINE B — Expert-only fine-tuning (beta=1.0)")
-        logger.info("="*70)
+        if results.get("baseline_b", {}).get("eval_summary"):
+            logger.info("\n[SKIP] Baseline B already completed in prior results.")
+        else:
+            logger.info("\n" + "="*70)
+            logger.info("  BASELINE B — Expert-only fine-tuning (beta=1.0)")
+            logger.info("="*70)
 
-        baseline_b = run_iteration(
-            iteration_idx=-1,         # -1 → special label for expert-only baseline
-            beta=1.0,
-            checkpoint_path=base_ckpt,
-            cfg=cfg,
-            config_path=config_path,
-            prior_manifest=None,      # no aggregation with prior data
-        )
-        baseline_b["label"] = "Baseline B (expert-only β=1.0)"
-        results["baseline_b"] = baseline_b
-        results["runs"] = [r for r in results["runs"] if r.get("label") != baseline_b["label"]]
-        results["runs"].append(baseline_b)
-        _save_results(results, logs_dir / "pipeline_results.json")
+            # Re-use existing rollouts if already collected to save 35 minutes
+            manifest_b = manifests_dir / "iter_-1_manifest.csv"
+            skip_b_rollout = manifest_b.exists() and manifest_b.stat().st_size > 1000
+
+            baseline_b = run_iteration(
+                iteration_idx=-1,         # -1 → special label for expert-only baseline
+                beta=1.0,
+                checkpoint_path=base_ckpt,
+                cfg=cfg,
+                config_path=config_path,
+                prior_manifest=None,      # no aggregation with prior data
+                skip_rollout=skip_b_rollout,
+            )
+            baseline_b["label"] = "Baseline B (expert-only β=1.0)"
+            results["baseline_b"] = baseline_b
+            results["runs"] = [r for r in results["runs"] if r.get("label") != baseline_b["label"]]
+            results["runs"].append(baseline_b)
+            _save_results(results, logs_dir / "pipeline_results.json")
 
     # ─────────────────────────────────────────────────────────────────────────
     # DAgger Iterations 0, 1, 2
@@ -348,10 +359,18 @@ def main():
     config_path = str(REPO_ROOT / args.config)
 
     prior_results = None
+    default_results_path = REPO_ROOT / "dagger/logs/pipeline_results.json"
     if args.results_json:
         with open(args.results_json, "r") as f:
             prior_results = json.load(f)
         logger.info(f"Resuming from prior results: {args.results_json}")
+    elif default_results_path.exists():
+        try:
+            with open(default_results_path, "r") as f:
+                prior_results = json.load(f)
+            logger.info(f"Resuming from existing pipeline_results.json: {default_results_path}")
+        except Exception as e:
+            logger.warning(f"Could not load prior pipeline_results.json: {e}")
 
     results = run_pipeline(
         config_path=config_path,

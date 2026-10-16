@@ -789,8 +789,10 @@ class Episode:
             if self.control_input_learnt[0] is None or self.control_input_learnt[1] is None:
                 self.velocity_control, self.theta_control, self.vis_img = 0, 0, self.vis_img_default.copy()
             else:
-                self.velocity_control, self.theta_control, self.vis_img = self.goal_controller.predict(
-                    rgb, self.control_input_learnt)
+                should_vis = getattr(self.args, "save_vis", False) or getattr(self.args, "log_robot", False)
+                self.velocity_control, self.theta_control, vis = self.goal_controller.predict(
+                    rgb, self.control_input_learnt, visualize=should_vis)
+                self.vis_img = vis if vis is not None else rgb
             self.controller_logs = self.goal_controller.controller_logs
 
         else:
@@ -917,6 +919,12 @@ class Episode:
 
     def update_vis_sim(self):
         # if this is the first call, init video
+        if self.vis_img is None:
+            self.vis_img = self.vis_img_default.copy()
+        if self.vis.tdv is None:
+            self.vis.create_top_down_map()
+            if hasattr(self, "agent_states") and self.agent_states is not None:
+                self.vis.draw_teach_run(self.agent_states)
         ratio = self.vis_img.shape[1] / self.vis.tdv.shape[1]
         if self.vis.video is None:
             # resize tdv to match the rgb image

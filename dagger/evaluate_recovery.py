@@ -26,8 +26,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from libs.common import utils
 from libs.common import utils_sim_traj as ust
-from dagger.core.failure_loader import FailureLoader, FailureCase
-from dagger.validate_expert import find_scene_glb
+from dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
 
 
 def evaluate_checkpoint_on_cases(
@@ -103,7 +102,12 @@ def evaluate_checkpoint_on_cases(
             final_dist = initial_dist
 
             for step in range(max_steps):
-                curr_dist = ust.find_shortest_path(sim, agent.get_state().position, case.goal_position)[0]
+                curr_pos = agent.get_state().position
+                euclidean_dist = float(np.linalg.norm(curr_pos - case.goal_position))
+                if euclidean_dist <= threshold_dist + 1.5:
+                    curr_dist = ust.find_shortest_path(sim, curr_pos, case.goal_position)[0]
+                else:
+                    curr_dist = euclidean_dist
                 final_dist = curr_dist
 
                 if curr_dist <= threshold_dist:

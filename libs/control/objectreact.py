@@ -284,7 +284,7 @@ class ObjRelLearntController:
             )
         return closest_goal_idx
 
-    def predict(self, rgb, goal_data):
+    def predict(self, rgb, goal_data, visualize: bool = False):
         """
         predict the linear velocity and angular velocity
         """
@@ -313,15 +313,16 @@ class ObjRelLearntController:
                 v, w = self.filter_vel([v, w])
 
             logger.info(f"Predicted lin: {v:.2f} and ang: {w:.2f}")
-            vis_img = visualize_prediction(
-                rgb,
-                self.action_pred,
-                self.goal_mask_vis,
-                save_path=None,
-                get_plot_img=True,
-            )
-
-            logger.info("Visualization created")
+            vis_img = None
+            if visualize:
+                vis_img = visualize_prediction(
+                    rgb,
+                    self.action_pred,
+                    self.goal_mask_vis,
+                    save_path=None,
+                    get_plot_img=True,
+                )
+                logger.info("Visualization created")
             self.controller_logs.append(
                 {
                     "action_pred": self.action_pred,
@@ -375,12 +376,14 @@ def visualize_prediction(
                 image = np.array(Image.open(buffer))
         elif to_img_method == "canvas":
             fig.canvas.draw()  # Render the figure
-            # Matplotlib >= 3.10 compatible
-            image = np.asarray(fig.canvas.buffer_rgba())[..., :3].copy()
+            try:
+                image = np.asarray(fig.canvas.buffer_rgba())[..., :3].copy()
+            except AttributeError:
+                image = np.asarray(fig.canvas.renderer.buffer_rgba())[..., :3].copy()
         else:
             pass
 
-    plt.close()
+    plt.close(fig)
 
     return image
 
