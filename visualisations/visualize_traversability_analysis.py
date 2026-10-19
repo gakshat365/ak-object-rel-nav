@@ -103,6 +103,8 @@ def build_traversability_dashboard(
     curr_dist: float,
     target_name: str,
     status_text: str = "NAVIGATING",
+    lookahead_idx: Optional[int] = None,
+    lookahead_dist: Optional[float] = None,
 ) -> np.ndarray:
     """
     Assembles a full 1080p (1920x1080) synchronized inspection dashboard:
@@ -133,10 +135,13 @@ def build_traversability_dashboard(
     badge_color = (40, 200, 80) if status_text == "SUCCESS" else ((0, 215, 255) if status_text == "TURN-IN-PLACE" else ((60, 60, 220) if "EXCEED" in status_text else (230, 160, 40)))
     cv2.putText(left_panel, f"[{status_text}]", (left_w - 200, 42), font, 0.65, badge_color, 2, cv2.LINE_AA)
 
-    # Telemetry Line: Step, Dist, % Traversable
-    floor_pct = float(traversable_mask.mean() * 100) if traversable_mask is not None else 0.0
-    telemetry = f"Step: {step:03d}/{max_steps}  |  Goal Dist: {curr_dist:.2f}m  |  Floor in View: {floor_pct:.1f}%"
-    cv2.putText(left_panel, telemetry, (30, 78), font, 0.58, (220, 225, 235), 1, cv2.LINE_AA)
+    # Telemetry Line: Step, Dist, % Traversable, Adaptive Lookahead
+    if lookahead_idx is not None and lookahead_dist is not None:
+        telemetry = f"Step: {step:03d}/{max_steps}  |  Goal: {curr_dist:.2f}m  |  Lookahead: {lookahead_dist:.1f}m (wp{lookahead_idx})"
+    else:
+        floor_pct = float(traversable_mask.mean() * 100) if traversable_mask is not None else 0.0
+        telemetry = f"Step: {step:03d}/{max_steps}  |  Goal: {curr_dist:.2f}m  |  Floor: {floor_pct:.1f}%"
+    cv2.putText(left_panel, telemetry, (30, 78), font, 0.55, (220, 225, 235), 1, cv2.LINE_AA)
 
     # BEV Map placement
     bev_area_h = total_h - header_h - 30
@@ -386,6 +391,8 @@ def run_traversability_rollout(
                 curr_dist=curr_dist,
                 target_name=target_name,
                 status_text=status_text,
+                lookahead_idx=getattr(controller, "current_lookahead_idx", None),
+                lookahead_dist=getattr(controller, "current_lookahead_dist", None),
             )
             out_writer.write(frame)
 

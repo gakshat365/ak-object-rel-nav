@@ -1,0 +1,47 @@
+dagger:
+  failure_source: trapped_csv
+  seed: 42
+  split_by_scene: true
+  split_ratios:
+    test: 0.15
+    train: 0.7
+    val: 0.15
+model:
+  context_size: 5
+  image_size:
+  - 85
+  - 64
+  learn_angle: true
+  len_traj_pred: 10
+  metric_waypoint_spacing: 0.5
+  normalize: true
+  waypoint_spacing: 1
+paths:
+  base_checkpoint: dagger/model/baseline_model/latest.pth
+  checkpoints_dir: /scratch2/akshat.gupta/ak-object-rel-nav/dagger/multi_chunk_runs/checkpoints
+  controller_config: dagger/model/baseline_model/config.yaml
+  data_dir: /scratch2/akshat.gupta/ak-object-rel-nav/dagger/multi_chunk_runs/data
+  failures_cases_dir: dagger/data/trapped_cases
+  hm3d_scenes_path: data/hm3d_v0.2
+  logs_dir: /scratch2/akshat.gupta/ak-object-rel-nav/dagger/multi_chunk_runs/logs
+  manifests_dir: /scratch2/akshat.gupta/ak-object-rel-nav/dagger/multi_chunk_runs/manifests
+  output_dir: /scratch2/akshat.gupta/ak-object-rel-nav/dagger/multi_chunk_runs/chunk_0_output
+  repo_root: .
+  trapped_cases_csv: /scratch2/akshat.gupta/ak-object-rel-nav/dagger/multi_chunk_runs/manifests/chunk_0_trapped_manifest.csv
+simulation:
+  height: 240
+  hfov: 120
+  max_rollout_steps: 300
+  num_workers: 1
+  sensor_height: 0.4
+  sensor_height_map: 1.31
+  threshold_goal_distance: 1.0
+  time_delta: 0.25
+  width: 320
+training:
+  batch_size: 32
+  device: cuda
+  epochs_per_iter: 5
+  learning_rate: 0.0001
+  num_workers: 0
+  weight_decay: 0.0001

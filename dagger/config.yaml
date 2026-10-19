@@ -1,72 +1,42 @@
-# Global Configuration for Iterative DAgger Failure Recovery
+# DAgger Configuration for ObjectReact with Backward Failure Recovery
 
-# Paths
+iterations:
+  0:
+    beta: 1.0
+    model: "baseline_model"
+  1:
+    beta: 0.6
+    model: "iter_0"
+  2:
+    beta: 0.4
+    model: "iter_1"
+  3:
+    beta: 0.0
+    model: "iter_2"
+
+failure_recovery:
+  stuck_radius: 0.2            # 0.2m radius for trapped condition
+  consecutive_steps: 20        # 20 consecutive steps
+  lead_in_steps: 50            # Backtrack 50 steps before trapped failure state
+  trapped_manifest: "dagger/data/trapped_cases_manifest.csv"
+  trapped_cases_dir: "dagger/data/trapped_cases"
+
+rollout:
+  max_steps: 300
+  threshold_goal_distance: 1.0
+  time_delta: 0.25
+  step_size: 0.25
+
 paths:
-  repo_root: "."
-  dataset_root: "./data"
-  hm3d_scenes_path: "./data/hm3d_v0.2"
-  failures_source_csv: "./out/dagger/failure_trajectories_1300.csv"
-  failures_cases_dir: "./out/failed_cases"
-  hm3d_eval_dir: "./out/hm3d_objectreact_eval"
-  
-  # Default pretrained model checkpoint
-  base_checkpoint: "./libs/control/object_react/train/logs/object_rel_nav/object_react_hm3d_2026_10_07_20_54_34_/latest.pth"
-  controller_config: "./configs/controller/object_react_controller.yaml"
-  experiment_config: "./configs/object_react.yaml"
-  
-  # Output storage for DAgger runs
-  output_dir: "./dagger/output"
-  checkpoints_dir: "./dagger/checkpoints"
-  data_dir: "./dagger/data"
-  manifests_dir: "./dagger/data/manifests"
-  logs_dir: "./dagger/logs"
+  initial_data: "dagger/data/initial_data"
+  data_root: "dagger/data"
+  model_root: "dagger/model"
+  hm3d_root: "data/hm3d_v0.2"
+  controller_config: "dagger/model/baseline_model/config.yaml"
 
-# DAgger Iterative Parameters
-dagger:
-  failure_source: "csv" # "csv" loads all 339 failure cases from failures_source_csv; "dir" loads the 10 pilot cases
-  num_iterations: 2
-  # Action execution schedule: expert acts with prob beta, student with 1-beta
-  # Note: Expert labels 100% of visited states regardless of who acts.
-  beta_schedule: [0.5, 0.0]
-  
-  # Split failure cases to avoid evaluation leakage
-  split_ratios:
-    train: 0.70
-    val: 0.15
-    test: 0.15
-  split_by_scene: true # strictly separate scenes between train, val, and held-out test
-  seed: 42
-
-# Environment and Simulation Parameters
-simulation:
-  env: "sim"
-  width: 320
-  height: 240
-  hfov: 120
-  sensor_height: 0.4
-  sensor_height_map: 1.31
-  time_delta: 0.1
-  num_workers: 8
-  
-  # Success and step limits matching original benchmark evaluation
-  threshold_goal_distance: 1.0 # inherits from configs/defaults.yaml
-  max_rollout_steps: 300
-
-# Action and Model Representation (aligned with ObjectReact / vint_dataset.py)
-model:
-  len_traj_pred: 10
-  learn_angle: true
-  normalize: true
-  metric_waypoint_spacing: 0.5
-  waypoint_spacing: 1
-  context_size: 5
-  image_size: [85, 64] # width, height
-
-# Training Hyperparameters for Fine-Tuning
 training:
-  epochs_per_iter: 10
-  batch_size: 32
-  learning_rate: 1.0e-4
-  weight_decay: 1.0e-4
-  num_workers: 4
+  batch_size: 16
+  epochs: 5
+  lr: 0.0001
   device: "cuda"
+  val_fraction: 0.1

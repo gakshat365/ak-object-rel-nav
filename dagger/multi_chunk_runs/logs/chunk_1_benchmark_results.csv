@@ -1,0 +1,1001 @@
+scene,status,trap_step,recovery_step,final_dist
+00598-mt9H8KcxRKD_02959_chair_638,trapped,19,0,6.125
+00598-mt9H8KcxRKD_02945_chair_525,trapped,30,0,4.757
+00598-mt9H8KcxRKD_02936_monitor_703,trapped,19,0,4.347
+00598-mt9H8KcxRKD_02939_chair_113,trapped,19,0,6.838
+00598-mt9H8KcxRKD_02958_armchair_332,trapped,19,0,6.366
+00598-mt9H8KcxRKD_02942_monitor_704,trapped,19,0,7.836
+00598-mt9H8KcxRKD_02950_toilet_73,trapped,33,0,5.998
+00598-mt9H8KcxRKD_02934_chair_732,trapped,19,0,5.334
+00598-mt9H8KcxRKD_02932_chair_161,trapped,22,0,3.741
+00598-mt9H8KcxRKD_02949_chair_97,trapped,65,15,7.738
+00177-VSxVP19Cdyw_00875_armchair_128,trapped,23,0,4.809
+00177-VSxVP19Cdyw_00876_chair_186,trapped,24,0,6.706
+00177-VSxVP19Cdyw_00888_chair_188,trapped,24,0,6.212
+00177-VSxVP19Cdyw_04902_sofa_160,trapped,34,0,2.416
+00177-VSxVP19Cdyw_00878_toilet_296,trapped,19,0,3.280
+00177-VSxVP19Cdyw_04909_chair_183,trapped,19,0,6.148
+00177-VSxVP19Cdyw_04899_chair_186,trapped,19,0,4.266
+00177-VSxVP19Cdyw_04904_chair_188,trapped,19,0,6.081
+00150-LcAd9dhvVwh_00719_bed_699,trapped,39,0,3.729
+00150-LcAd9dhvVwh_04749_chair_139,trapped,19,0,7.112
+00150-LcAd9dhvVwh_04738_armchair_608,trapped,29,0,5.516
+00150-LcAd9dhvVwh_04736_armchair_376,trapped,24,0,4.563
+00150-LcAd9dhvVwh_04750_armchair_425,trapped,31,0,2.525
+00150-LcAd9dhvVwh_04748_armchair_251,trapped,24,0,2.525
+00150-LcAd9dhvVwh_00710_armchair_606,trapped,20,0,5.656
+00150-LcAd9dhvVwh_00711_chair_134,trapped,20,0,6.023
+00150-LcAd9dhvVwh_04745_armchair_254,trapped,21,0,3.796
+00150-LcAd9dhvVwh_04743_bed_418,trapped,60,10,5.883
+00150-LcAd9dhvVwh_00709_armchair_254,trapped,30,0,4.000
+00150-LcAd9dhvVwh_04744_couch_593,trapped,35,0,4.286
+00150-LcAd9dhvVwh_00715_armchair_425,trapped,31,0,5.584
+00150-LcAd9dhvVwh_00725_armchair_376,trapped,144,94,5.673
+00150-LcAd9dhvVwh_04753_toilet_797,trapped,20,0,1.387
+00166-RaYrxWt5pR1_04789_toilet_272,trapped,22,0,2.657
+00166-RaYrxWt5pR1_04791_couch_208,trapped,32,0,2.320
+00017-oEPjPNSPmzL_00070_stool_47,trapped,19,0,3.595
+00017-oEPjPNSPmzL_00071_couch_8,trapped,19,0,4.276
+00017-oEPjPNSPmzL_04089_stool_46,trapped,29,0,6.807
+00238-j6fHrce9pHR_01152_chair_283,trapped,83,33,6.851
+00238-j6fHrce9pHR_01153_chair_25,trapped,37,0,1.961
+00238-j6fHrce9pHR_01154_chair_420,trapped,26,0,5.725
+00238-j6fHrce9pHR_01160_chair_285,trapped,37,0,5.448
+00238-j6fHrce9pHR_01149_toilet_567,trapped,19,0,5.427
+00238-j6fHrce9pHR_01150_chair_131,trapped,38,0,7.350
+00238-j6fHrce9pHR_01141_toilet_848,trapped,19,0,5.448
+00238-j6fHrce9pHR_01157_tv_721,trapped,23,0,4.804
+00025-ixTj1aTMup2_00160_plant_3,trapped,29,0,5.298
+00025-ixTj1aTMup2_04190_chair_350,trapped,19,0,4.176
+00025-ixTj1aTMup2_04201_chair_354,ran out of steps,,,5.635
+00025-ixTj1aTMup2_00161_chair_354,trapped,19,0,5.038
+00025-ixTj1aTMup2_04173_toilet_215,trapped,24,0,4.241
+00025-ixTj1aTMup2_04178_plant_110,trapped,19,0,5.972
+00025-ixTj1aTMup2_04175_chair_355,trapped,29,0,4.268
+00025-ixTj1aTMup2_04188_armchair_2,trapped,19,0,6.261
+00025-ixTj1aTMup2_04174_chair_103,trapped,19,0,4.959
+00664-u5atqC7vRCY_03433_sofa_426,trapped,22,0,5.555
+00664-u5atqC7vRCY_03446_chair_88,trapped,50,0,4.077
+00664-u5atqC7vRCY_03441_chair_227,trapped,19,0,6.981
+00664-u5atqC7vRCY_03450_sofa_257,trapped,19,0,4.026
+00254-YMNvYDhK8mB_01280_chair_423,trapped,21,0,3.539
+00254-YMNvYDhK8mB_01260_chair_421,trapped,30,0,3.417
+00254-YMNvYDhK8mB_01265_chair_419,trapped,19,0,3.030
+00254-YMNvYDhK8mB_01268_chair_253,trapped,27,0,2.576
+00254-YMNvYDhK8mB_01281_chair_202,trapped,26,0,5.002
+00254-YMNvYDhK8mB_01288_monitor_139,ran out of steps,,,5.679
+00254-YMNvYDhK8mB_01262_chair_257,trapped,19,0,6.645
+00720-8B43pG641ff_03711_armchair_842,trapped,28,0,2.937
+00720-8B43pG641ff_03717_toilet_616,trapped,20,0,3.240
+00720-8B43pG641ff_03683_armchair_839,trapped,19,0,4.667
+00720-8B43pG641ff_03718_sofa_844,trapped,39,0,3.415
+00720-8B43pG641ff_03705_armchair_207,ran out of steps,,,6.226
+00720-8B43pG641ff_03725_chair_1117,ran out of steps,,,5.552
+00720-8B43pG641ff_03685_chair_717,trapped,25,0,2.959
+00720-8B43pG641ff_03691_bed_678,trapped,32,0,3.977
+00720-8B43pG641ff_03687_chair_1076,ran out of steps,,,5.935
+00720-8B43pG641ff_03694_chair_1116,ran out of steps,,,4.820
+00720-8B43pG641ff_03689_monitor_715,trapped,40,0,4.125
+00414-77mMEyxhs44_02198_toilet_215,trapped,19,0,3.814
+00414-77mMEyxhs44_02196_chair_706,trapped,19,0,2.104
+00149-UuwwmrTsfBN_00703_vase_1012,trapped,19,0,6.261
+00149-UuwwmrTsfBN_04695_armchair_949,trapped,19,0,3.807
+00149-UuwwmrTsfBN_04718_chair_882,trapped,19,0,4.190
+00149-UuwwmrTsfBN_04703_chair_151,trapped,25,0,7.440
+00149-UuwwmrTsfBN_00683_chair_1041,trapped,22,0,5.959
+00149-UuwwmrTsfBN_04706_chair_150,trapped,31,0,4.460
+00149-UuwwmrTsfBN_00670_armchair_1176,ran out of steps,,,2.843
+00149-UuwwmrTsfBN_00668_tv_918,trapped,39,0,3.100
+00149-UuwwmrTsfBN_04711_toilet_1198,trapped,31,0,6.118
+00149-UuwwmrTsfBN_00688_chair_151,trapped,23,0,6.911
+00149-UuwwmrTsfBN_04698_sofa_1075,trapped,181,131,7.146
+00149-UuwwmrTsfBN_00704_chair_864,trapped,38,0,2.961
+00149-UuwwmrTsfBN_04722_sofa_941,trapped,19,0,6.043
+00149-UuwwmrTsfBN_00674_sofa_603,trapped,31,0,6.356
+00149-UuwwmrTsfBN_04692_tv_11,trapped,19,0,4.500
+00626-XiJhRLvpKpX_03184_chair_576,trapped,19,0,3.942
+00626-XiJhRLvpKpX_03208_plant_641,trapped,19,0,6.278
+00626-XiJhRLvpKpX_03244_chair_99,trapped,19,0,3.377
+00626-XiJhRLvpKpX_03112_chair_89,trapped,26,0,4.635
+00626-XiJhRLvpKpX_03216_armchair_287,trapped,191,141,6.576
+00626-XiJhRLvpKpX_03113_plant_332,trapped,19,0,5.201
+00626-XiJhRLvpKpX_03217_chair_730,ran out of steps,,,5.186
+00626-XiJhRLvpKpX_03087_chair_137,trapped,54,4,2.500
+00626-XiJhRLvpKpX_03122_chair_594,trapped,19,0,5.674
+00626-XiJhRLvpKpX_03121_plant_650,trapped,22,0,5.718
+00626-XiJhRLvpKpX_03064_chair_583,trapped,19,0,5.443
+00626-XiJhRLvpKpX_03188_chair_230,trapped,19,0,3.979
+00626-XiJhRLvpKpX_03071_chair_487,trapped,30,0,5.195
+00626-XiJhRLvpKpX_03115_chair_589,trapped,26,0,3.538
+00626-XiJhRLvpKpX_03176_chair_735,ran out of steps,,,6.160
+00626-XiJhRLvpKpX_03224_chair_228,ran out of steps,,,6.580
+00626-XiJhRLvpKpX_03158_chair_514,trapped,19,0,7.299
+00626-XiJhRLvpKpX_03239_plant_638,trapped,19,0,3.857
+00626-XiJhRLvpKpX_03073_armchair_279,trapped,19,0,6.524
+00626-XiJhRLvpKpX_03173_chair_511,trapped,22,0,6.222
+00626-XiJhRLvpKpX_03211_chair_704,ran out of steps,,,3.569
+00626-XiJhRLvpKpX_03262_chair_268,trapped,28,0,7.188
+00626-XiJhRLvpKpX_03241_chair_21,trapped,19,0,7.573
+00626-XiJhRLvpKpX_03175_chair_90,trapped,22,0,3.129
+00626-XiJhRLvpKpX_03256_screen_338,ran out of steps,,,7.186
+00626-XiJhRLvpKpX_03246_chair_687,ran out of steps,,,4.168
+00626-XiJhRLvpKpX_03204_chair_702,trapped,19,0,5.814
+00626-XiJhRLvpKpX_03130_chair_573,trapped,28,0,3.719
+00626-XiJhRLvpKpX_03151_armchair_1018,trapped,25,0,6.783
+00626-XiJhRLvpKpX_03166_chair_709,ran out of steps,,,5.617
+00626-XiJhRLvpKpX_03095_chair_229,trapped,19,0,5.590
+00626-XiJhRLvpKpX_03137_plant_331,ran out of steps,,,6.826
+00626-XiJhRLvpKpX_03237_chair_527,trapped,31,0,3.420
+00626-XiJhRLvpKpX_03230_chair_528,trapped,27,0,5.453
+00626-XiJhRLvpKpX_03218_plant_1037,trapped,23,0,3.889
+00626-XiJhRLvpKpX_03172_chair_557,trapped,30,0,4.834
+00626-XiJhRLvpKpX_03145_chair_575,trapped,28,0,5.224
+00626-XiJhRLvpKpX_03253_plant_329,trapped,21,0,3.344
+00626-XiJhRLvpKpX_03187_chair_587,trapped,19,0,4.404
+00626-XiJhRLvpKpX_03141_chair_729,trapped,19,0,3.948
+00626-XiJhRLvpKpX_03157_chair_102,trapped,19,0,7.789
+00626-XiJhRLvpKpX_03072_plant_633,trapped,35,0,2.651
+00626-XiJhRLvpKpX_03132_plant_401,ran out of steps,,,4.769
+00626-XiJhRLvpKpX_03067_chair_93,trapped,19,0,3.849
+00626-XiJhRLvpKpX_03199_chair_552,trapped,19,0,5.051
+00626-XiJhRLvpKpX_03220_plant_758,trapped,21,0,3.651
+00626-XiJhRLvpKpX_03094_chair_15,trapped,21,0,7.015
+00626-XiJhRLvpKpX_03105_plant_881,trapped,26,0,4.403
+00626-XiJhRLvpKpX_03129_chair_16,trapped,23,0,4.470
+00626-XiJhRLvpKpX_03101_chair_688,trapped,29,0,7.246
+00422-8wJuSPJ9FXG_02232_toilet_517,trapped,19,0,7.094
+00422-8wJuSPJ9FXG_02231_armchair_161,trapped,55,5,4.722
+00422-8wJuSPJ9FXG_02223_plant_40,trapped,30,0,6.362
+00422-8wJuSPJ9FXG_02229_plant_30,trapped,19,0,7.116
+00096-6HRFAUDqpTb_00495_toilet_13,trapped,25,0,5.821
+00096-6HRFAUDqpTb_04520_toilet_464,trapped,19,0,4.126
+00096-6HRFAUDqpTb_04524_armchair_376,trapped,19,0,3.084
+00096-6HRFAUDqpTb_04526_tv_232,trapped,19,0,4.725
+00096-6HRFAUDqpTb_00490_toilet_155,trapped,19,0,4.765
+00096-6HRFAUDqpTb_04515_toilet_13,trapped,29,0,4.852
+00096-6HRFAUDqpTb_04523_bed_110,trapped,19,0,5.093
+00096-6HRFAUDqpTb_00487_couch_368,trapped,19,0,3.210
+00096-6HRFAUDqpTb_00501_tv_232,trapped,23,0,5.744
+00096-6HRFAUDqpTb_04521_tv_322,trapped,22,0,4.837
+00096-6HRFAUDqpTb_00493_chair_552,trapped,25,0,5.641
+00539-zUG6FL9TYeR_02607_couch_245,trapped,19,0,4.001
+00539-zUG6FL9TYeR_02626_tv_267,trapped,19,0,6.617
+00539-zUG6FL9TYeR_02625_chair_217,trapped,32,0,4.312
+00539-zUG6FL9TYeR_02611_chair_224,trapped,19,0,4.397
+00539-zUG6FL9TYeR_02604_armchair_268,trapped,28,0,5.325
+00539-zUG6FL9TYeR_02610_chair_351,trapped,19,0,3.649
+00539-zUG6FL9TYeR_02619_toilet_485,trapped,28,0,3.348
+00263-GGBvSFddQgs_01494_chair_425,trapped,23,0,6.589
+00263-GGBvSFddQgs_01489_bed_567,trapped,25,0,3.568
+00263-GGBvSFddQgs_01502_bed_765,trapped,19,0,4.762
+00263-GGBvSFddQgs_01497_toilet_702,trapped,19,0,5.597
+00258-2Pc8W48bu21_01394_armchair_421,trapped,19,0,5.025
+00258-2Pc8W48bu21_01404_chair_637,trapped,19,0,7.856
+00258-2Pc8W48bu21_01412_stool_597,trapped,19,0,2.918
+00258-2Pc8W48bu21_01419_armchair_998,trapped,19,0,4.325
+00258-2Pc8W48bu21_01420_toilet_377,trapped,31,0,4.407
+00258-2Pc8W48bu21_01416_chair_927,ran out of steps,,,4.241
+00258-2Pc8W48bu21_01402_chair_513,ran out of steps,,,2.969
+00258-2Pc8W48bu21_01415_vase_633,ran out of steps,,,4.711
+00258-2Pc8W48bu21_01447_stool_598,trapped,24,0,5.594
+00258-2Pc8W48bu21_01407_armchair_210,trapped,32,0,3.606
+00258-2Pc8W48bu21_01434_sofa_428,trapped,19,0,4.490
+00258-2Pc8W48bu21_01438_chair_512,ran out of steps,,,6.027
+00258-2Pc8W48bu21_01399_stool_395,ran out of steps,,,6.851
+00258-2Pc8W48bu21_01395_tv_190,trapped,27,0,6.257
+00258-2Pc8W48bu21_01433_plant_629,ran out of steps,,,7.632
+00258-2Pc8W48bu21_01435_bed_757,trapped,19,0,2.668
+00258-2Pc8W48bu21_01400_chair_505,trapped,19,0,7.815
+00258-2Pc8W48bu21_01441_plant_150,trapped,19,0,4.346
+00173-qZ4B7U6XE5Y_00868_chair_507,ran out of steps,,,3.451
+00173-qZ4B7U6XE5Y_04869_chair_366,trapped,20,0,4.844
+00173-qZ4B7U6XE5Y_00842_plant_262,trapped,23,0,4.171
+00173-qZ4B7U6XE5Y_00862_plant_271,trapped,20,0,3.895
+00173-qZ4B7U6XE5Y_04865_chair_182,trapped,20,0,2.546
+00173-qZ4B7U6XE5Y_00849_bed_24,trapped,19,0,5.565
+00173-qZ4B7U6XE5Y_00840_chair_183,trapped,23,0,5.694
+00173-qZ4B7U6XE5Y_04889_stool_177,trapped,57,7,5.603
+00173-qZ4B7U6XE5Y_04873_chair_367,trapped,19,0,5.861
+00173-qZ4B7U6XE5Y_00833_plant_360,trapped,19,0,4.506
+00173-qZ4B7U6XE5Y_04860_chair_508,ran out of steps,,,4.091
+00173-qZ4B7U6XE5Y_04890_chair_129,trapped,21,0,3.759
+00173-qZ4B7U6XE5Y_04878_plant_257,trapped,32,0,2.243
+00173-qZ4B7U6XE5Y_04886_bed_168,trapped,31,0,4.551
+00173-qZ4B7U6XE5Y_00850_toilet_86,trapped,19,0,4.054
+00173-qZ4B7U6XE5Y_00834_plant_264,trapped,40,0,3.754
+00173-qZ4B7U6XE5Y_04870_plant_276,trapped,19,0,3.855
+00141-iigzG1rtanx_04668_stool_576,trapped,19,0,6.500
+00141-iigzG1rtanx_00635_bed_259,trapped,30,0,5.257
+00141-iigzG1rtanx_00640_toilet_324,trapped,47,0,5.251
+00141-iigzG1rtanx_00643_monitor_414,trapped,34,0,7.461
+00141-iigzG1rtanx_00630_sofa_301,trapped,21,0,6.884
+00506-QVAA6zecMHu_02448_couch_49,trapped,19,0,3.511
+00506-QVAA6zecMHu_02436_vase_119,ran out of steps,,,6.028
+00506-QVAA6zecMHu_02446_plant_69,trapped,19,0,3.370
+00506-QVAA6zecMHu_02444_vase_85,trapped,38,0,5.199
+00506-QVAA6zecMHu_02438_tv_67,trapped,127,77,2.162
+00506-QVAA6zecMHu_02441_plant_68,trapped,19,0,5.887
+00330-WhNyDTnd9g5_01850_armchair_290,trapped,41,0,7.355
+00330-WhNyDTnd9g5_01865_chair_425,trapped,26,0,3.769
+00330-WhNyDTnd9g5_01855_couch_388,trapped,24,0,7.014
+00330-WhNyDTnd9g5_01863_chair_426,trapped,24,0,4.810
+00330-WhNyDTnd9g5_01875_plant_421,trapped,140,90,5.254
+00330-WhNyDTnd9g5_01859_armchair_398,ran out of steps,,,4.382
+00330-WhNyDTnd9g5_01867_chair_301,trapped,19,0,2.704
+00330-WhNyDTnd9g5_01856_bed_165,trapped,30,0,7.238
+00330-WhNyDTnd9g5_01852_plant_51,trapped,19,0,3.445
+00105-xWvSkKiWQpC_00574_chair_518,ran out of steps,,,6.015
+00105-xWvSkKiWQpC_00559_vase_122,ran out of steps,,,2.429
+00105-xWvSkKiWQpC_00558_monitor_662,trapped,35,0,4.692
+00105-xWvSkKiWQpC_04583_monitor_10,trapped,23,0,7.264
+00105-xWvSkKiWQpC_00560_sofa_153,trapped,23,0,6.357
+00105-xWvSkKiWQpC_04577_vase_230,trapped,27,0,4.884
+00105-xWvSkKiWQpC_00549_vase_232,trapped,57,7,5.912
+00105-xWvSkKiWQpC_00554_chair_516,ran out of steps,,,5.792
+00105-xWvSkKiWQpC_00552_chair_115,ran out of steps,,,3.572
+00105-xWvSkKiWQpC_04595_toilet_386,trapped,19,0,1.946
+00105-xWvSkKiWQpC_04581_chair_157,ran out of steps,,,4.304
+00105-xWvSkKiWQpC_04591_chair_337,trapped,22,0,6.792
+00105-xWvSkKiWQpC_04598_vase_131,trapped,19,0,5.410
+00105-xWvSkKiWQpC_00564_monitor_6,trapped,244,194,4.626
+00168-bHKTDQFJxTw_00797_chair_544,trapped,21,0,4.625
+00168-bHKTDQFJxTw_04803_couch_733,ran out of steps,,,5.535
+00168-bHKTDQFJxTw_00784_chair_543,trapped,23,0,3.599
+00168-bHKTDQFJxTw_00796_chair_378,ran out of steps,,,7.198
+00168-bHKTDQFJxTw_00793_toilet_66,trapped,19,0,4.472
+00168-bHKTDQFJxTw_04811_chair_764,trapped,23,0,5.496
+00168-bHKTDQFJxTw_04815_toilet_308,trapped,31,0,6.550
+00168-bHKTDQFJxTw_04814_toilet_57,trapped,29,0,3.023
+00168-bHKTDQFJxTw_04807_toilet_316,trapped,24,0,4.270
+00168-bHKTDQFJxTw_00805_chair_764,ran out of steps,,,6.717
+00168-bHKTDQFJxTw_00804_chair_796,trapped,22,0,5.430
+00168-bHKTDQFJxTw_04805_chair_796,trapped,150,100,4.219
+00168-bHKTDQFJxTw_04826_toilet_77,trapped,19,0,4.700
+00168-bHKTDQFJxTw_04808_chair_740,ran out of steps,,,4.528
+00685-ENiCjXWB6aQ_03531_chair_607,trapped,21,0,4.357
+00685-ENiCjXWB6aQ_03543_stool_133,trapped,20,0,5.987
+00685-ENiCjXWB6aQ_03517_stool_837,trapped,19,0,6.874
+00685-ENiCjXWB6aQ_03524_sofa_312,trapped,23,0,2.442
+00685-ENiCjXWB6aQ_03512_sofa_642,trapped,23,0,4.083
+00397-ZNanfzgCdm3_02061_chair_7,trapped,19,0,5.471
+00397-ZNanfzgCdm3_02065_chair_377,trapped,31,0,5.898
+00397-ZNanfzgCdm3_02067_chair_417,trapped,19,0,4.044
+00638-iePHCSf119p_03273_armchair_325,ran out of steps,,,7.337
+00638-iePHCSf119p_03325_chair_230,trapped,31,0,5.375
+00638-iePHCSf119p_03292_stool_366,trapped,141,91,5.515
+00638-iePHCSf119p_03284_plant_83,trapped,19,0,4.696
+00638-iePHCSf119p_03306_chair_229,trapped,24,0,4.793
+00638-iePHCSf119p_03345_sofa_345,ran out of steps,,,2.940
+00638-iePHCSf119p_03327_plant_70,ran out of steps,,,5.422
+00638-iePHCSf119p_03317_plant_69,trapped,64,14,6.357
+00638-iePHCSf119p_03276_stool_362,ran out of steps,,,6.032
+00638-iePHCSf119p_03339_stool_370,trapped,24,0,7.179
+00638-iePHCSf119p_03338_chair_216,ran out of steps,,,4.131
+00638-iePHCSf119p_03274_chair_372,trapped,19,0,5.904
+00638-iePHCSf119p_03310_stool_367,ran out of steps,,,5.730
+00638-iePHCSf119p_03332_vase_36,ran out of steps,,,5.379
+00638-iePHCSf119p_03314_plant_346,trapped,23,0,5.456
+00638-iePHCSf119p_03318_chair_214,ran out of steps,,,6.267
+00638-iePHCSf119p_03336_armchair_324,ran out of steps,,,3.957
+00638-iePHCSf119p_03330_chair_360,trapped,21,0,5.282
+00031-Wo6kuutE9i7_04216_chair_257,trapped,29,0,3.683
+00031-Wo6kuutE9i7_04229_chair_188,trapped,28,0,3.981
+00031-Wo6kuutE9i7_04219_toilet_87,trapped,75,25,4.379
+00031-Wo6kuutE9i7_00199_chair_261,ran out of steps,,,5.006
+00031-Wo6kuutE9i7_00212_chair_188,trapped,28,0,3.852
+00031-Wo6kuutE9i7_00196_toilet_87,trapped,19,0,4.778
+00031-Wo6kuutE9i7_00193_armchair_194,ran out of steps,,,4.398
+00031-Wo6kuutE9i7_04208_vase_252,trapped,27,0,5.118
+00031-Wo6kuutE9i7_00190_chair_183,ran out of steps,,,5.361
+00031-Wo6kuutE9i7_04233_vase_273,trapped,22,0,7.522
+00031-Wo6kuutE9i7_04213_tv_227,ran out of steps,,,6.372
+00203-VoVGtfYrpuQ_04982_stool_465,trapped,23,0,3.791
+00203-VoVGtfYrpuQ_04963_plant_340,trapped,19,0,3.362
+00203-VoVGtfYrpuQ_00967_bed_189,trapped,19,0,4.284
+00203-VoVGtfYrpuQ_00946_plant_176,trapped,22,0,5.690
+00203-VoVGtfYrpuQ_00928_bed_33,trapped,19,0,3.342
+00203-VoVGtfYrpuQ_04995_plant_466,trapped,29,0,4.737
+00203-VoVGtfYrpuQ_04985_plant_433,trapped,20,0,6.095
+00203-VoVGtfYrpuQ_00938_chair_460,trapped,22,0,6.888
+00203-VoVGtfYrpuQ_00965_plant_433,ran out of steps,,,4.314
+00203-VoVGtfYrpuQ_00945_plant_535,trapped,19,0,3.839
+00203-VoVGtfYrpuQ_00937_armchair_353,trapped,23,0,4.009
+00203-VoVGtfYrpuQ_00966_tv_104,trapped,19,0,2.872
+00203-VoVGtfYrpuQ_04959_tv_444,trapped,20,0,6.674
+00203-VoVGtfYrpuQ_04973_plant_415,trapped,19,0,7.336
+00203-VoVGtfYrpuQ_00936_chair_461,trapped,22,0,3.260
+00203-VoVGtfYrpuQ_00960_plant_543,trapped,66,16,4.474
+00009-vLpv2VX547B_00031_chair_714,trapped,19,0,4.097
+00009-vLpv2VX547B_00030_armchair_836,trapped,36,0,5.487
+00009-vLpv2VX547B_00035_chair_406,trapped,19,0,2.334
+00009-vLpv2VX547B_04060_vase_590,trapped,22,0,4.075
+00009-vLpv2VX547B_04050_vase_317,trapped,23,0,6.271
+00009-vLpv2VX547B_00014_armchair_498,trapped,20,0,3.541
+00009-vLpv2VX547B_04059_tv_316,trapped,19,0,3.686
+00009-vLpv2VX547B_00019_bed_842,trapped,21,0,5.412
+00009-vLpv2VX547B_00025_chair_69,trapped,19,0,5.007
+00009-vLpv2VX547B_00015_chair_712,trapped,19,0,4.549
+00009-vLpv2VX547B_04032_chair_712,trapped,25,0,5.390
+00009-vLpv2VX547B_04041_chair_658,trapped,19,0,5.736
+00009-vLpv2VX547B_00010_chair_671,trapped,22,0,3.961
+00009-vLpv2VX547B_04037_chair_670,trapped,19,0,2.482
+00009-vLpv2VX547B_00041_chair_918,trapped,21,0,7.148
+00009-vLpv2VX547B_04053_bed_842,trapped,19,0,2.511
+00009-vLpv2VX547B_04033_couch_914,trapped,30,0,2.792
+00099-226REUyJh2K_04544_chair_193,trapped,19,0,6.610
+00099-226REUyJh2K_04549_chair_152,trapped,23,0,6.088
+00099-226REUyJh2K_04551_chair_149,trapped,24,0,6.428
+00099-226REUyJh2K_00514_chair_141,trapped,28,0,5.386
+00099-226REUyJh2K_04539_chair_192,trapped,22,0,5.287
+00099-226REUyJh2K_00521_chair_196,trapped,19,0,5.805
+00099-226REUyJh2K_04534_tv_113,trapped,32,0,5.054
+00099-226REUyJh2K_00540_chair_195,trapped,24,0,5.290
+00099-226REUyJh2K_04556_chair_127,trapped,20,0,6.172
+00099-226REUyJh2K_00516_chair_153,trapped,19,0,4.196
+00099-226REUyJh2K_00536_chair_194,trapped,20,0,5.651
+00099-226REUyJh2K_04535_chair_194,trapped,22,0,3.372
+00099-226REUyJh2K_04538_armchair_281,trapped,24,0,4.782
+00099-226REUyJh2K_04530_chair_77,trapped,19,0,7.663
+00099-226REUyJh2K_04565_toilet_248,trapped,28,0,3.298
+00099-226REUyJh2K_00528_toilet_385,trapped,21,0,2.609
+00099-226REUyJh2K_04555_armchair_10,trapped,33,0,3.324
+00099-226REUyJh2K_04531_chair_196,trapped,25,0,4.651
+00099-226REUyJh2K_04537_couch_123,trapped,21,0,6.376
+00251-wsAYBFtQaL7_01238_armchair_271,trapped,50,0,3.501
+00251-wsAYBFtQaL7_01243_swivel chair_639,trapped,28,0,3.029
+00251-wsAYBFtQaL7_01247_tv_301,trapped,19,0,2.279
+00251-wsAYBFtQaL7_01242_vase_383,trapped,19,0,5.881
+00251-wsAYBFtQaL7_01241_toilet_688,trapped,32,0,3.251
+00251-wsAYBFtQaL7_01246_bed_566,trapped,29,0,3.686
+00757-LVgQNuK8vtv_03943_couch_13,trapped,19,0,6.022
+00757-LVgQNuK8vtv_03953_tv_29,trapped,25,0,4.950
+00757-LVgQNuK8vtv_03954_toilet_447,trapped,19,0,4.774
+00757-LVgQNuK8vtv_03978_chair_378,trapped,19,0,5.023
+00757-LVgQNuK8vtv_03962_stool_87,trapped,19,0,3.913
+00757-LVgQNuK8vtv_03960_armchair_35,trapped,19,0,4.660
+00757-LVgQNuK8vtv_03942_armchair_408,trapped,19,0,3.340
+00757-LVgQNuK8vtv_03961_bed_530,trapped,27,0,5.190
+00020-XYyR54sxe6b_04111_chair_153,trapped,31,0,3.765
+00020-XYyR54sxe6b_04103_bed_297,trapped,38,0,4.743
+00020-XYyR54sxe6b_04109_toilet_332,trapped,26,0,5.583
+00020-XYyR54sxe6b_04102_couch_74,trapped,20,0,3.384
+00567-KjZrPggnHm8_02791_armchair_83,trapped,28,0,4.612
+00567-KjZrPggnHm8_02793_chair_495,ran out of steps,,,4.222
+00567-KjZrPggnHm8_02797_toilet_183,trapped,19,0,5.193
+00567-KjZrPggnHm8_02785_toilet_229,trapped,20,0,5.690
+00567-KjZrPggnHm8_02798_chair_371,trapped,21,0,5.931
+00750-E1NrAhMoqvB_03907_armchair_154,trapped,23,0,5.140
+00750-E1NrAhMoqvB_03909_stool_490,trapped,19,0,3.498
+00750-E1NrAhMoqvB_03912_armchair_158,trapped,19,0,3.232
+00750-E1NrAhMoqvB_03910_chair_812,ran out of steps,,,5.263
+00750-E1NrAhMoqvB_03923_couch_730,trapped,23,0,3.499
+00750-E1NrAhMoqvB_03928_chair_652,trapped,26,0,4.589
+00384-ceJTwFNjqCt_01971_chair_434,trapped,19,0,5.103
+00384-ceJTwFNjqCt_01977_chair_555,trapped,82,32,6.053
+00384-ceJTwFNjqCt_01974_chair_253,trapped,24,0,5.902
+00384-ceJTwFNjqCt_01969_chair_246,trapped,37,0,5.610
+00696-DsEJeNPcZtE_03598_chair_146,trapped,19,0,7.446
+00696-DsEJeNPcZtE_03577_monitor_300,trapped,19,0,3.413
+00696-DsEJeNPcZtE_03585_chair_461,trapped,23,0,4.971
+00696-DsEJeNPcZtE_03580_toilet_549,trapped,19,0,2.039
+00696-DsEJeNPcZtE_03576_toilet_273,trapped,19,0,3.753
+00696-DsEJeNPcZtE_03594_couch_481,trapped,20,0,6.262
+00696-DsEJeNPcZtE_03575_couch_466,trapped,25,0,5.076
+00696-DsEJeNPcZtE_03589_chair_12,trapped,22,0,4.031
+00696-DsEJeNPcZtE_03587_chair_148,trapped,29,0,5.208
+00269-JNiWU5TZLtt_01567_plant_243,trapped,19,0,4.801
+00269-JNiWU5TZLtt_01552_chair_239,trapped,32,0,6.303
+00269-JNiWU5TZLtt_01581_chair_38,trapped,19,0,3.125
+00269-JNiWU5TZLtt_01559_chair_558,trapped,22,0,4.938
+00269-JNiWU5TZLtt_01556_chair_439,trapped,19,0,6.989
+00269-JNiWU5TZLtt_01603_armchair_70,trapped,31,0,7.382
+00269-JNiWU5TZLtt_01547_plant_242,trapped,29,0,3.203
+00269-JNiWU5TZLtt_01594_stool_378,trapped,33,0,4.728
+00269-JNiWU5TZLtt_01542_chair_152,trapped,20,0,5.699
+00269-JNiWU5TZLtt_01544_chair_36,trapped,19,0,3.793
+00269-JNiWU5TZLtt_01543_chair_153,trapped,20,0,4.469
+00269-JNiWU5TZLtt_01586_vase_444,trapped,19,0,6.254
+00269-JNiWU5TZLtt_01564_armchair_576,trapped,46,0,6.320
+00269-JNiWU5TZLtt_01555_plant_341,trapped,23,0,4.594
+00269-JNiWU5TZLtt_01560_armchair_490,trapped,23,0,5.901
+00269-JNiWU5TZLtt_01569_monitor_500,trapped,19,0,4.853
+00109-GTV2Y73Sn5t_00595_chair_87,trapped,19,0,3.084
+00109-GTV2Y73Sn5t_00600_chair_680,trapped,25,0,6.223
+00109-GTV2Y73Sn5t_04623_sofa_725,trapped,19,0,6.847
+00109-GTV2Y73Sn5t_00596_monitor_170,trapped,19,0,5.377
+00109-GTV2Y73Sn5t_00609_tv_627,trapped,20,0,7.277
+00109-GTV2Y73Sn5t_00607_chair_678,trapped,20,0,3.510
+00109-GTV2Y73Sn5t_00610_chair_176,trapped,24,0,7.438
+00109-GTV2Y73Sn5t_00597_sofa_725,trapped,23,0,7.463
+00109-GTV2Y73Sn5t_04620_tv_627,trapped,31,0,4.442
+00109-GTV2Y73Sn5t_04624_sofa_733,trapped,27,0,4.080
+00495-CQWES1bawee_02413_bed_1240,trapped,58,8,4.811
+00495-CQWES1bawee_02412_chair_636,trapped,29,0,2.816
+00495-CQWES1bawee_02420_tv_1188,trapped,20,0,5.634
+00495-CQWES1bawee_02432_tv_445,trapped,19,0,4.421
+00495-CQWES1bawee_02411_chair_225,trapped,28,0,7.047
+00495-CQWES1bawee_02428_chair_581,trapped,28,0,3.413
+00495-CQWES1bawee_02422_tv_1261,trapped,19,0,5.372
+00495-CQWES1bawee_02416_bed_1123,trapped,19,0,5.114
+00261-fK2vEV32Lag_01469_couch_68,trapped,21,0,3.682
+00261-fK2vEV32Lag_01459_chair_295,ran out of steps,,,5.636
+00261-fK2vEV32Lag_01458_chair_236,trapped,27,0,2.490
+00261-fK2vEV32Lag_01463_plant_232,trapped,27,0,3.249
+00059-kJxT5qssH4H_00366_vase_148,trapped,23,0,5.786
+00059-kJxT5qssH4H_00372_chair_171,trapped,29,0,3.951
+00059-kJxT5qssH4H_00368_tv_187,trapped,38,0,3.671
+00059-kJxT5qssH4H_00373_vase_116,trapped,19,0,5.423
+00059-kJxT5qssH4H_04381_chair_174,trapped,30,0,4.357
+00059-kJxT5qssH4H_00367_chair_172,trapped,28,0,4.568
+00059-kJxT5qssH4H_04382_vase_148,trapped,46,0,5.713
+00033-oPj9qMxrDEa_00232_stool_438,trapped,33,0,3.374
+00033-oPj9qMxrDEa_04239_stool_259,trapped,19,0,4.704
+00033-oPj9qMxrDEa_00224_stool_259,trapped,28,0,5.938
+00033-oPj9qMxrDEa_04245_armchair_182,trapped,23,0,6.165
+00033-oPj9qMxrDEa_00220_vase_67,trapped,19,0,5.960
+00033-oPj9qMxrDEa_04242_chair_167,trapped,20,0,4.677
+00033-oPj9qMxrDEa_00234_chair_202,trapped,26,0,5.174
+00033-oPj9qMxrDEa_00235_vase_68,trapped,19,0,4.005
+00016-qk9eeNeR4vw_04065_chair_186,trapped,23,0,6.754
+00016-qk9eeNeR4vw_04070_chair_180,trapped,19,0,6.311
+00016-qk9eeNeR4vw_04077_chair_195,trapped,21,0,4.328
+00016-qk9eeNeR4vw_04073_armchair_65,trapped,19,0,4.513
+00016-qk9eeNeR4vw_04064_plant_502,trapped,28,0,3.442
+00016-qk9eeNeR4vw_04081_chair_183,trapped,26,0,2.618
+00016-qk9eeNeR4vw_04086_chair_207,trapped,23,0,6.490
+00016-qk9eeNeR4vw_04074_chair_181,trapped,33,0,5.422
+00016-qk9eeNeR4vw_04062_vase_173,trapped,19,0,4.200
+00016-qk9eeNeR4vw_00057_chair_411,trapped,127,77,6.098
+00016-qk9eeNeR4vw_04079_chair_182,trapped,22,0,6.506
+00016-qk9eeNeR4vw_00049_chair_186,trapped,19,0,4.607
+00016-qk9eeNeR4vw_00048_monitor_209,trapped,19,0,3.741
+00035-3XYAD64HpDr_00276_plant_45,trapped,22,0,3.346
+00035-3XYAD64HpDr_00284_bed_252,trapped,30,0,4.672
+00035-3XYAD64HpDr_04290_chair_106,ran out of steps,,,5.470
+00035-3XYAD64HpDr_04300_chair_126,trapped,19,0,3.496
+00035-3XYAD64HpDr_00268_stool_98,trapped,21,0,3.482
+00035-3XYAD64HpDr_04303_toilet_317,trapped,19,0,6.031
+00035-3XYAD64HpDr_04307_chair_105,trapped,28,0,3.349
+00256-92vYG1q49FY_01340_plant_339,trapped,21,0,4.346
+00256-92vYG1q49FY_01372_chair_535,ran out of steps,,,3.803
+00256-92vYG1q49FY_01377_sofa_14,trapped,32,0,5.224
+00256-92vYG1q49FY_01341_chair_739,trapped,60,10,6.490
+00256-92vYG1q49FY_01376_plant_925,trapped,21,0,4.660
+00256-92vYG1q49FY_01359_plant_486,trapped,19,0,6.401
+00256-92vYG1q49FY_01334_vase_840,trapped,19,0,2.008
+00256-92vYG1q49FY_01358_chair_246,trapped,19,0,7.673
+00256-92vYG1q49FY_01342_plant_202,trapped,31,0,4.825
+00256-92vYG1q49FY_01326_vase_618,ran out of steps,,,5.149
+00256-92vYG1q49FY_01352_chair_735,trapped,19,0,4.698
+00256-92vYG1q49FY_01347_plant_551,trapped,19,0,3.576
+00188-dQrLTxHvLXU_00909_chair_347,trapped,23,0,4.754
+00188-dQrLTxHvLXU_00908_plant_392,trapped,24,0,5.749
+00188-dQrLTxHvLXU_00926_chair_287,trapped,29,0,3.912
+00188-dQrLTxHvLXU_04947_toilet_49,trapped,19,0,3.218
+00188-dQrLTxHvLXU_04925_armchair_380,trapped,19,0,4.314
+00188-dQrLTxHvLXU_04926_plant_392,trapped,21,0,3.907
+00294-PPTLa8SkUfo_01636_chair_571,trapped,26,0,5.289
+00294-PPTLa8SkUfo_01657_vase_555,trapped,22,0,6.764
+00294-PPTLa8SkUfo_01644_bed_119,trapped,22,0,4.282
+00733-GtM3JtRvvvR_03784_sofa_44,trapped,19,0,4.540
+00733-GtM3JtRvvvR_03788_stool_127,trapped,19,0,5.374
+00733-GtM3JtRvvvR_03780_chair_286,trapped,23,0,4.663
+00733-GtM3JtRvvvR_03792_armchair_281,trapped,24,0,4.286
+00733-GtM3JtRvvvR_03781_chair_49,trapped,19,0,4.438
+00733-GtM3JtRvvvR_03798_toilet_165,trapped,20,0,3.855
+00250-U3oQjwTuMX8_01219_couch_7,trapped,20,0,3.516
+00250-U3oQjwTuMX8_01225_chair_51,trapped,25,0,3.660
+00250-U3oQjwTuMX8_01197_stool_233,trapped,20,0,3.743
+00250-U3oQjwTuMX8_01206_chair_281,trapped,37,0,3.163
+00250-U3oQjwTuMX8_01199_stool_231,trapped,19,0,5.648
+00250-U3oQjwTuMX8_01216_chair_280,trapped,20,0,6.202
+00057-1UnKg1rAb8A_04365_plant_47,trapped,25,0,3.492
+00057-1UnKg1rAb8A_00332_couch_19,trapped,19,0,7.738
+00057-1UnKg1rAb8A_00349_plant_174,trapped,22,0,6.342
+00057-1UnKg1rAb8A_04347_tv_27,trapped,46,0,3.681
+00057-1UnKg1rAb8A_00350_plant_173,trapped,29,0,3.787
+00057-1UnKg1rAb8A_00329_plant_304,trapped,19,0,3.657
+00057-1UnKg1rAb8A_04352_couch_19,trapped,19,0,4.202
+00057-1UnKg1rAb8A_00342_plant_186,ran out of steps,,,5.415
+00057-1UnKg1rAb8A_00340_bed_443,trapped,19,0,6.712
+00057-1UnKg1rAb8A_00343_couch_193,trapped,19,0,7.015
+00057-1UnKg1rAb8A_00322_tv_28,trapped,23,0,4.254
+00057-1UnKg1rAb8A_00358_plant_424,trapped,19,0,6.539
+00057-1UnKg1rAb8A_04363_tv_28,trapped,21,0,4.161
+00057-1UnKg1rAb8A_00319_armchair_283,trapped,23,0,6.446
+00057-1UnKg1rAb8A_04340_plant_36,trapped,23,0,3.700
+00057-1UnKg1rAb8A_00348_tv_486,trapped,31,0,7.299
+00057-1UnKg1rAb8A_00324_chair_410,trapped,19,0,3.689
+00057-1UnKg1rAb8A_04346_plant_280,trapped,21,0,4.562
+00057-1UnKg1rAb8A_04341_toilet_296,trapped,28,0,4.506
+00508-4vwGX7U38Ux_02475_vase_323,trapped,23,0,5.373
+00508-4vwGX7U38Ux_02469_chair_384,trapped,25,0,5.075
+00508-4vwGX7U38Ux_02471_vase_321,trapped,21,0,4.764
+00508-4vwGX7U38Ux_02460_vase_247,trapped,19,0,6.759
+00508-4vwGX7U38Ux_02451_toilet_216,ran out of steps,,,5.647
+00723-hWDDQnSDMXb_03735_couch_513,trapped,19,0,5.421
+00723-hWDDQnSDMXb_03760_chair_1031,trapped,19,0,6.528
+00723-hWDDQnSDMXb_03731_chair_36,trapped,19,0,4.503
+00723-hWDDQnSDMXb_03759_tv_532,trapped,19,0,5.226
+00723-hWDDQnSDMXb_03738_couch_272,trapped,19,0,5.269
+00723-hWDDQnSDMXb_03753_couch_516,trapped,30,0,3.975
+00723-hWDDQnSDMXb_03732_armchair_30,trapped,25,0,4.388
+00723-hWDDQnSDMXb_03733_chair_385,trapped,19,0,2.993
+00723-hWDDQnSDMXb_03744_vase_826,ran out of steps,,,3.914
+00205-NEVASPhcrxR_00994_chair_1105,trapped,20,0,3.442
+00205-NEVASPhcrxR_00990_chair_1046,trapped,19,0,5.913
+00205-NEVASPhcrxR_01004_chair_1451,trapped,27,0,4.902
+00205-NEVASPhcrxR_01001_chair_1045,trapped,27,0,3.328
+00205-NEVASPhcrxR_00996_chair_1574,trapped,20,0,3.571
+00707-XVSZJAtHKdi_03627_bed_321,trapped,19,0,5.720
+00707-XVSZJAtHKdi_03653_chair_67,trapped,21,0,3.651
+00707-XVSZJAtHKdi_03643_chair_323,trapped,19,0,4.248
+00707-XVSZJAtHKdi_03649_bed_530,trapped,43,0,2.548
+00707-XVSZJAtHKdi_03646_chair_184,trapped,29,0,6.266
+00707-XVSZJAtHKdi_03644_chair_478,ran out of steps,,,2.483
+00707-XVSZJAtHKdi_03647_toilet_587,trapped,199,149,6.125
+00606-W16Bm4ysK8v_02975_chair_640,trapped,27,0,2.913
+00606-W16Bm4ysK8v_02988_chair_865,trapped,19,0,3.656
+00606-W16Bm4ysK8v_02983_monitor_122,trapped,19,0,3.496
+00606-W16Bm4ysK8v_02997_vase_528,ran out of steps,,,5.270
+00606-W16Bm4ysK8v_03000_chair_858,trapped,20,0,5.329
+00606-W16Bm4ysK8v_03003_chair_866,trapped,20,0,5.955
+00388-pcpn6mFqFCg_02017_stool_35,trapped,22,0,4.341
+00388-pcpn6mFqFCg_02028_chair_708,trapped,24,0,6.424
+00388-pcpn6mFqFCg_02018_plant_410,trapped,19,0,4.439
+00388-pcpn6mFqFCg_02054_monitor_189,trapped,23,0,6.369
+00388-pcpn6mFqFCg_02035_chair_616,trapped,24,0,2.588
+00388-pcpn6mFqFCg_02033_plant_416,trapped,19,0,3.197
+00388-pcpn6mFqFCg_02042_chair_367,trapped,31,0,5.300
+00388-pcpn6mFqFCg_02051_chair_777,ran out of steps,,,4.521
+00388-pcpn6mFqFCg_02038_chair_542,trapped,24,0,5.894
+00388-pcpn6mFqFCg_02034_chair_541,trapped,26,0,6.879
+00388-pcpn6mFqFCg_02020_chair_86,trapped,41,0,5.974
+00326-u9rPN5cHWBg_01783_plant_278,trapped,19,0,2.636
+00326-u9rPN5cHWBg_01770_toilet_459,ran out of steps,,,5.701
+00326-u9rPN5cHWBg_01768_plant_676,trapped,25,0,5.313
+00326-u9rPN5cHWBg_01819_plant_647,trapped,26,0,4.995
+00326-u9rPN5cHWBg_01781_bed_318,trapped,19,0,6.775
+00326-u9rPN5cHWBg_01776_plant_774,trapped,19,0,6.650
+00326-u9rPN5cHWBg_01793_stool_167,trapped,20,0,3.460
+00326-u9rPN5cHWBg_01814_plant_865,ran out of steps,,,6.955
+00326-u9rPN5cHWBg_01791_chair_923,ran out of steps,,,6.900
+00326-u9rPN5cHWBg_01787_plant_57,ran out of steps,,,4.564
+00326-u9rPN5cHWBg_01767_chair_919,trapped,19,0,3.814
+00326-u9rPN5cHWBg_01816_chair_921,trapped,19,0,6.930
+00582-TYDavTf8oyy_02820_toilet_505,trapped,19,0,5.204
+00582-TYDavTf8oyy_02814_chair_349,trapped,19,0,6.779
+00582-TYDavTf8oyy_02824_chair_348,trapped,20,0,5.876
+00487-erXNfWVjqZ8_02382_plant_37,trapped,21,0,6.179
+00487-erXNfWVjqZ8_02391_chair_477,trapped,19,0,3.784
+00487-erXNfWVjqZ8_02393_tv_368,trapped,27,0,5.209
+00487-erXNfWVjqZ8_02401_chair_458,trapped,24,0,4.971
+00487-erXNfWVjqZ8_02396_chair_475,trapped,25,0,5.793
+00487-erXNfWVjqZ8_02380_couch_446,trapped,19,0,5.582
+00487-erXNfWVjqZ8_02389_couch_348,trapped,19,0,6.103
+00034-6imZUJGRUq4_00264_chair_451,trapped,24,0,7.416
+00034-6imZUJGRUq4_00239_chair_163,trapped,24,0,5.643
+00034-6imZUJGRUq4_04286_chair_172,trapped,19,0,4.974
+00034-6imZUJGRUq4_00248_toilet_302,trapped,19,0,5.706
+00034-6imZUJGRUq4_04274_armchair_20,trapped,24,0,5.830
+00034-6imZUJGRUq4_04282_bed_212,trapped,19,0,5.202
+00034-6imZUJGRUq4_00251_chair_454,trapped,19,0,7.939
+00034-6imZUJGRUq4_04259_vase_139,trapped,23,0,4.876
+00034-6imZUJGRUq4_04263_chair_448,trapped,19,0,5.682
+00034-6imZUJGRUq4_00256_vase_139,trapped,19,0,4.538
+00034-6imZUJGRUq4_00266_bed_235,trapped,28,0,3.219
+00386-b3WpMbPFB6q_01989_chair_566,trapped,30,0,5.975
+00386-b3WpMbPFB6q_02001_sofa_311,trapped,19,0,5.729
+00386-b3WpMbPFB6q_02015_tv_317,trapped,19,0,2.350
+00386-b3WpMbPFB6q_02002_chair_662,trapped,19,0,4.777
+00386-b3WpMbPFB6q_02006_chair_526,trapped,20,0,3.819
+00386-b3WpMbPFB6q_01997_chair_273,trapped,28,0,6.598
+00386-b3WpMbPFB6q_01995_toilet_715,trapped,19,0,7.107
+00386-b3WpMbPFB6q_02013_tv_548,ran out of steps,,,4.733
+00745-yX5efd48dLf_03890_chair_179,trapped,19,0,3.233
+00745-yX5efd48dLf_03884_tv_488,trapped,19,0,5.824
+00745-yX5efd48dLf_03887_couch_61,trapped,19,0,6.052
+00222-g8Xrdbe9fir_01092_bed_34,ran out of steps,,,6.027
+00529-W9YAR9qcuvN_02519_chair_214,trapped,22,0,4.157
+00529-W9YAR9qcuvN_02506_chair_212,trapped,19,0,5.411
+00529-W9YAR9qcuvN_02510_chair_213,ran out of steps,,,3.999
+00529-W9YAR9qcuvN_02509_chair_223,trapped,28,0,3.230
+00529-W9YAR9qcuvN_02520_bed_79,trapped,27,0,3.228
+00529-W9YAR9qcuvN_02517_armchair_9,trapped,24,0,3.039
+00529-W9YAR9qcuvN_02514_toilet_325,trapped,21,0,3.309
+00624-ooq3SnvC79d_03044_chair_521,ran out of steps,,,4.172
+00624-ooq3SnvC79d_03046_chair_526,trapped,19,0,4.950
+00624-ooq3SnvC79d_03034_armchair_464,trapped,33,0,2.492
+00624-ooq3SnvC79d_03052_armchair_214,trapped,21,0,3.858
+00624-ooq3SnvC79d_03047_toilet_133,trapped,30,0,3.297
+00624-ooq3SnvC79d_03033_armchair_753,trapped,19,0,5.629
+00378-DqJKU7YU7dA_01910_chair_51,trapped,23,0,3.684
+00378-DqJKU7YU7dA_01905_chair_321,trapped,19,0,5.767
+00378-DqJKU7YU7dA_01919_vase_89,trapped,19,0,5.254
+00378-DqJKU7YU7dA_01912_chair_325,ran out of steps,,,3.584
+00378-DqJKU7YU7dA_01897_armchair_211,trapped,23,0,4.028
+00378-DqJKU7YU7dA_01924_toilet_626,trapped,19,0,4.734
+00378-DqJKU7YU7dA_01914_chair_326,ran out of steps,,,3.641
+00378-DqJKU7YU7dA_01928_chair_330,trapped,30,0,4.808
+00172-bB6nKqfsb1z_00817_chair_259,trapped,20,0,7.376
+00172-bB6nKqfsb1z_04854_chair_518,trapped,25,0,4.073
+00172-bB6nKqfsb1z_04839_toilet_359,trapped,19,0,4.446
+00172-bB6nKqfsb1z_04846_toilet_69,trapped,21,0,4.018
+00172-bB6nKqfsb1z_00814_screen_28,trapped,29,0,5.338
+00172-bB6nKqfsb1z_04853_couch_478,trapped,39,0,3.615
+00172-bB6nKqfsb1z_04844_chair_517,trapped,19,0,6.580
+00172-bB6nKqfsb1z_00821_chair_519,trapped,27,0,4.279
+00172-bB6nKqfsb1z_00819_couch_478,trapped,32,0,4.827
+00172-bB6nKqfsb1z_00828_tv_303,trapped,38,0,6.095
+00476-NtnvZSMK3en_02377_vase_459,trapped,24,0,4.874
+00476-NtnvZSMK3en_02376_couch_144,trapped,23,0,2.431
+00476-NtnvZSMK3en_02370_plant_127,trapped,23,0,3.867
+00081-5biL7VEkByM_00448_sofa_410,trapped,30,0,5.893
+00081-5biL7VEkByM_04460_bed_30,trapped,28,0,6.749
+00081-5biL7VEkByM_04480_chair_439,trapped,29,0,4.801
+00081-5biL7VEkByM_04463_sofa_409,trapped,20,0,4.976
+00081-5biL7VEkByM_00460_chair_442,trapped,56,6,4.645
+00081-5biL7VEkByM_04488_toilet_504,trapped,28,0,5.006
+00081-5biL7VEkByM_00440_bed_30,trapped,30,0,6.948
+00081-5biL7VEkByM_04472_chair_493,ran out of steps,,,6.593
+00081-5biL7VEkByM_00462_vase_389,trapped,26,0,5.851
+00744-1S7LAXRdDqK_03856_plant_265,trapped,60,10,6.342
+00744-1S7LAXRdDqK_03854_armchair_377,trapped,19,0,4.347
+00744-1S7LAXRdDqK_03844_couch_388,trapped,29,0,6.020
+00744-1S7LAXRdDqK_03849_chair_116,trapped,21,0,7.341
+00744-1S7LAXRdDqK_03878_couch_100,trapped,19,0,3.832
+00744-1S7LAXRdDqK_03863_toilet_169,trapped,19,0,5.845
+00744-1S7LAXRdDqK_03877_chair_523,trapped,19,0,4.017
+00706-YHmAkqgwe2p_03604_armchair_220,trapped,152,102,3.956
+00706-YHmAkqgwe2p_03615_bed_24,trapped,29,0,5.922
+00706-YHmAkqgwe2p_03622_chair_99,trapped,20,0,5.610
+00706-YHmAkqgwe2p_03624_chair_243,trapped,19,0,4.524
+00706-YHmAkqgwe2p_03603_armchair_219,trapped,24,0,5.771
+00706-YHmAkqgwe2p_03607_chair_350,trapped,54,4,6.248
+00706-YHmAkqgwe2p_03611_chair_351,trapped,33,0,7.185
+00706-YHmAkqgwe2p_03625_couch_226,trapped,31,0,5.527
+00706-YHmAkqgwe2p_03609_couch_221,trapped,19,0,2.891
+00557-fRZhp6vWGw7_02751_plant_354,trapped,19,0,4.468
+00557-fRZhp6vWGw7_02733_bed_201,trapped,20,0,6.763
+00557-fRZhp6vWGw7_02742_chair_616,trapped,27,0,6.985
+00557-fRZhp6vWGw7_02741_armchair_665,trapped,19,0,3.492
+00557-fRZhp6vWGw7_02740_plant_230,trapped,24,0,5.833
+00557-fRZhp6vWGw7_02724_plant_450,trapped,19,0,4.818
+00557-fRZhp6vWGw7_02721_bed_280,trapped,19,0,5.424
+00023-zepmXAdrpjR_00133_chair_555,trapped,19,0,6.373
+00023-zepmXAdrpjR_00146_chair_404,trapped,31,0,5.604
+00023-zepmXAdrpjR_04144_armchair_21,trapped,19,0,7.344
+00023-zepmXAdrpjR_04157_chair_560,ran out of steps,,,3.380
+00023-zepmXAdrpjR_04163_tv_471,ran out of steps,,,7.898
+00023-zepmXAdrpjR_04143_couch_422,ran out of steps,,,5.056
+00023-zepmXAdrpjR_04141_chair_559,ran out of steps,,,7.382
+00023-zepmXAdrpjR_04162_bed_171,trapped,19,0,5.298
+00023-zepmXAdrpjR_04142_chair_404,trapped,49,0,7.529
+00023-zepmXAdrpjR_00142_toilet_93,trapped,27,0,2.390
+00023-zepmXAdrpjR_04158_plant_440,trapped,19,0,6.728
+00023-zepmXAdrpjR_04160_chair_379,ran out of steps,,,4.565
+00023-zepmXAdrpjR_00122_chair_559,trapped,46,0,4.127
+00023-zepmXAdrpjR_00124_chair_515,trapped,28,0,7.410
+00023-zepmXAdrpjR_04161_chair_377,trapped,20,0,6.868
+00547-9h5JJxM6E5S_02707_tv_487,trapped,38,0,4.887
+00547-9h5JJxM6E5S_02683_stool_110,trapped,33,0,4.544
+00547-9h5JJxM6E5S_02703_chair_354,trapped,20,0,6.401
+00547-9h5JJxM6E5S_02668_plant_311,trapped,20,0,4.528
+00547-9h5JJxM6E5S_02688_chair_214,trapped,19,0,3.856
+00547-9h5JJxM6E5S_02709_vase_58,trapped,19,0,4.977
+00547-9h5JJxM6E5S_02669_armchair_488,trapped,19,0,4.949
+00547-9h5JJxM6E5S_02694_plant_521,trapped,34,0,5.885
+00547-9h5JJxM6E5S_02676_plant_308,trapped,34,0,2.393
+00547-9h5JJxM6E5S_02677_plant_571,trapped,28,0,3.546
+00619-R9fYpvCUkV7_03023_stool_294,trapped,19,0,3.493
+00382-S7uMvxjBVZq_01931_armchair_126,trapped,19,0,3.019
+00382-S7uMvxjBVZq_01949_chair_218,trapped,19,0,7.125
+00382-S7uMvxjBVZq_01962_bed_523,trapped,27,0,5.743
+00382-S7uMvxjBVZq_01941_bed_392,trapped,21,0,3.639
+00382-S7uMvxjBVZq_01946_chair_222,trapped,29,0,5.358
+00382-S7uMvxjBVZq_01953_chair_221,trapped,19,0,3.101
+00382-S7uMvxjBVZq_01934_toilet_475,trapped,39,0,5.413
+00382-S7uMvxjBVZq_01935_chair_596,trapped,25,0,6.178
+00382-S7uMvxjBVZq_01943_couch_39,trapped,21,0,5.197
+00382-S7uMvxjBVZq_01942_armchair_30,trapped,27,0,6.341
+00382-S7uMvxjBVZq_01957_tv_67,trapped,19,0,4.508
+00382-S7uMvxjBVZq_01939_chair_540,trapped,19,0,5.406
+00410-v7DzfFFEpsD_02147_vase_339,trapped,23,0,3.115
+00410-v7DzfFFEpsD_02152_chair_646,trapped,19,0,6.555
+00410-v7DzfFFEpsD_02155_tv_376,trapped,19,0,5.891
+00410-v7DzfFFEpsD_02173_chair_29,trapped,19,0,2.745
+00410-v7DzfFFEpsD_02149_chair_388,trapped,20,0,5.810
+00407-NPHxDe6VeCc_02126_couch_429,trapped,25,0,4.954
+00407-NPHxDe6VeCc_02138_chair_452,trapped,20,0,4.754
+00407-NPHxDe6VeCc_02117_chair_450,trapped,28,0,3.570
+00407-NPHxDe6VeCc_02140_chair_231,trapped,182,132,6.268
+00407-NPHxDe6VeCc_02122_toilet_641,trapped,31,0,5.052
+00407-NPHxDe6VeCc_02123_toilet_149,trapped,19,0,5.076
+00404-QN2dRqwd84J_02100_stool_580,trapped,30,0,4.052
+00404-QN2dRqwd84J_02099_tv_384,trapped,23,0,5.933
+00404-QN2dRqwd84J_02106_chair_409,trapped,19,0,4.054
+00404-QN2dRqwd84J_02105_armchair_282,trapped,26,0,4.172
+00404-QN2dRqwd84J_02088_chair_512,trapped,21,0,3.510
+00538-3CBBjsNkhqW_02556_chair_872,trapped,20,0,5.583
+00538-3CBBjsNkhqW_02597_chair_874,trapped,21,0,3.732
+00538-3CBBjsNkhqW_02583_chair_922,trapped,19,0,4.630
+00538-3CBBjsNkhqW_02572_chair_925,trapped,67,17,7.761
+00538-3CBBjsNkhqW_02589_chair_1163,trapped,30,0,3.687
+00538-3CBBjsNkhqW_02564_chair_1183,trapped,22,0,3.301
+00538-3CBBjsNkhqW_02558_chair_924,trapped,63,13,3.481
+00538-3CBBjsNkhqW_02552_chair_1062,trapped,26,0,6.601
+00179-MVVzj944atG_00891_toilet_63,trapped,19,0,5.739
+00758-HfMobPm86Xn_04000_armchair_46,trapped,92,42,6.375
+00758-HfMobPm86Xn_04013_stool_919,trapped,29,0,6.227
+00758-HfMobPm86Xn_04007_tv_723,trapped,31,0,3.802
+00758-HfMobPm86Xn_03981_sofa_680,trapped,29,0,4.328
+00758-HfMobPm86Xn_04012_armchair_50,trapped,19,0,4.675
+00758-HfMobPm86Xn_04011_sofa_44,trapped,19,0,6.636
+00758-HfMobPm86Xn_03979_chair_193,trapped,20,0,6.255
+00267-gQ3xxshDiCz_01529_armchair_275,trapped,19,0,7.568
+00267-gQ3xxshDiCz_01532_plant_72,trapped,19,0,6.595
+00267-gQ3xxshDiCz_01515_screen_222,trapped,19,0,4.635
+00267-gQ3xxshDiCz_01523_chair_304,trapped,34,0,3.755
+00241-h6nwVLpAKQz_01162_toilet_35,trapped,30,0,4.213
+00241-h6nwVLpAKQz_01171_bed_78,trapped,39,0,6.357
+00241-h6nwVLpAKQz_01175_chair_412,trapped,19,0,3.833
+00327-xgLmjqzoAzF_01846_toilet_702,trapped,19,0,5.378
+00327-xgLmjqzoAzF_01834_vase_310,trapped,33,0,5.548
+00327-xgLmjqzoAzF_01839_stool_438,trapped,27,0,5.560
+00327-xgLmjqzoAzF_01838_chair_300,trapped,21,0,4.732
+00327-xgLmjqzoAzF_01825_tv_593,trapped,22,0,3.546
+00327-xgLmjqzoAzF_01831_tv_28,trapped,39,0,5.465
+00525-iKFn6fzyRqs_02492_bed_264,trapped,24,0,4.296
+00525-iKFn6fzyRqs_02500_monitor_323,trapped,20,0,7.070
+00525-iKFn6fzyRqs_02495_tv_292,trapped,19,0,7.892
+00525-iKFn6fzyRqs_02480_chair_631,trapped,33,0,5.501
+00525-iKFn6fzyRqs_02491_toilet_683,trapped,30,0,3.394
+00525-iKFn6fzyRqs_02499_chair_720,ran out of steps,,,5.501
+00525-iKFn6fzyRqs_02488_toilet_118,trapped,31,0,4.733
+00525-iKFn6fzyRqs_02477_chair_524,trapped,19,0,7.189
+00234-nACV8wLu1u5_01127_tv_423,trapped,20,0,6.270
+00234-nACV8wLu1u5_01100_chair_345,trapped,19,0,3.555
+00234-nACV8wLu1u5_01115_plant_323,trapped,41,0,7.081
+00234-nACV8wLu1u5_01125_chair_432,trapped,30,0,5.057
+00234-nACV8wLu1u5_01137_chair_430,trapped,19,0,5.898
+00234-nACV8wLu1u5_01112_plant_321,trapped,40,0,4.786
+00234-nACV8wLu1u5_01116_plant_454,trapped,46,0,5.180
+00234-nACV8wLu1u5_01111_chair_230,trapped,19,0,5.491
+00463-URjpCob8MGw_02310_chair_534,trapped,19,0,5.298
+00463-URjpCob8MGw_02309_chair_535,trapped,25,0,1.507
+00463-URjpCob8MGw_02298_couch_457,trapped,57,7,4.252
+00541-FnDDfrBZPhh_02635_chair_101,trapped,19,0,5.561
+00541-FnDDfrBZPhh_02638_bed_366,trapped,19,0,4.741
+00541-FnDDfrBZPhh_02631_sofa_639,trapped,205,155,3.816
+00541-FnDDfrBZPhh_02643_bed_53,trapped,19,0,4.683
+00541-FnDDfrBZPhh_02630_sofa_650,trapped,19,0,5.261
+00741-w8GiikYuFRk_03831_couch_190,trapped,19,0,5.067
+00741-w8GiikYuFRk_03822_armchair_147,trapped,19,0,4.690
+00741-w8GiikYuFRk_03843_chair_283,trapped,19,0,6.522
+00741-w8GiikYuFRk_03841_chair_367,trapped,23,0,2.888
+00738-GPyDUnjwZQy_03802_tv_394,trapped,19,0,2.688
+00738-GPyDUnjwZQy_03813_tv_329,trapped,19,0,5.778
+00738-GPyDUnjwZQy_03804_armchair_37,trapped,19,0,4.039
+00738-GPyDUnjwZQy_03809_sofa_321,trapped,19,0,3.958
+00738-GPyDUnjwZQy_03805_monitor_347,trapped,22,0,2.190
+00738-GPyDUnjwZQy_03811_chair_344,trapped,33,0,2.198
+00738-GPyDUnjwZQy_03810_armchair_327,trapped,19,0,4.876
+00434-L5QEsaVqwrY_02245_sofa_260,trapped,22,0,3.173
+00434-L5QEsaVqwrY_02234_chair_902,trapped,19,0,3.962
+00434-L5QEsaVqwrY_02248_chair_286,trapped,41,0,3.778
+00434-L5QEsaVqwrY_02235_monitor_86,trapped,131,81,3.225
+00434-L5QEsaVqwrY_02259_chair_901,trapped,30,0,4.482
+00434-L5QEsaVqwrY_02240_sofa_864,ran out of steps,,,7.121
+00546-nS8T59Aw3sf_02660_chair_436,ran out of steps,,,5.714
+00546-nS8T59Aw3sf_02665_bed_123,trapped,133,83,3.606
+00546-nS8T59Aw3sf_02656_chair_224,trapped,19,0,2.295
+00546-nS8T59Aw3sf_02651_toilet_464,ran out of steps,,,3.392
+00612-GsQBY83r3hb_03010_toilet_68,trapped,34,0,5.980
+00612-GsQBY83r3hb_03018_chair_21,trapped,22,0,6.964
+00612-GsQBY83r3hb_03015_couch_205,trapped,20,0,3.584
+00668-6YtDG3FhNvx_03468_stool_131,trapped,29,0,3.156
+00668-6YtDG3FhNvx_03463_toilet_328,trapped,22,0,2.989
+00668-6YtDG3FhNvx_03471_vase_186,trapped,28,0,3.524
+00668-6YtDG3FhNvx_03455_bed_56,trapped,19,0,5.489
+00108-oStKKWkQ1id_00583_stool_296,ran out of steps,,,2.472
+00108-oStKKWkQ1id_00585_tv_141,trapped,20,0,5.487
+00108-oStKKWkQ1id_00578_chair_333,trapped,19,0,6.922
+00108-oStKKWkQ1id_04608_chair_333,trapped,27,0,5.671
+00064-gQgtJ9Stk5s_00417_monitor_935,trapped,116,66,4.422
+00064-gQgtJ9Stk5s_04429_chair_166,trapped,22,0,1.922
+00064-gQgtJ9Stk5s_04443_plant_159,trapped,22,0,3.468
+00064-gQgtJ9Stk5s_00431_chair_263,trapped,22,0,2.918
+00064-gQgtJ9Stk5s_04436_chair_258,ran out of steps,,,2.520
+00064-gQgtJ9Stk5s_04442_bed_788,trapped,21,0,4.740
+00064-gQgtJ9Stk5s_00410_plant_141,trapped,19,0,6.155
+00064-gQgtJ9Stk5s_04434_plant_160,trapped,192,142,3.604
+00064-gQgtJ9Stk5s_04445_chair_387,ran out of steps,,,7.289
+00064-gQgtJ9Stk5s_00400_sofa_51,ran out of steps,,,3.485
+00064-gQgtJ9Stk5s_04427_chair_263,ran out of steps,,,5.310
+00064-gQgtJ9Stk5s_00393_bed_1333,trapped,19,0,5.827
+00064-gQgtJ9Stk5s_00394_bed_786,trapped,24,0,4.298
+00064-gQgtJ9Stk5s_00421_bed_639,trapped,19,0,3.789
+00064-gQgtJ9Stk5s_00424_chair_258,trapped,23,0,3.426
+00064-gQgtJ9Stk5s_04454_chair_264,ran out of steps,,,5.486
+00064-gQgtJ9Stk5s_00395_plant_165,ran out of steps,,,5.232
+00064-gQgtJ9Stk5s_00405_chair_257,trapped,19,0,2.546
+00064-gQgtJ9Stk5s_00406_toilet_764,trapped,24,0,3.435
+00064-gQgtJ9Stk5s_04413_monitor_350,ran out of steps,,,7.356
+00064-gQgtJ9Stk5s_04435_chair_257,ran out of steps,,,4.546
+00064-gQgtJ9Stk5s_00411_toilet_741,trapped,19,0,6.200
+00064-gQgtJ9Stk5s_00428_chair_135,trapped,77,27,3.907
+00064-gQgtJ9Stk5s_00430_chair_260,trapped,23,0,2.545
+00064-gQgtJ9Stk5s_04450_monitor_937,trapped,20,0,3.978
+00064-gQgtJ9Stk5s_00420_bed_930,trapped,25,0,5.443
+00590-qgZhhx1MpTi_02831_tv_170,trapped,21,0,3.355
+00590-qgZhhx1MpTi_02841_couch_260,ran out of steps,,,3.673
+00022-gmuS7Wgsbrx_04115_stool_420,trapped,23,0,3.769
+00022-gmuS7Wgsbrx_00112_chair_614,trapped,28,0,5.021
+00022-gmuS7Wgsbrx_00101_bed_14,trapped,19,0,5.797
+00022-gmuS7Wgsbrx_00098_monitor_515,trapped,54,4,6.570
+00022-gmuS7Wgsbrx_00115_toilet_132,trapped,19,0,5.342
+00022-gmuS7Wgsbrx_00108_toilet_580,trapped,30,0,3.790
+00022-gmuS7Wgsbrx_04119_stool_421,trapped,35,0,6.061
+00022-gmuS7Wgsbrx_04126_stool_422,trapped,46,0,6.077
+00055-HxmXPBbFCkH_04331_plant_272,trapped,19,0,4.081
+00055-HxmXPBbFCkH_04338_bed_76,trapped,19,0,5.766
+00591-JptJPosx1Z6_02861_chair_272,trapped,57,7,6.470
+00591-JptJPosx1Z6_02895_chair_110,trapped,19,0,3.861
+00591-JptJPosx1Z6_02881_plant_296,trapped,30,0,2.426
+00591-JptJPosx1Z6_02868_tv_473,trapped,20,0,4.300
+00591-JptJPosx1Z6_02856_chair_108,trapped,19,0,7.079
+00591-JptJPosx1Z6_02878_vase_270,trapped,19,0,4.147
+00591-JptJPosx1Z6_02860_plant_107,trapped,23,0,5.270
+00591-JptJPosx1Z6_02871_armchair_731,trapped,19,0,7.505
+00475-g7hUFVNac26_02353_tv_445,trapped,19,0,4.854
+00475-g7hUFVNac26_02341_toilet_1121,trapped,23,0,4.116
+00475-g7hUFVNac26_02348_bed_1204,ran out of steps,,,3.721
+00475-g7hUFVNac26_02340_toilet_647,trapped,42,0,2.314
+00475-g7hUFVNac26_02344_screen_1065,trapped,19,0,5.512
+00475-g7hUFVNac26_02324_couch_9,trapped,19,0,3.491
+00475-g7hUFVNac26_02333_bed_1152,trapped,114,64,3.678
+00207-FRQ75PjD278_01008_chair_231,trapped,19,0,3.921
+00207-FRQ75PjD278_01007_plant_408,trapped,27,0,3.523
+00207-FRQ75PjD278_01012_tv_272,trapped,21,0,5.735
+00207-FRQ75PjD278_01006_sofa_298,trapped,23,0,5.734
+00207-FRQ75PjD278_01015_chair_234,trapped,19,0,5.235
+00366-fxbzYAGkrtm_01895_toilet_93,trapped,28,0,4.218
+00366-fxbzYAGkrtm_01890_tv_427,trapped,25,0,5.890
+00366-fxbzYAGkrtm_01889_tv_375,trapped,19,0,4.706
+00366-fxbzYAGkrtm_01877_tv_255,trapped,19,0,4.230
+00366-fxbzYAGkrtm_01885_chair_321,trapped,23,0,7.821
+00417-nGhNxKrgBPb_02219_vase_161,trapped,34,0,7.137
+00417-nGhNxKrgBPb_02212_tv_287,trapped,19,0,1.739
+00417-nGhNxKrgBPb_02209_toilet_86,trapped,20,0,4.152
+00062-ACZZiU6BXLz_00379_stool_425,trapped,19,0,5.487
+00062-ACZZiU6BXLz_00377_couch_320,trapped,19,0,7.479
+00062-ACZZiU6BXLz_00386_vase_9,trapped,26,0,4.470
+00062-ACZZiU6BXLz_00380_couch_409,trapped,19,0,5.755
+00062-ACZZiU6BXLz_04399_tv_345,trapped,19,0,4.870
+00062-ACZZiU6BXLz_00376_tv_345,trapped,33,0,5.997
+00062-ACZZiU6BXLz_00374_toilet_563,trapped,26,0,4.177
+00062-ACZZiU6BXLz_04397_toilet_563,trapped,39,0,3.654
+00657-TSJmdttd2GV_03396_plant_92,trapped,21,0,6.864
+00657-TSJmdttd2GV_03376_bed_124,trapped,22,0,4.470
+00657-TSJmdttd2GV_03409_plant_626,trapped,21,0,4.445
+00657-TSJmdttd2GV_03388_stool_139,trapped,26,0,6.003
+00657-TSJmdttd2GV_03377_plant_697,trapped,19,0,5.707
+00657-TSJmdttd2GV_03380_vase_643,trapped,19,0,4.404
+00657-TSJmdttd2GV_03399_plant_70,trapped,24,0,4.525
+00657-TSJmdttd2GV_03410_couch_55,trapped,32,0,4.384
+00657-TSJmdttd2GV_03403_bed_504,ran out of steps,,,6.819
+00657-TSJmdttd2GV_03405_bed_35,trapped,21,0,3.896
+00657-TSJmdttd2GV_03400_bed_216,trapped,24,0,6.922
+00657-TSJmdttd2GV_03373_chair_215,trapped,19,0,4.834
+00657-TSJmdttd2GV_03402_chair_618,trapped,19,0,3.370
+00657-TSJmdttd2GV_03411_vase_612,ran out of steps,,,5.370
+00043-Jfyvj3xn2aJ_00290_bed_525,trapped,22,0,4.258
+00087-YY8rqV6L6rf_00481_armchair_279,trapped,28,0,5.312
+00087-YY8rqV6L6rf_00475_toilet_140,trapped,35,0,3.950
+00087-YY8rqV6L6rf_00477_armchair_78,trapped,27,0,3.705
+00323-yHLr6bvWsVm_01753_vase_266,trapped,20,0,4.467
+00323-yHLr6bvWsVm_01739_vase_40,trapped,23,0,4.670
+00323-yHLr6bvWsVm_01749_bed_379,trapped,28,0,2.228
+00143-5Kw4nGdqYtS_04675_bed_606,trapped,19,0,3.559
+00143-5Kw4nGdqYtS_00663_armchair_575,trapped,32,0,4.914
+00143-5Kw4nGdqYtS_00650_bed_606,trapped,22,0,3.082
+00143-5Kw4nGdqYtS_04673_chair_45,trapped,23,0,3.330
+00143-5Kw4nGdqYtS_00651_chair_401,trapped,19,0,5.502
+00143-5Kw4nGdqYtS_04690_chair_401,trapped,19,0,3.735
+00143-5Kw4nGdqYtS_00652_bed_565,trapped,20,0,4.793
+00143-5Kw4nGdqYtS_00659_couch_24,trapped,36,0,1.698
+00143-5Kw4nGdqYtS_04680_tv_352,trapped,19,0,5.464
+00143-5Kw4nGdqYtS_04677_vase_59,trapped,19,0,1.392
+00143-5Kw4nGdqYtS_00647_vase_59,trapped,25,0,2.078
+00143-5Kw4nGdqYtS_04686_chair_403,trapped,167,117,2.372
+00324-DoSbsoo4EAg_01762_chair_207,trapped,28,0,2.463
+00324-DoSbsoo4EAg_01758_toilet_76,trapped,19,0,1.647
+00307-vDfkYo5VqEQ_01708_tv_25,trapped,162,112,6.640
+00307-vDfkYo5VqEQ_01706_couch_62,trapped,39,0,3.302
+00307-vDfkYo5VqEQ_01703_chair_91,trapped,23,0,5.402
+00155-iLDo95ZbDJq_00739_toilet_309,trapped,19,0,5.766
+00155-iLDo95ZbDJq_04760_chair_379,trapped,23,0,6.689
+00155-iLDo95ZbDJq_04769_tv_211,trapped,19,0,4.298
+00155-iLDo95ZbDJq_04763_couch_223,trapped,20,0,3.030
+00155-iLDo95ZbDJq_04762_toilet_309,trapped,19,0,5.283
+00155-iLDo95ZbDJq_00740_toilet_459,trapped,30,0,6.259
+00688-SgkmkWjjmDJ_03554_armchair_351,trapped,19,0,6.641
+00688-SgkmkWjjmDJ_03565_chair_74,trapped,22,0,7.333
+00560-gjhYih4upQ9_02767_chair_255,trapped,22,0,7.334
+00560-gjhYih4upQ9_02756_bed_74,trapped,19,0,5.732
+00560-gjhYih4upQ9_02752_tv_31,trapped,19,0,4.023
+00560-gjhYih4upQ9_02754_armchair_38,trapped,30,0,5.154
+00560-gjhYih4upQ9_02760_chair_15,trapped,26,0,6.234
+00272-kA2nG18hCAr_01624_toilet_926,ran out of steps,,,4.270
+00272-kA2nG18hCAr_01618_couch_856,trapped,25,0,5.928
+00272-kA2nG18hCAr_01609_armchair_862,ran out of steps,,,3.129
+00272-kA2nG18hCAr_01625_bed_27,trapped,28,0,6.370
+00272-kA2nG18hCAr_01616_chair_387,trapped,33,0,5.814
+00272-kA2nG18hCAr_01629_toilet_100,trapped,27,0,4.070
+00746-RTV2n6fXB2w_03893_tv_10,trapped,19,0,6.522
+00746-RTV2n6fXB2w_03898_chair_4,trapped,19,0,2.413
+00746-RTV2n6fXB2w_03901_armchair_75,trapped,24,0,4.070
+00255-NGyoyh91xXJ_01295_vase_56,trapped,53,3,3.336
+00255-NGyoyh91xXJ_01312_chair_104,trapped,33,0,2.984
+00255-NGyoyh91xXJ_01318_armchair_218,trapped,25,0,3.356
+00255-NGyoyh91xXJ_01313_vase_35,trapped,38,0,5.621
+00255-NGyoyh91xXJ_01316_toilet_230,trapped,25,0,2.845
+00643-ggNAcMh8JPT_03363_bed_335,trapped,27,0,2.318
+00643-ggNAcMh8JPT_03351_stool_595,ran out of steps,,,6.561
+00643-ggNAcMh8JPT_03358_bed_393,ran out of steps,,,5.350
+00643-ggNAcMh8JPT_03355_toilet_201,trapped,23,0,3.775
+00662-aRKASs4e8j1_03426_monitor_102,trapped,22,0,3.440
+00662-aRKASs4e8j1_03427_monitor_472,trapped,29,0,5.510
+00210-j2EJhFEQGCL_01055_chair_187,trapped,19,0,7.165
+00210-j2EJhFEQGCL_01034_plant_517,trapped,23,0,4.313
+00210-j2EJhFEQGCL_01030_vase_206,trapped,19,0,5.801
+00210-j2EJhFEQGCL_01042_chair_528,ran out of steps,,,4.479
+00569-YJDUB7hWg9h_02810_monitor_258,trapped,19,0,2.828
+00592-CthA7sQNTPK_02900_plant_234,trapped,19,0,4.348
+00592-CthA7sQNTPK_02901_plant_198,trapped,25,0,5.081
+00592-CthA7sQNTPK_02909_stool_374,trapped,25,0,4.193
+00592-CthA7sQNTPK_02916_monitor_146,trapped,19,0,5.979
+00712-HZ2iMMBsBQ9_03676_toilet_54,trapped,23,0,5.071
+00712-HZ2iMMBsBQ9_03659_stool_25,trapped,19,0,5.200
+00135-HeSYRw7eMtG_00628_toilet_164,trapped,19,0,4.621
+00135-HeSYRw7eMtG_04639_toilet_55,trapped,20,0,4.695
+00135-HeSYRw7eMtG_04648_monitor_88,trapped,23,0,2.601
+00135-HeSYRw7eMtG_04647_bed_136,trapped,20,0,4.883
+00135-HeSYRw7eMtG_04644_chair_535,trapped,19,0,4.771
+00440-wPLokgvCnuk_02283_sofa_20,trapped,20,0,4.625
+00440-wPLokgvCnuk_02267_armchair_17,trapped,39,0,4.055
+00440-wPLokgvCnuk_02278_chair_29,trapped,20,0,6.158
+00304-X6Pct1msZv5_01691_couch_40,trapped,28,0,2.171
+00304-X6Pct1msZv5_01696_chair_312,trapped,30,0,6.975
+00304-X6Pct1msZv5_01688_chair_517,trapped,29,0,3.085
+00304-X6Pct1msZv5_01695_vase_219,trapped,19,0,5.265
+00732-Z2DQddYp1fn_03769_chair_371,trapped,19,0,3.509
+00732-Z2DQddYp1fn_03765_toilet_429,ran out of steps,,,5.579
+00732-Z2DQddYp1fn_03771_chair_375,trapped,23,0,7.001
+00732-Z2DQddYp1fn_03764_toilet_271,trapped,23,0,6.221
+00732-Z2DQddYp1fn_03776_armchair_5,ran out of steps,,,4.909
+00732-Z2DQddYp1fn_03767_monitor_224,ran out of steps,,,5.515
+00217-qz3829g1Lzf_01081_chair_224,trapped,19,0,6.057
+00217-qz3829g1Lzf_01080_chair_333,ran out of steps,,,5.727
+00217-qz3829g1Lzf_01072_vase_183,trapped,19,0,2.780
+00217-qz3829g1Lzf_01089_chair_332,trapped,19,0,3.587
+00217-qz3829g1Lzf_01070_bed_38,trapped,19,0,7.602
+00444-sX9xad6ULKc_02295_toilet_261,trapped,36,0,7.140
+00006-HkseAnWCgqk_04027_couch_299,ran out of steps,,,3.432
+00006-HkseAnWCgqk_00002_toilet_275,trapped,19,0,5.776
+00006-HkseAnWCgqk_00001_stool_223,trapped,19,0,3.652
+00006-HkseAnWCgqk_00005_couch_90,trapped,25,0,3.828
+00299-bdp1XNEdvmW_01665_stool_125,trapped,33,0,3.564
+00299-bdp1XNEdvmW_01664_bed_309,trapped,30,0,4.177
+00262-1xGrZPxG1Hz_01481_toilet_351,ran out of steps,,,4.774
+00262-1xGrZPxG1Hz_01476_vase_182,trapped,19,0,3.409
+00262-1xGrZPxG1Hz_01482_vase_181,trapped,19,0,5.689
+00313-PE6kVEtrxtj_01722_couch_434,trapped,19,0,4.203
+00313-PE6kVEtrxtj_01723_plant_269,ran out of steps,,,5.310
+00313-PE6kVEtrxtj_01733_stool_880,trapped,32,0,3.447
+00669-DNWbUAJYsPy_03483_armchair_129,trapped,21,0,2.917
+00669-DNWbUAJYsPy_03478_toilet_282,trapped,75,25,4.778
+00534-DBBESbk4Y3k_02524_armchair_268,trapped,32,0,3.868
+00534-DBBESbk4Y3k_02526_couch_278,trapped,29,0,6.337
+00537-oahi4u45xMf_02534_chair_320,trapped,19,0,4.482
+00401-H8rQCnvBgo6_02068_toilet_211,trapped,19,0,5.875

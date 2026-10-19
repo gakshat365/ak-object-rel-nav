@@ -105,7 +105,7 @@ class DAggerTrainer:
         Saves dagger/checkpoints/policy_iter_{iteration_idx}.pth and updates latest.pth.
         Returns path to the saved checkpoint.
         """
-        from dagger.core.data_aggregator import DAggerRecoveryDataset
+        from old_dagger.core.data_aggregator import DAggerRecoveryDataset
 
         epochs = epochs or self.train_cfg.get("epochs_per_iter", 10)
         batch_size = self.train_cfg.get("batch_size", 32)

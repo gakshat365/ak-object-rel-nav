@@ -26,7 +26,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from libs.common import utils
 from libs.common import utils_sim_traj as ust
-from dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
+from old_dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
 
 
 def evaluate_checkpoint_on_cases(
@@ -87,10 +87,14 @@ def evaluate_checkpoint_on_cases(
             # Set agent state to failure pose
             start_state = agent.get_state()
             start_state.position = case.failure_position
-            # Quaternion format
             q = case.failure_rotation
             import quaternion
-            start_state.rotation = quaternion.quaternion(q[0], q[1], q[2], q[3])
+            q_norm = float(np.linalg.norm(q))
+            if q_norm > 1e-6:
+                q = q / q_norm
+            else:
+                q = np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float32)
+            start_state.rotation = quaternion.quaternion(float(q[0]), float(q[1]), float(q[2]), float(q[3]))
             agent.set_state(start_state)
 
             initial_dist = ust.find_shortest_path(sim, case.failure_position, case.goal_position)[0]
@@ -202,7 +206,7 @@ def evaluate_checkpoint_on_cases(
 def main():
     parser = argparse.ArgumentParser(description="Evaluate Policy Checkpoint on Failure Recovery")
     parser.add_argument("--checkpoint", type=str, default=None, help="Path to checkpoint .pth file")
-    parser.add_argument("--config", type=str, default="dagger/config.yaml", help="Path to dagger config")
+    parser.add_argument("--config", type=str, default="old_dagger/config.yaml", help="Path to dagger config")
     parser.add_argument("--split", type=str, default="test", choices=["train", "val", "test", "all"])
     parser.add_argument("--out", type=str, default=None, help="Path to save summary json")
     args = parser.parse_args()
@@ -213,7 +217,7 @@ def main():
     checkpoint = args.checkpoint or cfg["paths"]["base_checkpoint"]
 
     loader = FailureLoader(args.config)
-    all_cases = loader.load_from_failed_cases_dir()
+    all_cases = loader.load_cases()
     train_c, val_c, test_c = loader.split_cases(all_cases)
 
     case_splits = {

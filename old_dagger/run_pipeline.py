@@ -41,11 +41,11 @@ logger = logging.getLogger("[RunPipeline]")
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from dagger.core.failure_loader import FailureLoader
-from dagger.core.data_aggregator import DataAggregator
-from dagger.core.trainer import DAggerTrainer
-from dagger.evaluate_recovery import evaluate_checkpoint_on_cases
-from dagger.run_iteration import run_iteration
+from old_dagger.core.failure_loader import FailureLoader
+from old_dagger.core.data_aggregator import DataAggregator
+from old_dagger.core.trainer import DAggerTrainer
+from old_dagger.evaluate_recovery import evaluate_checkpoint_on_cases
+from old_dagger.run_iteration import run_iteration
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -59,7 +59,7 @@ def _load_cfg(config_path: str) -> dict:
 
 def _load_test_cases(config_path: str, cfg: dict):
     loader = FailureLoader(config_path)
-    all_cases = loader.load_from_failed_cases_dir()
+    all_cases = loader.load_cases()
     _, _, test_cases = loader.split_cases(all_cases)
     return test_cases
 
@@ -211,8 +211,8 @@ def run_pipeline(
         "runs": [],
     }
 
-    STAGES = ["baseline_a", "baseline_b", "dagger_0", "dagger_1", "dagger_2", "report"]
-    start_idx = STAGES.index(start_from)
+    STAGES = ["baseline_a", "baseline_b", "dagger_0", "dagger_1", "dagger_2", "dagger_3", "report"]
+    start_idx = STAGES.index(start_from) if start_from in STAGES else 0
 
     # ─────────────────────────────────────────────────────────────────────────
     # Baseline A: Raw base checkpoint (no fine-tuning)
@@ -340,12 +340,12 @@ def run_pipeline(
 
 def main():
     parser = argparse.ArgumentParser(description="DAgger Full Pipeline Runner")
-    parser.add_argument("--config", type=str, default="dagger/config.yaml")
+    parser.add_argument("--config", type=str, default="old_dagger/config.yaml")
     parser.add_argument(
         "--start-from",
         type=str,
         default="baseline_a",
-        choices=["baseline_a", "baseline_b", "dagger_0", "dagger_1", "dagger_2", "report"],
+        choices=["baseline_a", "baseline_b", "dagger_0", "dagger_1", "dagger_2", "dagger_3", "report"],
         help="Resume the pipeline from a specific stage.",
     )
     parser.add_argument(
@@ -358,8 +358,9 @@ def main():
 
     config_path = str(REPO_ROOT / args.config)
 
+    cfg = _load_cfg(config_path)
     prior_results = None
-    default_results_path = REPO_ROOT / "dagger/logs/pipeline_results.json"
+    default_results_path = REPO_ROOT / cfg["paths"]["logs_dir"] / "pipeline_results.json"
     if args.results_json:
         with open(args.results_json, "r") as f:
             prior_results = json.load(f)

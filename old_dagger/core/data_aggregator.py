@@ -224,19 +224,27 @@ class DAggerRecoveryDataset(Dataset):
         self.action_mask = torch.tensor(1.0, dtype=torch.float32)
 
         cache_path = self.manifest_path.parent / f"{self.manifest_path.stem}_cached.pt"
-        if cache_path.exists():
-            try:
-                logger.info(f"Loading pre-cached tensors from {cache_path}...")
-                self.cached_tensors = torch.load(cache_path, map_location="cpu")
-                logger.info(f"Loaded {len(self.cached_tensors['obs'])} pre-cached samples directly into RAM.")
-            except Exception as e:
-                logger.warning(f"Could not load cache {cache_path}: {e}")
+        # Only attempt RAM cache if sample count is small (< 15,000 samples) to prevent 40-80 GB OOM crashes
+        MAX_CACHE_SAMPLES = 15000
+        if len(self.records) <= MAX_CACHE_SAMPLES:
+            if cache_path.exists():
+                try:
+                    logger.info(f"Loading pre-cached tensors from {cache_path}...")
+                    self.cached_tensors = torch.load(cache_path, map_location="cpu")
+                    logger.info(f"Loaded {len(self.cached_tensors['obs'])} pre-cached samples directly into RAM.")
+                except Exception as e:
+                    logger.warning(f"Could not load cache {cache_path}: {e}")
+            else:
+                logger.info(f"Building fast tensor cache at {cache_path}...")
+                try:
+                    self._build_tensor_cache(cache_path)
+                except Exception as e:
+                    logger.warning(f"Failed to build tensor cache: {e}. Falling back to on-the-fly disk loading.")
         else:
-            logger.info(f"Building fast tensor cache at {cache_path}...")
-            try:
-                self._build_tensor_cache(cache_path)
-            except Exception as e:
-                logger.warning(f"Failed to build tensor cache: {e}. Falling back to on-the-fly disk loading.")
+            logger.info(
+                f"Dataset size ({len(self.records)} samples) exceeds safe RAM cache limit ({MAX_CACHE_SAMPLES}). "
+                "Using streaming on-the-fly disk loading to guarantee 0 RAM/OOM crashes."
+            )
 
         logger.info(f"Initialized DAggerRecoveryDataset: {len(self.records)} valid samples from {self.manifest_path}")
 
@@ -487,4 +495,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    mai

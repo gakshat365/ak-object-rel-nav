@@ -1,0 +1,11 @@
+scene,flag_on,flag_off
+00006-HkseAnWCgqk_00000_tv_115,trapped,trapped
+00006-HkseAnWCgqk_00001_stool_223,success,success
+00006-HkseAnWCgqk_00002_toilet_275,trapped,trapped
+00006-HkseAnWCgqk_00003_stool_163,trapped,trapped
+00006-HkseAnWCgqk_00004_couch_299,ran out of steps,trapped
+00006-HkseAnWCgqk_00005_couch_90,success,success
+00006-HkseAnWCgqk_00006_stool_164,success,success
+00006-HkseAnWCgqk_00007_chair_17,trapped,trapped
+00006-HkseAnWCgqk_00008_bed_24,success,success
+00006-HkseAnWCgqk_04020_stool_163,success,success

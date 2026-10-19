@@ -19,32 +19,48 @@ import yaml
 logger = logging.getLogger("[FailureLoader]")
 
 
+_SCENE_GLB_CACHE: Dict[Tuple[str, str], Optional[Path]] = {}
+
+
 def find_scene_glb(hm3d_root: Path, scene_id: str) -> Optional[Path]:
-    """Finds the basis.glb scene mesh for a given scene ID across HM3D scenes directories."""
+    """Finds the basis.glb scene mesh for a given scene ID across HM3D scenes directories with caching."""
+    key = (str(hm3d_root), scene_id)
+    if key in _SCENE_GLB_CACHE:
+        return _SCENE_GLB_CACHE[key]
+
     clean_id = scene_id.split("-")[-1].strip()
-    
-    # Collect all potential directories containing scenes
+
+    # Fast direct path check first (avoids expensive NFS globbing)
     candidates = [hm3d_root]
     for sub in ["train", "val", "minival"]:
         candidates.append(hm3d_root / sub)
-    if hm3d_root.parent.exists():
+    if hm3d_root.parent.exists() and hm3d_root.name != "data":
         for sub in ["train", "val", "minival"]:
             candidates.append(hm3d_root.parent / sub)
 
-    search_dirs = []
-    seen = set()
-    for c in candidates:
-        if c.is_dir() and str(c) not in seen:
-            seen.add(str(c))
-            search_dirs.append(c)
+    # 1. Direct O(1) file lookups
+    for base in candidates:
+        direct_path = base / scene_id / f"{clean_id}.basis.glb"
+        if direct_path.exists():
+            _SCENE_GLB_CACHE[key] = direct_path
+            return direct_path
+        direct_folder = base / scene_id
+        if direct_folder.is_dir():
+            for p in direct_folder.iterdir():
+                if p.name.endswith(".basis.glb") or (p.suffix == ".glb" and not p.name.endswith(".semantic.glb")):
+                    _SCENE_GLB_CACHE[key] = p
+                    return p
 
-    for sdir in search_dirs:
-        matches = list(sdir.glob(f"*{clean_id}*/*basis.glb"))
-        if not matches:
-            matches = list(sdir.glob(f"*{clean_id}*/*.glb"))
+    # 2. Targeted shallow folder search if scene_id folder differed slightly
+    for base in candidates:
+        if not base.is_dir():
+            continue
+        matches = list(base.glob(f"*{clean_id}*/*basis.glb"))
         if matches:
+            _SCENE_GLB_CACHE[key] = matches[0]
             return matches[0]
 
+    _SCENE_GLB_CACHE[key] = None
     return None
 
 
@@ -71,8 +87,8 @@ class FailureLoader:
         with open(config_path, "r") as f:
             self.cfg = yaml.safe_load(f)
 
-        self.repo_root = Path(self.cfg["paths"]["repo_root"]).resolve()
-        self.failed_cases_dir = self.repo_root / self.cfg["paths"]["failures_cases_dir"]
+        self.repo_root = Path(self.cfg["paths"].get("repo_root", ".")).resolve()
+        self.failed_cases_dir = self.repo_root / self.cfg["paths"].get("failures_cases_dir", "dagger/data/trapped_cases")
         self.failures_source_csv = self.repo_root / self.cfg["paths"].get("failures_source_csv", "out/dagger/failure_trajectories_1300.csv")
         self.hm3d_eval_dir = self.repo_root / self.cfg["paths"].get("hm3d_eval_dir", "./out/hm3d_objectreact_eval")
         self.val_data_dir = self.repo_root / "data/hm3d_iin_val"
@@ -186,9 +202,75 @@ class FailureLoader:
         logger.info(f"Loaded {len(cases)} failure cases from {path}")
         return cases
 
+    def load_from_trapped_manifest(self, manifest_csv: Optional[str] = None) -> List[FailureCase]:
+        """
+        Loads trapped failure cases with 50-step-back recovery poses from trapped cases CSV manifest.
+        """
+        import csv
+        if manifest_csv is None:
+            manifest_csv = self.repo_root / self.cfg["paths"].get("trapped_cases_csv", "dagger/data/trapped_cases_manifest.csv")
+        path = Path(manifest_csv)
+        if not path.exists():
+            logger.warning(f"Trapped manifest CSV {path} does not exist.")
+            return []
+
+        cases = []
+        with open(path, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                ep_name = row.get("episode_name", "").strip()
+                scene_id = row.get("scene_id", "").strip()
+                if not ep_name or not scene_id:
+                    continue
+                pos = np.array([
+                    float(row["rec_pos_x"]),
+                    float(row["rec_pos_y"]),
+                    float(row["rec_pos_z"])
+                ], dtype=np.float32)
+                rot = np.array([
+                    float(row["rot_w"]),
+                    float(row["rot_x"]),
+                    float(row["rot_y"]),
+                    float(row["rot_z"])
+                ], dtype=np.float32)
+                rot_norm = float(np.linalg.norm(rot))
+                if rot_norm > 1e-6:
+                    rot = (rot / rot_norm).astype(np.float32)
+                else:
+                    rot = np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float32)
+                goal = np.array([
+                    float(row["goal_x"]),
+                    float(row["goal_y"]),
+                    float(row["goal_z"])
+                ], dtype=np.float32)
+                init_dist = float(row.get("initial_dist", 0.0) or 0.0)
+
+                fc = FailureCase(
+                    episode_name=ep_name,
+                    scene_id=scene_id,
+                    failure_position=pos,
+                    failure_rotation=rot,
+                    goal_position=goal,
+                    initial_goal_dist=init_dist,
+                    metadata={
+                        "trap_step": int(row.get("trap_step", -1)),
+                        "recovery_step": int(row.get("recovery_step", -1)),
+                        "final_dist": float(row.get("final_dist", 0.0)),
+                    }
+                )
+                cases.append(fc)
+
+        logger.info(f"Loaded {len(cases)} trapped recovery cases from {path}")
+        return cases
+
     def load_cases(self) -> List[FailureCase]:
-        """Loads failure cases according to config failure_source ('csv' or 'dir')."""
-        if self.failure_source == "csv":
+        """Loads failure cases according to config failure_source ('trapped_csv', 'csv', or 'dir')."""
+        if self.failure_source == "trapped_csv":
+            cases = self.load_from_trapped_manifest()
+            if len(cases) > 0:
+                return cases
+            logger.warning("No cases loaded from trapped CSV; falling back to dir loading.")
+        elif self.failure_source == "csv":
             cases = self.load_from_csv()
             if len(cases) > 0:
                 return cases
@@ -200,7 +282,12 @@ class FailureLoader:
         Loads recorded failure cases from out/failed_cases directory.
         Each subdirectory contains a case.npz with full AgentState history.
         """
-        if not force_dir and self.failure_source == "csv":
+        if not force_dir and self.failure_source == "trapped_csv":
+            cases = self.load_from_trapped_manifest()
+            if len(cases) > 0:
+                return cases
+            logger.warning("No cases loaded from trapped CSV; falling back to failed_cases_dir.")
+        elif not force_dir and self.failure_source == "csv":
             cases = self.load_from_csv()
             if len(cases) > 0:
                 return cases
@@ -223,19 +310,21 @@ class FailureLoader:
                 episode_name = str(data["episode_name"])
                 scene_id = str(data["scene_id"])
 
-                # Get final failure agent state
-                agent_states = data["agent_states"]
-                last_state = agent_states[-1]
-                pos = np.array(last_state.position, dtype=np.float32)
-
-                # Extract quaternion [w, x, y, z]
-                rot = last_state.rotation
-                if hasattr(rot, "w"):
-                    rot_quat = np.array([rot.w, rot.x, rot.y, rot.z], dtype=np.float32)
-                elif hasattr(rot, "real"):
-                    rot_quat = np.array([rot.real, rot.imag[0], rot.imag[1], rot.imag[2]], dtype=np.float32)
+                # Check if failure/recovery pose is directly stored
+                if "failure_position" in data and "failure_rotation" in data:
+                    pos = np.array(data["failure_position"], dtype=np.float32)
+                    rot_quat = np.array(data["failure_rotation"], dtype=np.float32)
                 else:
-                    rot_quat = np.array([rot[0], rot[1], rot[2], rot[3]], dtype=np.float32)
+                    agent_states = data["agent_states"]
+                    last_state = agent_states[-1]
+                    pos = np.array(last_state.position, dtype=np.float32)
+                    rot = last_state.rotation
+                    if hasattr(rot, "w"):
+                        rot_quat = np.array([rot.w, rot.x, rot.y, rot.z], dtype=np.float32)
+                    elif hasattr(rot, "real"):
+                        rot_quat = np.array([rot.real, rot.imag[0], rot.imag[1], rot.imag[2]], dtype=np.float32)
+                    else:
+                        rot_quat = np.array([rot[0], rot[1], rot[2], rot[3]], dtype=np.float32)
 
                 # Resolve goal position from trajectory mapping data
                 clean_ep_name = episode_name.replace("__learnt_gt_topometric", "")
@@ -249,7 +338,9 @@ class FailureLoader:
 
                 goal_pos = None
 
-                if ep_dir.exists() and (ep_dir / "agent_states.npy").exists():
+                if "goal_position" in data:
+                    goal_pos = np.array(data["goal_position"], dtype=np.float32)
+                elif ep_dir.exists() and (ep_dir / "agent_states.npy").exists():
                     teach_states = np.load(ep_dir / "agent_states.npy", allow_pickle=True)
                     goal_pos = np.array(teach_states[-1].position, dtype=np.float32)
                 else:
@@ -258,7 +349,10 @@ class FailureLoader:
                     if meta_json_path.exists():
                         with open(meta_json_path, "r") as mf:
                             meta_dict = json.load(mf)
-                            goal_pos = pos.copy()
+                            if "goal_position" in meta_dict:
+                                goal_pos = np.array(meta_dict["goal_position"], dtype=np.float32)
+                            else:
+                                goal_pos = pos.copy()
 
                 if goal_pos is None:
                     continue

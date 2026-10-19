@@ -31,11 +31,11 @@ logger = logging.getLogger("[RunIteration]")
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from dagger.core.failure_loader import FailureLoader
-from dagger.core.rollout_collector_optimised import OptimizedRolloutCollector as RolloutCollector
-from dagger.core.data_aggregator import DataAggregator
-from dagger.core.trainer import DAggerTrainer
-from dagger.evaluate_recovery import evaluate_checkpoint_on_cases
+from old_dagger.core.failure_loader import FailureLoader
+from old_dagger.core.rollout_collector_optimised import OptimizedRolloutCollector as RolloutCollector
+from old_dagger.core.data_aggregator import DataAggregator
+from old_dagger.core.trainer import DAggerTrainer
+from old_dagger.evaluate_recovery import evaluate_checkpoint_on_cases
 
 
 def _ensure_dirs(cfg: dict):
@@ -92,7 +92,7 @@ def run_iteration(
         logger.info(f"{'='*60}")
 
         loader = FailureLoader(config_path)
-        all_cases = loader.load_from_failed_cases_dir()
+        all_cases = loader.load_cases()
         train_cases, _, _ = loader.split_cases(all_cases)
         logger.info(f"Using {len(train_cases)} failure cases for rollout collection.")
 
@@ -109,7 +109,7 @@ def run_iteration(
         # Write to iter_manifest
         with open(iter_manifest, "w", newline="") as f:
             import csv
-            from dagger.core.data_aggregator import MANIFEST_FIELDS
+            from old_dagger.core.data_aggregator import MANIFEST_FIELDS
             writer = csv.DictWriter(f, fieldnames=MANIFEST_FIELDS)
             writer.writeheader()
             for r in records:
@@ -151,7 +151,7 @@ def run_iteration(
         logger.info(f"  STEP 3 — Fine-Tuning  [iter={iteration_idx}]")
         logger.info(f"{'='*60}")
 
-        trainer = DAggerTrainer(config_path=str(REPO_ROOT / "dagger" / "config.yaml"))
+        trainer = DAggerTrainer(config_path=config_path)
         fine_tuned_ckpt = trainer.train(
             manifest_path=str(agg_manifest),
             base_checkpoint_path=checkpoint_path,
@@ -171,7 +171,7 @@ def run_iteration(
         logger.info(f"{'='*60}")
 
         loader = FailureLoader(config_path)
-        all_cases = loader.load_from_failed_cases_dir()
+        all_cases = loader.load_cases()
         _, _, test_cases = loader.split_cases(all_cases)
         logger.info(f"Evaluating on {len(test_cases)} held-out test cases.")
 
@@ -215,7 +215,7 @@ def main():
         default=None,
         help="Aggregated manifest from prior iterations (optional)",
     )
-    parser.add_argument("--config", type=str, default="dagger/config.yaml")
+    parser.add_argument("--config", type=str, default="old_dagger/config.yaml")
     parser.add_argument("--skip-rollout", action="store_true")
     parser.add_argument("--skip-train", action="store_true")
     parser.add_argument("--skip-eval", action="store_true")

@@ -34,7 +34,7 @@ from libs.common import utils_sim_traj as ust
 from libs.common.vis_utils import letterbox_to_dims, concatenate_videos
 from libs.logger.visualizer import Visualizer
 from libs.control.objectreact import ObjRelLearntController
-from dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
+from old_dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
 
 
 POLICIES = [

@@ -45,8 +45,8 @@ sys.path.insert(0, str(REPO_ROOT / "libs" / "control" / "object_react" / "train"
 
 from libs.common import utils
 from libs.common import utils_sim_traj as ust
-from dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
-from dagger.core.expert_oracle import HabitatExpertOracle, OracleOutput, quat_to_yaw
+from old_dagger.core.failure_loader import FailureLoader, FailureCase, find_scene_glb
+from old_dagger.core.expert_oracle import HabitatExpertOracle, OracleOutput, quat_to_yaw
 
 # Global worker state for multi-process parallel rollouts
 _WORKER_CONTROLLER = None
@@ -187,135 +187,143 @@ class RolloutCollector:
         all_scene_records = []
         try:
             for ep_idx, case in cases:
-                # Fast reset: teleport agent to recorded failure state
-                start_state = agent.get_state()
-                start_state.position = case.failure_position
-                q = case.failure_rotation
-                start_state.rotation = quaternion.quaternion(q[0], q[1], q[2], q[3])
-                agent.set_state(start_state)
-                controller.reset_params()
-
-                step_budget = max_steps_override or self.max_steps
-                buffered_steps = []
-
-                for step in range(step_budget):
-                    curr_pos = agent.get_state().position
-
-                    # OPTIMIZATION: Euclidean pre-filter. Geodesic distance >= Euclidean distance.
-                    # Only call expensive NavMesh pathfinding if Euclidean distance is close to threshold.
-                    euclidean_dist = float(np.linalg.norm(curr_pos - case.goal_position))
-                    if euclidean_dist <= self.threshold_dist + 1.5:
-                        curr_dist = ust.find_shortest_path(sim, curr_pos, case.goal_position)[0]
+                try:
+                    # Fast reset: teleport agent to recorded failure state
+                    start_state = agent.get_state()
+                    start_state.position = case.failure_position
+                    q = case.failure_rotation
+                    q_norm = float(np.linalg.norm(q))
+                    if q_norm > 1e-6:
+                        q = q / q_norm
                     else:
-                        curr_dist = euclidean_dist
+                        q = np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float32)
+                    start_state.rotation = quaternion.quaternion(float(q[0]), float(q[1]), float(q[2]), float(q[3]))
+                    agent.set_state(start_state)
+                    controller.reset_params()
 
-                    # Goal reached check
-                    if curr_dist <= self.threshold_dist:
-                        logger.info(
-                            f"Episode {case.episode_name} achieved goal at step {step} "
-                            f"(dist={curr_dist:.3f}m <= {self.threshold_dist}m)"
+                    step_budget = max_steps_override or self.max_steps
+                    buffered_steps = []
+
+                    for step in range(step_budget):
+                        curr_pos = agent.get_state().position
+
+                        # OPTIMIZATION: Euclidean pre-filter. Geodesic distance >= Euclidean distance.
+                        # Only call expensive NavMesh pathfinding if Euclidean distance is close to threshold.
+                        euclidean_dist = float(np.linalg.norm(curr_pos - case.goal_position))
+                        if euclidean_dist <= self.threshold_dist + 1.5:
+                            curr_dist = ust.find_shortest_path(sim, curr_pos, case.goal_position)[0]
+                        else:
+                            curr_dist = euclidean_dist
+
+                        # Goal reached check
+                        if curr_dist <= self.threshold_dist:
+                            logger.info(
+                                f"Episode {case.episode_name} achieved goal at step {step} "
+                                f"(dist={curr_dist:.3f}m <= {self.threshold_dist}m)"
+                            )
+                            break
+
+                        # 1. Capture sensor observations
+                        obs = sim.get_sensor_observations()
+                        display_img, depth, semantic = utils.split_observations(obs)
+
+                        # 2. Prepare ObjectReact goal representation
+                        unique_classes = np.unique(semantic)
+                        masks = (semantic[None, ...] == unique_classes[:, None, None])
+                        pls = np.array([curr_dist] * len(masks), dtype=np.float32)
+                        control_input = [masks, pls]
+
+                        # 3. Query student policy
+                        v_s, w_s, _ = controller.predict(display_img, control_input)
+                        student_action = controller.action_pred.copy()
+
+                        if len(controller.image_history) > 0:
+                            obs_context = np.stack([img.cpu().numpy() for img in controller.image_history])
+                        else:
+                            obs_context = np.zeros(
+                                (1, 3, self.model_cfg["image_size"][1], self.model_cfg["image_size"][0]),
+                                dtype=np.float32,
+                            )
+
+                        # 4. Query expert oracle on current state
+                        agent_state = agent.get_state()
+                        oracle_out: OracleOutput = oracle.compute_expert_action(
+                            current_position=agent_state.position,
+                            current_rotation=agent_state.rotation,
+                            goal_position=case.goal_position,
                         )
-                        break
 
-                    # 1. Capture sensor observations
-                    obs = sim.get_sensor_observations()
-                    display_img, depth, semantic = utils.split_observations(obs)
+                        if not oracle_out.success or oracle_out.action_label is None:
+                            logger.warning(
+                                f"Step {step}: Expert oracle failed for {case.episode_name} "
+                                f"({oracle_out.error_message}). Ending episode."
+                            )
+                            break
 
-                    # 2. Prepare ObjectReact goal representation
-                    unique_classes = np.unique(semantic)
-                    masks = (semantic[None, ...] == unique_classes[:, None, None])
-                    pls = np.array([curr_dist] * len(masks), dtype=np.float32)
-                    control_input = [masks, pls]
+                        expert_action = oracle_out.action_label.copy()
+                        v_e = oracle_out.linear_velocity
+                        w_e = oracle_out.angular_velocity
 
-                    # 3. Query student policy
-                    v_s, w_s, _ = controller.predict(display_img, control_input)
-                    student_action = controller.action_pred.copy()
+                        # 5. Interleaved action selection: sample Bernoulli(beta)
+                        u = np.random.rand()
+                        if u < beta:
+                            action_source = "expert"
+                            v_exec, w_exec = v_e, w_e
+                        else:
+                            action_source = "student"
+                            v_exec, w_exec = v_s, w_s
 
-                    if len(controller.image_history) > 0:
-                        obs_context = np.stack([img.cpu().numpy() for img in controller.image_history])
-                    else:
-                        obs_context = np.zeros(
-                            (1, 3, self.model_cfg["image_size"][1], self.model_cfg["image_size"][0]),
-                            dtype=np.float32,
+                        # 6. Buffer step in memory
+                        sample_id = f"ep_{ep_idx:03d}_step_{step:04d}"
+                        curr_yaw = quat_to_yaw(
+                            agent_state.rotation.x,
+                            agent_state.rotation.y,
+                            agent_state.rotation.z,
+                            agent_state.rotation.w,
                         )
 
-                    # 4. Query expert oracle on current state
-                    agent_state = agent.get_state()
-                    oracle_out: OracleOutput = oracle.compute_expert_action(
-                        current_position=agent_state.position,
-                        current_rotation=agent_state.rotation,
-                        goal_position=case.goal_position,
-                    )
+                        sample_meta = {
+                            "sample_id": sample_id,
+                            "sample_dir": str(output_dir / sample_id),
+                            "episode_name": case.episode_name,
+                            "scene_id": case.scene_id,
+                            "iteration": iteration_idx,
+                            "step": step,
+                            "action_source": action_source,
+                            "beta": float(beta),
+                            "distance_to_goal": float(curr_dist),
+                            "linear_velocity": float(v_exec),
+                            "angular_velocity": float(w_exec),
+                        }
 
-                    if not oracle_out.success or oracle_out.action_label is None:
-                        logger.warning(
-                            f"Step {step}: Expert oracle failed for {case.episode_name} "
-                            f"({oracle_out.error_message}). Ending episode."
+                        buffered_steps.append({
+                            "sample_id": sample_id,
+                            "display_img": display_img,
+                            "obs_context": obs_context.astype(np.float32),
+                            "masks": masks.astype(bool),
+                            "pls": pls.astype(np.float32),
+                            "expert_action": expert_action.astype(np.float32),
+                            "student_action": student_action.astype(np.float32),
+                            "position": agent_state.position.astype(np.float32),
+                            "yaw": np.float32(curr_yaw),
+                            "meta": sample_meta,
+                        })
+
+                        # 7. Apply selected action in simulation
+                        agent, sim, _ = utils.apply_velocity(
+                            vel_control=vel_control,
+                            agent=agent,
+                            sim=sim,
+                            velocity=v_exec,
+                            steer=-w_exec,
+                            time_step=self.time_delta,
                         )
-                        break
 
-                    expert_action = oracle_out.action_label.copy()
-                    v_e = oracle_out.linear_velocity
-                    w_e = oracle_out.angular_velocity
-
-                    # 5. Interleaved action selection: sample Bernoulli(beta)
-                    u = np.random.rand()
-                    if u < beta:
-                        action_source = "expert"
-                        v_exec, w_exec = v_e, w_e
-                    else:
-                        action_source = "student"
-                        v_exec, w_exec = v_s, w_s
-
-                    # 6. Buffer step in memory
-                    sample_id = f"ep_{ep_idx:03d}_step_{step:04d}"
-                    curr_yaw = quat_to_yaw(
-                        agent_state.rotation.x,
-                        agent_state.rotation.y,
-                        agent_state.rotation.z,
-                        agent_state.rotation.w,
-                    )
-
-                    sample_meta = {
-                        "sample_id": sample_id,
-                        "sample_dir": str(output_dir / sample_id),
-                        "episode_name": case.episode_name,
-                        "scene_id": case.scene_id,
-                        "iteration": iteration_idx,
-                        "step": step,
-                        "action_source": action_source,
-                        "beta": float(beta),
-                        "distance_to_goal": float(curr_dist),
-                        "linear_velocity": float(v_exec),
-                        "angular_velocity": float(w_exec),
-                    }
-
-                    buffered_steps.append({
-                        "sample_id": sample_id,
-                        "display_img": display_img,
-                        "obs_context": obs_context.astype(np.float32),
-                        "masks": masks.astype(bool),
-                        "pls": pls.astype(np.float32),
-                        "expert_action": expert_action.astype(np.float32),
-                        "student_action": student_action.astype(np.float32),
-                        "position": agent_state.position.astype(np.float32),
-                        "yaw": np.float32(curr_yaw),
-                        "meta": sample_meta,
-                    })
-
-                    # 7. Apply selected action in simulation
-                    agent, sim, _ = utils.apply_velocity(
-                        vel_control=vel_control,
-                        agent=agent,
-                        sim=sim,
-                        velocity=v_exec,
-                        steer=-w_exec,
-                        time_step=self.time_delta,
-                    )
-
-                # Flush all buffered steps for this episode to disk
-                saved = self._flush_episode_samples(buffered_steps, output_dir)
-                all_scene_records.extend(saved)
+                    # Flush all buffered steps for this episode to disk
+                    saved = self._flush_episode_samples(buffered_steps, output_dir)
+                    all_scene_records.extend(saved)
+                except Exception as ep_err:
+                    logger.warning(f"Error during rollout for episode {case.episode_name}: {ep_err}. Skipping.")
 
         finally:
             sim.close()
@@ -419,16 +427,19 @@ class RolloutCollector:
 
             pbar = tqdm(total=len(target_cases), desc=f"DAgger Iter {iteration_idx} (beta={beta})", dynamic_ncols=True)
             for scene_idx, (scene_glb, grouped_cases) in enumerate(scene_groups.items(), 1):
-                scene_records = self.collect_scene_group(
-                    scene_glb=scene_glb,
-                    cases=grouped_cases,
-                    controller=controller,
-                    beta=beta,
-                    iteration_idx=iteration_idx,
-                    output_dir=output_dir,
-                    max_steps_override=max_steps_per_episode,
-                )
-                all_records.extend(scene_records)
+                try:
+                    scene_records = self.collect_scene_group(
+                        scene_glb=scene_glb,
+                        cases=grouped_cases,
+                        controller=controller,
+                        beta=beta,
+                        iteration_idx=iteration_idx,
+                        output_dir=output_dir,
+                        max_steps_override=max_steps_per_episode,
+                    )
+                    all_records.extend(scene_records)
+                except Exception as sc_err:
+                    logger.error(f"Error collecting scene {scene_glb}: {sc_err}. Continuing with next scene.")
                 pbar.update(len(grouped_cases))
                 pbar.set_postfix({"samples": len(all_records)})
             pbar.close()

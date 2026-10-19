@@ -1,0 +1,101 @@
+scene,flag_on,flag_off
+00006-HkseAnWCgqk_00000_tv_115,success,trapped
+00006-HkseAnWCgqk_00001_stool_223,trapped,success
+00006-HkseAnWCgqk_00002_toilet_275,trapped,trapped
+00006-HkseAnWCgqk_00003_stool_163,success,trapped
+00006-HkseAnWCgqk_00004_couch_299,trapped,trapped
+00006-HkseAnWCgqk_00005_couch_90,success,success
+00006-HkseAnWCgqk_00006_stool_164,success,success
+00006-HkseAnWCgqk_00007_chair_17,trapped,trapped
+00006-HkseAnWCgqk_00008_bed_24,success,success
+00006-HkseAnWCgqk_04020_stool_163,success,success
+00006-HkseAnWCgqk_04021_toilet_275,success,trapped
+00006-HkseAnWCgqk_04022_chair_17,trapped,trapped
+00006-HkseAnWCgqk_04023_bed_24,trapped,trapped
+00006-HkseAnWCgqk_04024_stool_223,trapped,success
+00006-HkseAnWCgqk_04025_couch_90,success,success
+00006-HkseAnWCgqk_04026_stool_164,trapped,success
+00006-HkseAnWCgqk_04027_couch_299,trapped,trapped
+00006-HkseAnWCgqk_04028_tv_115,success,success
+00009-vLpv2VX547B_00009_chair_711,trapped,trapped
+00009-vLpv2VX547B_00010_chair_671,trapped,success
+00009-vLpv2VX547B_00011_vase_590,trapped,ran out of steps
+00009-vLpv2VX547B_00012_vase_317,trapped,trapped
+00009-vLpv2VX547B_00013_bed_220,trapped,trapped
+00009-vLpv2VX547B_00014_armchair_498,trapped,success
+00009-vLpv2VX547B_00015_chair_712,trapped,trapped
+00009-vLpv2VX547B_00016_chair_300,ran out of steps,trapped
+00009-vLpv2VX547B_00017_plant_749,trapped,trapped
+00009-vLpv2VX547B_00018_tv_513,trapped,success
+00009-vLpv2VX547B_00019_bed_842,trapped,trapped
+00009-vLpv2VX547B_00020_plant_661,trapped,trapped
+00009-vLpv2VX547B_00021_vase_330,trapped,trapped
+00009-vLpv2VX547B_00022_armchair_206,trapped,trapped
+00009-vLpv2VX547B_00023_tv_316,trapped,success
+00009-vLpv2VX547B_00024_plant_698,trapped,trapped
+00009-vLpv2VX547B_00025_chair_69,trapped,trapped
+00009-vLpv2VX547B_00026_chair_299,success,success
+00009-vLpv2VX547B_00027_armchair_913,trapped,trapped
+00009-vLpv2VX547B_00028_chair_298,trapped,ran out of steps
+00009-vLpv2VX547B_00029_couch_914,trapped,trapped
+00009-vLpv2VX547B_00030_armchair_836,trapped,trapped
+00009-vLpv2VX547B_00031_chair_714,trapped,success
+00009-vLpv2VX547B_00032_chair_658,trapped,trapped
+00009-vLpv2VX547B_00033_chair_670,trapped,trapped
+00009-vLpv2VX547B_00034_chair_297,trapped,success
+00009-vLpv2VX547B_00035_chair_406,trapped,trapped
+00009-vLpv2VX547B_00036_chair_1066,trapped,trapped
+00009-vLpv2VX547B_00037_chair_84,trapped,trapped
+00009-vLpv2VX547B_00038_toilet_165,trapped,trapped
+00009-vLpv2VX547B_00039_chair_713,trapped,trapped
+00009-vLpv2VX547B_00040_couch_268,trapped,trapped
+00009-vLpv2VX547B_00041_chair_918,trapped,trapped
+00009-vLpv2VX547B_04029_plant_698,trapped,trapped
+00009-vLpv2VX547B_04030_armchair_206,trapped,trapped
+00009-vLpv2VX547B_04031_chair_406,trapped,trapped
+00009-vLpv2VX547B_04032_chair_712,trapped,ran out of steps
+00009-vLpv2VX547B_04033_couch_914,trapped,trapped
+00009-vLpv2VX547B_04034_armchair_836,trapped,trapped
+00009-vLpv2VX547B_04035_tv_513,trapped,ran out of steps
+00009-vLpv2VX547B_04036_chair_711,trapped,trapped
+00009-vLpv2VX547B_04037_chair_670,trapped,ran out of steps
+00009-vLpv2VX547B_04038_chair_84,trapped,trapped
+00009-vLpv2VX547B_04039_chair_299,success,success
+00009-vLpv2VX547B_04040_chair_300,trapped,trapped
+00009-vLpv2VX547B_04041_chair_658,trapped,trapped
+00009-vLpv2VX547B_04042_chair_671,trapped,success
+00009-vLpv2VX547B_04043_chair_713,trapped,trapped
+00009-vLpv2VX547B_04044_chair_918,trapped,trapped
+00009-vLpv2VX547B_04045_chair_298,trapped,trapped
+00009-vLpv2VX547B_04046_chair_69,trapped,trapped
+00009-vLpv2VX547B_04047_vase_330,trapped,trapped
+00009-vLpv2VX547B_04048_couch_268,ran out of steps,trapped
+00009-vLpv2VX547B_04049_chair_297,trapped,trapped
+00009-vLpv2VX547B_04050_vase_317,trapped,trapped
+00009-vLpv2VX547B_04051_armchair_498,trapped,success
+00009-vLpv2VX547B_04052_chair_1066,trapped,success
+00009-vLpv2VX547B_04053_bed_842,ran out of steps,trapped
+00009-vLpv2VX547B_04054_chair_714,trapped,trapped
+00009-vLpv2VX547B_04055_plant_661,trapped,ran out of steps
+00009-vLpv2VX547B_04056_plant_749,trapped,success
+00009-vLpv2VX547B_04057_toilet_165,trapped,trapped
+00009-vLpv2VX547B_04058_bed_220,trapped,trapped
+00009-vLpv2VX547B_04059_tv_316,trapped,trapped
+00009-vLpv2VX547B_04060_vase_590,trapped,success
+00009-vLpv2VX547B_04061_armchair_913,trapped,trapped
+00016-qk9eeNeR4vw_00042_armchair_9,ran out of steps,trapped
+00016-qk9eeNeR4vw_00043_bed_436,trapped,trapped
+00016-qk9eeNeR4vw_00044_chair_185,trapped,trapped
+00016-qk9eeNeR4vw_00045_chair_180,ran out of steps,trapped
+00016-qk9eeNeR4vw_00046_vase_174,ran out of steps,ran out of steps
+00016-qk9eeNeR4vw_00047_plant_225,trapped,trapped
+00016-qk9eeNeR4vw_00048_monitor_209,trapped,trapped
+00016-qk9eeNeR4vw_00049_chair_186,trapped,trapped
+00016-qk9eeNeR4vw_00050_plant_132,ran out of steps,trapped
+00016-qk9eeNeR4vw_00051_plant_224,ran out of steps,trapped
+00016-qk9eeNeR4vw_00052_chair_184,trapped,trapped
+00016-qk9eeNeR4vw_00053_toilet_474,success,trapped
+00016-qk9eeNeR4vw_00054_chair_183,trapped,trapped
+00016-qk9eeNeR4vw_00055_bed_384,trapped,trapped
+00016-qk9eeNeR4vw_00056_vase_173,trapped,trapped
+00016-qk9eeNeR4vw_00057_chair_411,trapped,trapped

@@ -1,0 +1,37 @@
+chunking:
+  beta_end: 0.05
+  beta_schedule: null
+  beta_start: 0.7
+  chunk_size: 1000
+  num_chunks: 5
+  seed: 42
+  shuffle_trajectories: true
+  total_trajectories: 5000
+controller:
+  angular_vel: 0.5236
+  linear_vel: 0.25
+  type: SafeTurnController
+  use_adaptive_lookahead: false
+  waypoint_index: -1
+failure_criteria:
+  lead_in_steps: 50
+  max_steps: 300
+  threshold_dist: 1.0
+  time_delta: 0.25
+  trapped_radius: 0.2
+  trapped_steps: 20
+paths:
+  base_checkpoint: dagger/model/baseline_model/latest.pth
+  controller_config: dagger/model/baseline_model/config.yaml
+  hm3d_root: data/hm3d_v0.2
+  pipeline_workspace: dagger/multi_chunk_runs
+  trajectories_dir: dagger/data/initial_data
+training:
+  batch_size: 32
+  device: cuda
+  epochs_per_iter: 5
+  gpu_id: '1'
+  learning_rate: 0.0001
+  test_fraction: 0.15
+  val_fraction: 0.15
+  weight_decay: 0.0001

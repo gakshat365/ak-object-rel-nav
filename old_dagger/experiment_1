@@ -1,0 +1,167 @@
+# Experiment Design: Expert-Interleaving DAgger for ObjectReact Failure Recovery
+
+**Project:** Object-Relative Visual Navigation  
+**Method:** Dataset Aggregation (DAgger) with Expert Interleaving  
+**Status:** Proposed — implementation and validation pending
+
+---
+
+## 1. Objective
+
+The objective of this experiment is to improve the failure-recovery capability of the existing ObjectReact navigation policy using expert-interleaving DAgger.
+
+The current ObjectReact model is trained on `bigger_bot_0.3-sh_0.4`, a dataset derived from HM3D training data, and evaluated on HM3D evaluation trajectories. Evaluation produces episodes in which the robot fails to reach its intended goal.
+
+Instead of retraining the policy from scratch, this experiment uses the recorded failure states as starting points for recovery rollouts. An algorithmic expert provides corrective supervision while the student policy executes a fraction of the actions. The resulting expert-labelled observations are aggregated and used to fine-tune ObjectReact.
+
+**Central research question:**
+
+Can expert-interleaving DAgger improve ObjectReact's ability to recover from previously observed navigation failures?
+
+## 2. Existing system and proposed change
+
+### 2.1 Existing pipeline
+
+1. Train ObjectReact on `bigger_bot_0.3-sh_0.4`.
+2. Evaluate the trained checkpoint on HM3D evaluation trajectories.
+3. Identify episodes that fail to reach the goal within the allowed number of steps.
+4. Record the failure pose, orientation, and original goal.
+
+### 2.2 Proposed pipeline
+
+1. Load a recorded failure case.
+2. Reset the simulator to the failure state.
+3. Preserve the original navigation goal.
+4. Execute an expert-interleaved recovery rollout.
+5. Query the expert for labels at the states visited during the rollout.
+6. Store the observations and corresponding expert targets.
+7. Aggregate the recovery examples with the existing training data.
+8. Fine-tune the original ObjectReact checkpoint.
+9. Evaluate whether the fine-tuned policy recovers more failures.
+
+Experiment 0, the initial evaluation and failure identification stage, is considered complete.
+
+## 3. Research hypothesis
+
+**H1:** Fine-tuning ObjectReact using expert-labelled recovery states collected through expert-interleaving DAgger will improve recovery success relative to the original ObjectReact checkpoint.
+
+**H2:** Expert interleaving will provide a more useful distribution of recovery examples than simply training on ideal expert trajectories, because the student will encounter states resulting from its own imperfect actions.
+
+**H3:** A suitable decay schedule for the expert-intervention probability will allow the student to gradually assume more control while still collecting useful recovery supervision.
+
+These are hypotheses to test, not assumed outcomes.
+
+## 4. Definitions
+
+Let:
+
+- \(\pi_\theta\): the student ObjectReact policy.
+- \(\pi^*\): the algorithmic expert.
+- \(s_t\): the state or observation at timestep \(t\).
+- \(a_t^*\): the expert target for the observed state.
+- \(a_t\): the action actually executed.
+- \(\beta_i\): the expert-intervention probability at DAgger iteration \(i\).
+- \(g\): the original goal associated with a failed evaluation episode.
+- \(s_f\): the recorded failure state.
+
+The student policy is initialized from the existing ObjectReact checkpoint:
+
+\[
+\pi_{\theta_0} = \pi_{\mathrm{ObjectReact}}.
+\]
+
+The recovery task is defined as navigating from \(s_f\) to \(g\).
+
+The expert-intervention rule is:
+
+\[
+a_t =
+\begin{cases}
+a_t^*, & \text{with probability } \beta_i,\\
+\pi_{\theta_i}(s_t), & \text{with probability } 1-\beta_i.
+\end{cases}
+\]
+
+Regardless of which action is executed, the expert should provide the appropriate label for the state \(s_t\), assuming the expert can evaluate that state.
+
+## 5. Experimental protocol
+
+### 5.1 Failure-case initialization
+
+Each recovery episode is initialized using a recorded failure case.
+
+Required information includes:
+
+- Scene identifier.
+- Episode identifier.
+- Robot position at failure.
+- Robot orientation at failure.
+- Original goal position.
+- Relevant navigation and episode metadata.
+
+The simulator should reproduce the failure pose as accurately as possible. The robot's orientation must be preserved because the same position with a different heading can produce a different visual observation and recovery trajectory.
+
+The original goal remains unchanged.
+
+### 5.2 Expert generation
+
+The proposed expert uses an algorithmic navigation oracle to generate a feasible route from the failure state to the original goal.
+
+Habitat's navigation mesh and pathfinder can be investigated for this purpose.
+
+The expert-generation process should:
+
+1. Determine whether the failure position and goal are navigable.
+2. Compute a feasible path between them.
+3. Convert the path into the target representation required by ObjectReact.
+4. Produce an expert target for each visited state during the recovery rollout.
+
+A critical implementation requirement is that a path is not automatically an ObjectReact action label. If ObjectReact predicts a waypoint, object-relative target, or normalized motion command, the expert output must be converted into the corresponding representation.
+
+The expert's coordinate frame, normalization, action timing, and target semantics must match the existing training pipeline.
+
+If a valid expert target cannot be generated for a state, that state should be recorded as an expert-query failure rather than silently assigned an incorrect label.
+
+### 5.3 Expert-interleaved rollout
+
+For each recovery episode:
+
+1. Initialize the robot at \(s_f\).
+2. Set the target to the original goal \(g\).
+3. Obtain the current observation \(s_t\).
+4. Query the expert for the target \(a_t^*\).
+5. Sample the action source using \(\beta_i\).
+6. Execute the selected action.
+7. Record the observation and expert label.
+8. Continue until the goal is reached, the step limit is exceeded, or a termination condition occurs.
+
+The expert label must be obtained even when the student executes the action. Otherwise, the rollout does not provide the expert-labelled student-state data required by DAgger.
+
+### 5.4 Intervention schedule
+
+Start with a relatively high expert-intervention probability and gradually reduce it.
+
+A proposed pilot schedule is:
+
+| Stage | Expert probability \(\beta\) | Student probability |
+|---|---:|---:|
+| Early | 0.7 | 0.3 |
+| Intermediate | 0.3 | 0.7 |
+| Autonomous collection | 0.0 | 1.0 |
+
+This schedule is an initial experimental choice. It should be validated against the existing rollout implementation and expert-query budget.
+
+A separate expert-only rollout can be used to validate the expert and establish whether recovery is feasible from each failure state.
+
+## 6. Dataset construction
+
+### 6.1 Recovery dataset
+
+Each collected example should contain, at minimum:
+
+- Observation or model input.
+- Expert target in the correct representation.
+- Scene and episode identifiers.
+- Recovery-start identifier.
+- Timestep within the rollout.
+- Intervention probability
